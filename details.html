@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Location Details - DIAPS</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+</head>
+
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo-container">
+                <div class="logo-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path>
+                        <polyline points="13 8 13 14 9 14"></polyline>
+                    </svg>
+                </div>
+                <div class="logo-text">
+                    <h1>DIAPS</h1>
+                </div>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="index.html#map">Map</a></li>
+                    <li><a href="index.html#alerts">Alerts</a></li>
+                    <li><a href="index.html#about">About</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container details-container">
+            <div class="location-info animate__animated animate__fadeIn">
+                <h2 id="location-title">Loading location data...</h2>
+                <div class="location-metadata">
+                    <div class="metadata-item">
+                        <i data-feather="map-pin"></i>
+                        <span id="coordinates">Coordinates: ...</span>
+                    </div>
+                    <div class="metadata-item">
+                        <i data-feather="trending-up"></i>
+                        <span id="elevation">Elevation: Loading...</span>
+                    </div>
+                </div>
+                <a href="index.html" class="back-btn">
+                    <i data-feather="arrow-left"></i>
+                    Back to Map
+                </a>
+            </div>
+
+            <div class="data-sections">
+                <section class="data-card weather-section animate__animated animate__fadeInUp">
+                    <div class="card-header">
+                        <i data-feather="cloud"></i>
+                        <h3>Weather Forecast</h3>
+                    </div>
+                    <div id="weather-loading" class="loading-container">
+                        <div class="loading-spinner"></div>
+                        <p>Loading weather data...</p>
+                    </div>
+                    <div id="weather-data" class="card-content hidden">
+                        <!-- Weather summary row -->
+                        <div class="weather-summary">
+                            <div class="current-weather">
+                                <div class="current-temp">
+                                    <span id="current-temperature">22°C</span>
+                                    <div class="temp-range">
+                                        <span class="high">H: <span id="current-high">25°C</span></span>
+                                        <span class="low">L: <span id="current-low">18°C</span></span>
+                                    </div>
+                                </div>
+                                <div class="current-details">
+                                    <div class="current-condition">
+                                        <i data-feather="sun" class="weather-icon-large"></i>
+                                        <span id="current-condition">Clear sky</span>
+                                    </div>
+                                    <div class="current-feel">
+                                        Feels like <span id="current-feel-temp">24°C</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="weather-metrics">
+                                <div class="metric-item tooltip" data-tooltip="Average humidity level">
+                                    <i data-feather="droplet"></i>
+                                    <span>Humidity</span>
+                                    <span class="metric-value" id="current-humidity">45%</span>
+                                </div>
+                                <div class="metric-item tooltip" data-tooltip="Wind speed and direction">
+                                    <i data-feather="wind"></i>
+                                    <span>Wind</span>
+                                    <span class="metric-value" id="current-wind">12 km/h</span>
+                                </div>
+                                <div class="metric-item tooltip" data-tooltip="Chance of precipitation">
+                                    <i data-feather="cloud-rain"></i>
+                                    <span>Precipitation</span>
+                                    <span class="metric-value" id="current-precip">20%</span>
+                                </div>
+                                <div class="metric-item tooltip" data-tooltip="Atmospheric pressure">
+                                    <i data-feather="trending-down"></i>
+                                    <span>Pressure</span>
+                                    <span class="metric-value" id="current-pressure">1013 hPa</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Hourly forecast slider -->
+                        <div class="hourly-forecast">
+                            <h4>Hourly Forecast</h4>
+                            <div class="hourly-scroll">
+                                <div class="scroll-button left" id="scroll-left">
+                                    <i data-feather="chevron-left"></i>
+                                </div>
+                                <div class="hourly-items" id="hourly-items">
+                                    <!-- Hourly items will be populated by JavaScript -->
+                                    <div class="hourly-item">
+                                        <span class="hour">Now</span>
+                                        <i data-feather="sun" class="weather-icon-small"></i>
+                                        <span class="hourly-temp">22°C</span>
+                                    </div>
+                                    <div class="hourly-item">
+                                        <span class="hour">13:00</span>
+                                        <i data-feather="sun" class="weather-icon-small"></i>
+                                        <span class="hourly-temp">23°C</span>
+                                    </div>
+                                    <div class="hourly-item">
+                                        <span class="hour">14:00</span>
+                                        <i data-feather="cloud" class="weather-icon-small"></i>
+                                        <span class="hourly-temp">24°C</span>
+                                    </div>
+                                    <div class="hourly-item">
+                                        <span class="hour">15:00</span>
+                                        <i data-feather="cloud" class="weather-icon-small"></i>
+                                        <span class="hourly-temp">25°C</span>
+                                    </div>
+                                    <div class="hourly-item">
+                                        <span class="hour">16:00</span>
+                                        <i data-feather="cloud-rain" class="weather-icon-small"></i>
+                                        <span class="hourly-temp">24°C</span>
+                                    </div>
+                                    <div class="hourly-item">
+                                        <span class="hour">17:00</span>
+                                        <i data-feather="cloud-rain" class="weather-icon-small"></i>
+                                        <span class="hourly-temp">22°C</span>
+                                    </div>
+                                    <div class="hourly-item">
+                                        <span class="hour">18:00</span>
+                                        <i data-feather="cloud" class="weather-icon-small"></i>
+                                        <span class="hourly-temp">21°C</span>
+                                    </div>
+                                    <div class="hourly-item">
+                                        <span class="hour">19:00</span>
+                                        <i data-feather="cloud" class="weather-icon-small"></i>
+                                        <span class="hourly-temp">20°C</span>
+                                    </div>
+                                    <div class="hourly-item">
+                                        <span class="hour">20:00</span>
+                                        <i data-feather="moon" class="weather-icon-small"></i>
+                                        <span class="hourly-temp">19°C</span>
+                                    </div>
+                                    <div class="hourly-item">
+                                        <span class="hour">21:00</span>
+                                        <i data-feather="moon" class="weather-icon-small"></i>
+                                        <span class="hourly-temp">18°C</span>
+                                    </div>
+                                </div>
+                                <div class="scroll-button right" id="scroll-right">
+                                    <i data-feather="chevron-right"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Daily forecast cards -->
+                        <div class="daily-forecast">
+                            <h4>5-Day Forecast</h4>
+                            <div class="weather-days" id="weather-days">
+                                <!-- Daily forecast items will be populated by JavaScript -->
+                                <div class="weather-day animate__animated animate__fadeIn">
+                                    <div class="weather-day-header">
+                                        <h4>Today</h4>
+                                        <span class="date">May 12</span>
+                                    </div>
+                                    <div class="weather-icon">
+                                        <i data-feather="sun" class="weather-icon-sun"></i>
+                                    </div>
+                                    <div class="weather-condition">Sunny</div>
+                                    <div class="weather-temp">
+                                        <span class="high-temp">25°C</span>
+                                        <span class="temp-divider">|</span>
+                                        <span class="low-temp">18°C</span>
+                                    </div>
+                                    <div class="weather-details">
+                                        <div class="weather-detail">
+                                            <i data-feather="droplet"></i>
+                                            <span>Humidity: 45%</span>
+                                        </div>
+                                        <div class="weather-detail">
+                                            <i data-feather="wind"></i>
+                                            <span>Wind: 12 km/h</span>
+                                        </div>
+                                        <div class="weather-detail">
+                                            <i data-feather="cloud-rain"></i>
+                                            <span>Precipitation: 20%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="weather-day animate__animated animate__fadeIn"
+                                    style="animation-delay: 0.2s">
+                                    <div class="weather-day-header">
+                                        <h4>Tomorrow</h4>
+                                        <span class="date">May 13</span>
+                                    </div>
+                                    <div class="weather-icon">
+                                        <i data-feather="cloud" class="weather-icon-cloud"></i>
+                                    </div>
+                                    <div class="weather-condition">Cloudy</div>
+                                    <div class="weather-temp">
+                                        <span class="high-temp">23°C</span>
+                                        <span class="temp-divider">|</span>
+                                        <span class="low-temp">17°C</span>
+                                    </div>
+                                    <div class="weather-details">
+                                        <div class="weather-detail">
+                                            <i data-feather="droplet"></i>
+                                            <span>Humidity: 60%</span>
+                                        </div>
+                                        <div class="weather-detail">
+                                            <i data-feather="wind"></i>
+                                            <span>Wind: 15 km/h</span>
+                                        </div>
+                                        <div class="weather-detail">
+                                            <i data-feather="cloud-rain"></i>
+                                            <span>Precipitation: 30%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="weather-day animate__animated animate__fadeIn"
+                                    style="animation-delay: 0.4s">
+                                    <div class="weather-day-header">
+                                        <h4>Wed</h4>
+                                        <span class="date">May 14</span>
+                                    </div>
+                                    <div class="weather-icon">
+                                        <i data-feather="cloud-rain" class="weather-icon-cloud-rain"></i>
+                                    </div>
+                                    <div class="weather-condition">Rain</div>
+                                    <div class="weather-temp">
+                                        <span class="high-temp">21°C</span>
+                                        <span class="temp-divider">|</span>
+                                        <span class="low-temp">16°C</span>
+                                    </div>
+                                    <div class="weather-details">
+                                        <div class="weather-detail">
+                                            <i data-feather="droplet"></i>
+                                            <span>Humidity: 75%</span>
+                                        </div>
+                                        <div class="weather-detail">
+                                            <i data-feather="wind"></i>
+                                            <span>Wind: 20 km/h</span>
+                                        </div>
+                                        <div class="weather-detail">
+                                            <i data-feather="cloud-rain"></i>
+                                            <span>Precipitation: 80%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="weather-day animate__animated animate__fadeIn"
+                                    style="animation-delay: 0.6s">
+                                    <div class="weather-day-header">
+                                        <h4>Thu</h4>
+                                        <span class="date">May 15</span>
+                                    </div>
+                                    <div class="weather-icon">
+                                        <i data-feather="cloud-drizzle" class="weather-icon-cloud-rain"></i>
+                                    </div>
+                                    <div class="weather-condition">Light Rain</div>
+                                    <div class="weather-temp">
+                                        <span class="high-temp">19°C</span>
+                                        <span class="temp-divider">|</span>
+                                        <span class="low-temp">14°C</span>
+                                    </div>
+                                    <div class="weather-details">
+                                        <div class="weather-detail">
+                                            <i data-feather="droplet"></i>
+                                            <span>Humidity: 80%</span>
+                                        </div>
+                                        <div class="weather-detail">
+                                            <i data-feather="wind"></i>
+                                            <span>Wind: 18 km/h</span>
+                                        </div>
+                                        <div class="weather-detail">
+                                            <i data-feather="cloud-rain"></i>
+                                            <span>Precipitation: 65%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="weather-day animate__animated animate__fadeIn"
+                                    style="animation-delay: 0.8s">
+                                    <div class="weather-day-header">
+                                        <h4>Fri</h4>
+                                        <span class="date">May 16</span>
+                                    </div>
+                                    <div class="weather-icon">
+                                        <i data-feather="sun" class="weather-icon-sun"></i>
+                                    </div>
+                                    <div class="weather-condition">Sunny</div>
+                                    <div class="weather-temp">
+                                        <span class="high-temp">22°C</span>
+                                        <span class="temp-divider">|</span>
+                                        <span class="low-temp">15°C</span>
+                                    </div>
+                                    <div class="weather-details">
+                                        <div class="weather-detail">
+                                            <i data-feather="droplet"></i>
+                                            <span>Humidity: 55%</span>
+                                        </div>
+                                        <div class="weather-detail">
+                                            <i data-feather="wind"></i>
+                                            <span>Wind: 10 km/h</span>
+                                        </div>
+                                        <div class="weather-detail">
+                                            <i data-feather="cloud-rain"></i>
+                                            <span>Precipitation: 15%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="data-card disaster-section animate__animated animate__fadeInUp"
+                    style="animation-delay: 0.2s">
+                    <div class="card-header">
+                        <i data-feather="alert-triangle"></i>
+                        <h3>Disaster Risk Prediction</h3>
+                    </div>
+                    <div id="disaster-loading" class="loading-container">
+                        <div class="loading-spinner"></div>
+                        <p>Calculating risk levels...</p>
+                    </div>
+                    <div id="disaster-data" class="card-content hidden">
+                        <div class="disaster-risks">
+                            <div id="flood-risk" class="risk-item tooltip"
+                                data-tooltip="Based on precipitation forecast and terrain">
+                                <div class="risk-info">
+                                    <i data-feather="droplet"></i>
+                                    <span>Flood Risk:</span>
+                                </div>
+                                <div class="risk-badge">Calculating...</div>
+                            </div>
+                            <div id="rain-risk" class="risk-item tooltip"
+                                data-tooltip="Based on precipitation forecast">
+                                <div class="risk-info">
+                                    <i data-feather="cloud-rain"></i>
+                                    <span>Heavy Rain Risk:</span>
+                                </div>
+                                <div class="risk-badge">Calculating...</div>
+                            </div>
+                            <div id="landslide-risk" class="risk-item tooltip"
+                                data-tooltip="Based on elevation, precipitation, and terrain">
+                                <div class="risk-info">
+                                    <i data-feather="layers"></i>
+                                    <span>Landslide Risk:</span>
+                                </div>
+                                <div class="risk-badge">Calculating...</div>
+                            </div>
+                            <div id="tsunami-risk" class="risk-item tooltip"
+                                data-tooltip="Based on proximity to coastline and elevation">
+                                <div class="risk-info">
+                                    <i data-feather="wind"></i>
+                                    <span>Tsunami Risk:</span>
+                                </div>
+                                <div class="risk-badge">Calculating...</div>
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="risk-chart"></canvas>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="data-card earthquake-section animate__animated animate__fadeInUp"
+                    style="animation-delay: 0.4s">
+                    <div class="card-header">
+                        <i data-feather="activity"></i>
+                        <h3>Recent Earthquakes</h3>
+                    </div>
+                    <div id="earthquake-loading" class="loading-container">
+                        <div class="loading-spinner"></div>
+                        <p>Fetching earthquake data...</p>
+                    </div>
+                    <div id="earthquake-data" class="card-content hidden">
+                        <div id="earthquake-list"></div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-container footer-animate">
+            <div class="footer-logo footer-animate">
+                <div class="logo-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path>
+                        <polyline points="13 8 13 14 9 14"></polyline>
+                    </svg>
+                </div>
+                <div class="logo-text">
+                    <h3>DIAPS</h3>
+                    <p>Disaster Information Aggregation and Prediction Software</p>
+                </div>
+            </div>
+
+            <div class="footer-links">
+                <div class="footer-column footer-animate">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="index.html#map">Interactive Map</a></li>
+                        <li><a href="index.html#alerts">Active Alerts</a></li>
+                        <li><a href="index.html#about">About DIAPS</a></li>
+                        <li><a href="partner.html">Partnership</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column footer-animate">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">API Reference</a></li>
+                        <li><a href="#">Support Center</a></li>
+                        <li><a href="#">Data Sources</a></li>
+                        <li><a href="#">Research Papers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column footer-animate">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="mailto:partners@diaps.org">kritarthbijalwann100105@gmail.com</a></li>
+                        <li><a href="tel:+12025551234">+91 999.....48</a></li>
+                        <li>20 Dahami Kalan, MUJ</li>
+                        <li>Jaipur, RJ 303007</li>
+                    </ul>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="footer-bottom footer-animate">
+            <p>&copy; 2025 DIAPS. All rights reserved.</p>
+            <div class="footer-social">
+                <a href="#" aria-label="Twitter">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path
+                            d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z">
+                        </path>
+                    </svg>
+                </a>
+                <a href="#" aria-label="Facebook">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                    </svg>
+                </a>
+                <a href="#" aria-label="LinkedIn">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                        <rect x="2" y="9" width="4" height="12"></rect>
+                        <circle cx="4" cy="4" r="2"></circle>
+                    </svg>
+                </a>
+                <a href="#" aria-label="YouTube">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path
+                            d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z">
+                        </path>
+                        <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
+                    </svg>
+                </a>
+                <a href="#" aria-label="GitHub">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path
+                            d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+                        </path>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+
+    <script src="js/details.js"></script>
+</body>
+
+</html>
