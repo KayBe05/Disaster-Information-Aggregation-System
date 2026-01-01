@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   // Initialize all components
   initializeAnimations();
   initializeScrollEffects();
@@ -8,9 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
   initializeLoadingScreen();
 });
 
-/**
- * Handle page loading animation
- */
+
 function initializeLoadingScreen() {
   const loading = document.createElement('div');
   loading.className = 'loading';
@@ -18,19 +16,17 @@ function initializeLoadingScreen() {
   document.body.appendChild(loading);
 
   // Hide loading screen after page loads
-  window.addEventListener('load', function() {
-    setTimeout(function() {
+  window.addEventListener('load', function () {
+    setTimeout(function () {
       loading.classList.add('hidden');
-      setTimeout(function() {
+      setTimeout(function () {
         loading.remove();
       }, 500);
     }, 800);
   });
 }
 
-/**
- * Initialize fade-in animations
- */
+
 function initializeAnimations() {
   // Initial animations that should be visible on page load
   document.querySelectorAll('.fade-in-up.active').forEach(element => {
@@ -53,7 +49,7 @@ function initializeAnimations() {
 function initializeScrollEffects() {
   // Elements to observe for scroll animations
   const elements = document.querySelectorAll('.fade-in-up:not(.active)');
-  
+
   // Create intersection observer
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -68,15 +64,15 @@ function initializeScrollEffects() {
     rootMargin: '0px',
     threshold: 0.15
   });
-  
+
   // Observe all elements
   elements.forEach(element => {
     observer.observe(element);
   });
-  
+
   // Handle data-scroll elements
   const scrollElements = document.querySelectorAll('[data-scroll]');
-  
+
   const scrollObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -91,7 +87,7 @@ function initializeScrollEffects() {
     rootMargin: '-10% 0px',
     threshold: 0.1
   });
-  
+
   scrollElements.forEach(element => {
     scrollObserver.observe(element);
   });
@@ -102,20 +98,20 @@ function initializeScrollEffects() {
  */
 function initializeSmoothScrolling() {
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
+    anchor.addEventListener('click', function (e) {
       e.preventDefault();
-      
+
       const targetId = this.getAttribute('href');
       if (targetId === '#') return;
-      
+
       const targetElement = document.querySelector(targetId);
       if (!targetElement) return;
-      
+
       window.scrollTo({
         top: targetElement.offsetTop - 80, // Accounting for header
         behavior: 'smooth'
       });
-      
+
       // Update URL without reloading page
       history.pushState(null, null, targetId);
     });
@@ -127,37 +123,37 @@ function initializeSmoothScrolling() {
  */
 function initializeCardInteractions() {
   const cards = document.querySelectorAll('.volunteer-card, .impact-card');
-  
+
   cards.forEach(card => {
     // Add 3D tilt effect on mouse move
-    card.addEventListener('mousemove', function(e) {
+    card.addEventListener('mousemove', function (e) {
       const rect = this.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
-      
+
       const centerX = rect.width / 2;
       const centerY = rect.height / 2;
-      
+
       const rotateX = (y - centerY) / 20;
       const rotateY = (centerX - x) / 20;
-      
+
       this.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-5px)`;
     });
-    
+
     // Reset transform on mouse leave
-    card.addEventListener('mouseleave', function() {
+    card.addEventListener('mouseleave', function () {
       this.style.transform = '';
       setTimeout(() => {
         this.style.transition = 'transform 0.5s ease';
       }, 100);
     });
-    
+
     // Remove transition on mouse enter for smooth movement
-    card.addEventListener('mouseenter', function() {
+    card.addEventListener('mouseenter', function () {
       this.style.transition = 'transform 0.1s ease';
     });
   });
-  
+
   // Add pulsing animation for impact numbers when they come into view
   const impactNumbers = document.querySelectorAll('.impact-number');
   const impactObserver = new IntersectionObserver((entries) => {
@@ -170,7 +166,7 @@ function initializeCardInteractions() {
   }, {
     threshold: 0.5
   });
-  
+
   impactNumbers.forEach(number => {
     impactObserver.observe(number);
   });
@@ -188,7 +184,7 @@ function animateCountUp(element) {
   const frameDuration = 1000 / 60; // 60fps
   const totalFrames = Math.round(duration / frameDuration);
   const increment = targetNumber / totalFrames;
-  
+
   const timer = setInterval(() => {
     count += increment;
     if (count >= targetNumber) {
@@ -206,48 +202,67 @@ function animateCountUp(element) {
 function initializeFormValidation() {
   const form = document.getElementById('volunteerForm');
   const successMessage = document.getElementById('formSuccess');
-  
+
   if (!form) return;
-  
-  form.addEventListener('submit', function(e) {
+
+  form.addEventListener('submit', function (e) {
     e.preventDefault();
-    
+
     // Validate form
     if (!validateForm(form)) {
       return;
     }
-    
+
     // Show loading state
     const submitButton = form.querySelector('button[type="submit"]');
     const originalButtonText = submitButton.innerHTML;
     submitButton.innerHTML = '<span class="loading-spinner"></span> Submitting...';
     submitButton.disabled = true;
-    
-    // Simulate form submission (replace with actual API call)
-    setTimeout(() => {
-      form.style.display = 'none';
-      successMessage.style.display = 'block';
-      
-      // Reset form for future use
-      form.reset();
-      submitButton.innerHTML = originalButtonText;
-      submitButton.disabled = false;
-      
-      // Scroll to success message
-      successMessage.scrollIntoView({ behavior: 'smooth' });
-    }, 1500);
+
+    // Create the data object from the form
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
+
+    // Send data to a backend endpoint (or a service like Formspree/EmailJS)
+    fetch('https://api.diaps.org/api/volunteer', { // Replace with your actual endpoint
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data)
+    })
+      .then(response => {
+        if (response.ok) {
+          // Success handling
+          form.style.display = 'none';
+          successMessage.style.display = 'block';
+          form.reset();
+          submitButton.innerHTML = originalButtonText;
+          submitButton.disabled = false;
+          successMessage.scrollIntoView({ behavior: 'smooth' });
+        } else {
+          throw new Error('Network response was not ok.');
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        submitButton.innerHTML = 'Error. Try Again.';
+        submitButton.disabled = false;
+      });
+
+
   });
-  
+
   // Add real-time validation feedback
   const inputs = form.querySelectorAll('input, textarea, select');
   inputs.forEach(input => {
     // Validate on blur
-    input.addEventListener('blur', function() {
+    input.addEventListener('blur', function () {
       validateInput(this);
     });
-    
+
     // Remove error styling on focus
-    input.addEventListener('focus', function() {
+    input.addEventListener('focus', function () {
       this.classList.remove('error');
       const errorElement = this.parentElement.querySelector('.error-message');
       if (errorElement) {
@@ -257,25 +272,22 @@ function initializeFormValidation() {
   });
 }
 
-/**
- * Validate a single form input
- */
 function validateInput(input) {
   // Remove any existing error messages
   const existingError = input.parentElement.querySelector('.error-message');
   if (existingError) {
     existingError.remove();
   }
-  
+
   let isValid = true;
   let errorMessage = '';
-  
+
   // Check if required field is empty
   if (input.hasAttribute('required') && !input.value.trim()) {
     isValid = false;
     errorMessage = 'This field is required';
   }
-  
+
   // Email validation
   if (input.type === 'email' && input.value) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -284,7 +296,7 @@ function validateInput(input) {
       errorMessage = 'Please enter a valid email address';
     }
   }
-  
+
   // Phone validation (if provided)
   if (input.type === 'tel' && input.value) {
     const phoneRegex = /^\+?[0-9\s\-\(\)]{8,20}$/;
@@ -293,7 +305,7 @@ function validateInput(input) {
       errorMessage = 'Please enter a valid phone number';
     }
   }
-  
+
   // Show/hide error message
   if (!isValid) {
     input.classList.add('error');
@@ -307,7 +319,7 @@ function validateInput(input) {
   } else {
     input.classList.remove('error');
   }
-  
+
   return isValid;
 }
 
@@ -317,13 +329,13 @@ function validateInput(input) {
 function validateForm(form) {
   const inputs = form.querySelectorAll('input, textarea, select');
   let isValid = true;
-  
+
   inputs.forEach(input => {
     if (!validateInput(input)) {
       isValid = false;
     }
   });
-  
+
   return isValid;
 }
 
@@ -335,7 +347,7 @@ function enhanceFormStyling() {
   document.querySelectorAll('select').forEach(select => {
     // Style wrapper
     select.parentElement.style.position = 'relative';
-    
+
     // Add dropdown arrow
     const arrow = document.createElement('div');
     arrow.innerHTML = `
@@ -350,7 +362,7 @@ function enhanceFormStyling() {
     arrow.style.transform = 'translateY(-50%)';
     arrow.style.pointerEvents = 'none';
     arrow.style.color = '#666';
-    
+
     // Append after the select
     select.parentElement.appendChild(arrow);
   });
@@ -360,35 +372,35 @@ function enhanceFormStyling() {
  * Add parallax effect to background elements
  */
 function initializeParallaxEffect() {
-  window.addEventListener('scroll', function() {
+  window.addEventListener('scroll', function () {
     const scrollPosition = window.pageYOffset;
-    
+
     // Parallax for header elements
     const headerElements = document.querySelectorAll('.volunteer-header::before, .volunteer-header::after');
     headerElements.forEach(element => {
       const speed = 0.5;
       element.style.transform = `translateY(${scrollPosition * speed}px)`;
     });
-    
+
     // Parallax for background dots
     document.body.style.backgroundPosition = `0 ${scrollPosition * 0.2}px`;
   });
 }
 
 // Call additional enhancement functions
-window.addEventListener('load', function() {
+window.addEventListener('load', function () {
   enhanceFormStyling();
   initializeParallaxEffect();
-  
+
   // Add custom cursor effect
   addCustomCursorEffect();
-  
+
   // Initialize newsletter form
   initializeNewsletterForm();
-  
+
   // Initialize footer animations
   initializeFooterAnimations();
-  
+
   // Initialize mobile menu
   initializeMobileMenu();
 });
@@ -410,38 +422,38 @@ function addCustomCursorEffect() {
   cursor.style.zIndex = '9999';
   cursor.style.transition = 'transform 0.1s ease, background-color 0.3s ease';
   document.body.appendChild(cursor);
-  
+
   // Update cursor position
-  document.addEventListener('mousemove', function(e) {
+  document.addEventListener('mousemove', function (e) {
     cursor.style.left = e.clientX + 'px';
     cursor.style.top = e.clientY + 'px';
   });
-  
+
   // Scale cursor on interactive elements
   const interactiveElements = document.querySelectorAll('button, a, input, select, textarea, .volunteer-card, .impact-card');
   interactiveElements.forEach(element => {
-    element.addEventListener('mouseenter', function() {
+    element.addEventListener('mouseenter', function () {
       cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
       cursor.style.backgroundColor = 'rgba(26, 115, 232, 0.1)';
       cursor.style.mixBlendMode = 'multiply';
     });
-    
-    element.addEventListener('mouseleave', function() {
+
+    element.addEventListener('mouseleave', function () {
       cursor.style.transform = 'translate(-50%, -50%) scale(1)';
       cursor.style.backgroundColor = 'rgba(26, 115, 232, 0.2)';
       cursor.style.mixBlendMode = 'normal';
     });
   });
-  
+
   // Hide cursor when leaving window
-  document.addEventListener('mouseleave', function() {
+  document.addEventListener('mouseleave', function () {
     cursor.style.opacity = '0';
   });
-  
-  document.addEventListener('mouseenter', function() {
+
+  document.addEventListener('mouseenter', function () {
     cursor.style.opacity = '1';
   });
-  
+
   // Add custom cursor styling for mobile
   if (window.matchMedia('(max-width: 768px)').matches) {
     cursor.style.display = 'none';
@@ -453,18 +465,18 @@ function addCustomCursorEffect() {
  */
 function initializeNewsletterForm() {
   const newsletterForm = document.querySelector('.newsletter-form');
-  
+
   if (!newsletterForm) return;
-  
-  newsletterForm.addEventListener('submit', function(e) {
+
+  newsletterForm.addEventListener('submit', function (e) {
     e.preventDefault();
-    
+
     const emailInput = this.querySelector('input[type="email"]');
-    
+
     if (!emailInput || !emailInput.value.trim()) {
       return;
     }
-    
+
     // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(emailInput.value)) {
@@ -475,27 +487,27 @@ function initializeNewsletterForm() {
       errorMsg.style.fontSize = '0.85rem';
       errorMsg.style.margin = '5px 0 0';
       errorMsg.className = 'newsletter-error';
-      
+
       // Remove any existing error
       const existingError = newsletterForm.querySelector('.newsletter-error');
       if (existingError) {
         existingError.remove();
       }
-      
+
       newsletterForm.appendChild(errorMsg);
       return;
     }
-    
+
     // Show loading state
     const submitButton = this.querySelector('button[type="submit"]');
     const originalButtonText = submitButton.textContent;
     submitButton.innerHTML = '<span class="loading-spinner"></span>';
     submitButton.disabled = true;
-    
+
     // Remove any existing messages
     const existingMessages = newsletterForm.querySelectorAll('.newsletter-error, .newsletter-success');
     existingMessages.forEach(msg => msg.remove());
-    
+
     // Simulate API call for subscription
     setTimeout(() => {
       // Show success message
@@ -505,14 +517,14 @@ function initializeNewsletterForm() {
       successMsg.style.fontSize = '0.9rem';
       successMsg.style.margin = '5px 0 0';
       successMsg.className = 'newsletter-success';
-      
+
       newsletterForm.appendChild(successMsg);
-      
+
       // Reset form and button
       emailInput.value = '';
       submitButton.innerHTML = originalButtonText;
       submitButton.disabled = false;
-      
+
       // Remove success message after some time
       setTimeout(() => {
         const msg = newsletterForm.querySelector('.newsletter-success');
@@ -530,7 +542,7 @@ function initializeNewsletterForm() {
  */
 function initializeFooterAnimations() {
   const footerAnimateElements = document.querySelectorAll('.footer-animate');
-  
+
   const footerObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -542,14 +554,14 @@ function initializeFooterAnimations() {
     threshold: 0.2,
     rootMargin: '0px 0px -50px 0px'
   });
-  
+
   footerAnimateElements.forEach(element => {
     footerObserver.observe(element);
     // Add staggered animation delay
     const index = Array.from(footerAnimateElements).indexOf(element);
     element.style.transitionDelay = `${index * 0.1}s`;
   });
-  
+
   // Add CSS for footer animations
   const styleElement = document.createElement('style');
   styleElement.textContent = `
@@ -572,9 +584,9 @@ function initializeFooterAnimations() {
  */
 function initializeMobileMenu() {
   const header = document.querySelector('header');
-  
+
   if (!header) return;
-  
+
   // Create mobile menu button
   const mobileMenuBtn = document.createElement('button');
   mobileMenuBtn.className = 'mobile-menu-btn';
@@ -592,16 +604,16 @@ function initializeMobileMenu() {
       <line x1="6" y1="6" x2="18" y2="18"></line>
     </svg>
   `;
-  
+
   // Only add if not already there and if we're on mobile
   if (window.matchMedia('(max-width: 768px)').matches) {
     const existingBtn = header.querySelector('.mobile-menu-btn');
-    
+
     if (!existingBtn) {
       // Add button to header
       const headerContainer = header.querySelector('.header-container');
       headerContainer.appendChild(mobileMenuBtn);
-      
+
       // Add CSS for mobile menu
       const styleElement = document.createElement('style');
       styleElement.textContent = `
@@ -665,13 +677,13 @@ function initializeMobileMenu() {
         }
       `;
       document.head.appendChild(styleElement);
-      
+
       // Toggle menu
-      mobileMenuBtn.addEventListener('click', function() {
+      mobileMenuBtn.addEventListener('click', function () {
         const nav = document.querySelector('.main-nav');
         this.classList.toggle('active');
         nav.classList.toggle('active');
-        
+
         // Prevent body scroll when menu is open
         if (nav.classList.contains('active')) {
           document.body.style.overflow = 'hidden';
@@ -679,14 +691,14 @@ function initializeMobileMenu() {
           document.body.style.overflow = '';
         }
       });
-      
+
       // Close menu when clicking a link
       const navLinks = document.querySelectorAll('.main-nav a');
       navLinks.forEach(link => {
-        link.addEventListener('click', function() {
+        link.addEventListener('click', function () {
           const nav = document.querySelector('.main-nav');
           const menuBtn = document.querySelector('.mobile-menu-btn');
-          
+
           nav.classList.remove('active');
           menuBtn.classList.remove('active');
           document.body.style.overflow = '';
@@ -786,21 +798,21 @@ function enhanceAccessibility() {
     }
   `;
   document.head.appendChild(accessibilityStyle);
-  
+
   // Add skip link for screen readers
   const skipLink = document.createElement('a');
   skipLink.href = '#main';
   skipLink.className = 'skip-link';
   skipLink.textContent = 'Skip to main content';
   document.body.prepend(skipLink);
-  
+
   // Ensure all interactive elements are properly focusable
   document.querySelectorAll('.volunteer-card, .impact-card').forEach(card => {
     if (!card.getAttribute('tabindex')) {
       card.setAttribute('tabindex', '0');
     }
   });
-  
+
   // Add appropriate ARIA labels to icons
   document.querySelectorAll('svg').forEach(svg => {
     const parentEl = svg.parentElement;
@@ -808,7 +820,7 @@ function enhanceAccessibility() {
       // Try to find text within the parent or its sibling
       const siblingText = parentEl.nextElementSibling?.textContent?.trim();
       const childText = parentEl.querySelector('h2, h3, h4')?.textContent?.trim();
-      
+
       if (siblingText) {
         parentEl.setAttribute('aria-label', siblingText);
       } else if (childText) {

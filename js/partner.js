@@ -416,9 +416,7 @@ function initBackToTopButton() {
   });
 }
 
-/**
- * Form Validation for the partnership form
- */
+
 function initFormValidation() {
   const form = document.getElementById('partnershipForm');
 
@@ -437,13 +435,34 @@ function initFormValidation() {
       submitBtn.textContent = 'Sending...';
       submitBtn.disabled = true;
 
-      // Simulate form submission (replace with actual API call)
-      setTimeout(() => {
-        showFormSuccess();
-        submitBtn.textContent = originalBtnText;
-        submitBtn.disabled = false;
-        form.reset();
-      }, 1500);
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+
+      // Handle multi-select checkboxes (like 'interests') manually if needed
+      const interests = [...form.querySelectorAll('input[name="interests"]:checked')].map(e => e.value);
+      data.interests = interests;
+
+      fetch('https://api.diaps.org/api/partners', { // Replace with your actual endpoint
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      })
+        .then(response => {
+          if (response.ok) {
+            showFormSuccess();
+            submitBtn.textContent = originalBtnText;
+            submitBtn.disabled = false;
+            form.reset();
+          } else {
+            throw new Error('Submission failed');
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          submitBtn.textContent = 'Error Sending';
+          submitBtn.disabled = false;
+        });
+
     }
   });
 

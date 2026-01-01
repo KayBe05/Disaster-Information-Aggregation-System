@@ -4,486 +4,271 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DIAPS - Disaster Information Aggregation and Prediction Software</title>
+    <title>DIAPS - Unified Disaster Intelligence</title>
     <link rel="stylesheet" href="css/style.css">
-
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;700&display=swap"
+        rel="stylesheet">
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 </head>
 
 <body>
-    <header>
-        <div class="header-container">
+    <!-- Header -->
+    <header class="main-header" id="header">
+        <div class="header-left">
             <div class="logo-container">
-                <div class="logo-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path>
-                        <polyline points="13 8 13 14 9 14"></polyline>
-                    </svg>
-                </div>
-                <div class="logo-text">
-                    <h1>DIAPS</h1>
-                </div>
+                <img src="img/logo.png" alt="DIAPS Logo" class="logo-image">
+                <h1 class="logo-text">DIAS</h1>
             </div>
-            <nav class="main-nav">
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="index.html#alerts">Alerts</a></li>
-                    <li><a href="index.html#about">About</a></li>
-                    <li><a href="index.html#map">Map</a></li>
-                </ul>
-            </nav>
+        </div>
+
+        <nav>
+            <ul class="nav-links">
+                <li><a href="#live">Live Intelligence</a></li>
+                <li><a href="#inputs">Inputs</a></li>
+                <li><a href="#resources">Resources</a></li>
+            </ul>
+        </nav>
+
+        <div class="header-right">
+            <a href="#command" class="command-access">Command Access</a>
         </div>
     </header>
 
-    <main>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <h1 class="hero-title">UNIFIED DISASTER INTELLIGENCE</h1>
+        <p class="hero-subtitle">Real-time, verified disaster intelligence from authorities & citizens</p>
+
+        <div class="hero-badges">
+            <span class="badge">Live Data</span>
+            <span class="badge">Multi-Source Verified</span>
+            <span class="badge">Citizen Reports</span>
+        </div>
+
+        <button class="view-map-btn" onclick="document.getElementById('map').scrollIntoView({behavior: 'smooth'})">VIEW
+            LIVE MAP </button>
+
+        <!-- Search Box -->
+        <div class="search-container">
+            <div class="search-icon">🔍</div>
+            <input type="text" class="search-input" placeholder="Search active incidents, not locations...">
+        </div>
+
+        <div class="search-examples">
+            Examples:
+            <span class="example-tag">Kyushu Floods</span>
+            <span class="example-tag">Turkey Earthquake</span>
+            <span class="example-tag">California Wildfires</span>
+        </div>
+    </section>
+
+    <!-- Intelligence Inputs -->
+    <section id="inputs" class="inputs-section">
         <div class="container">
-            <!-- Home Section -->
-            <section id="home" class="section home-section">
-                <div class="section-header">
-                    <h2>Welcome to DIAPS</h2>
-                    <div class="section-badge">Real-time Disaster Monitoring</div>
-                </div>
-
-                <div class="home-content">
-                    <div class="welcome-card">
-                        <div class="welcome-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                                <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                            </svg>
-                        </div>
-                        <div class="welcome-text">
-                            <h3>Stay Safe and Informed</h3>
-                            <p>DIAPS provides real-time monitoring of natural disasters worldwide. We analyze weather
-                                patterns, seismic activities, and geographical data to keep you informed about potential
-                                risks in your area.</p>
-                        </div>
-                    </div>
-
-                    <div class="stats-container">
-                        <div class="stat-card">
-                            <div class="stat-number">150+</div>
-                            <div class="stat-label">Countries Covered</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-number">24/7</div>
-                            <div class="stat-label">Monitoring</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-number">98%</div>
-                            <div class="stat-label">Accuracy Rate</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-number">5M+</div>
-                            <div class="stat-label">Users Worldwide</div>
-                        </div>
-                    </div>
-
-                    <div class="home-cta">
-                        <p>Get access to our premium features and receive personalized alerts.</p>
-                        <a href="signup.html" class="gradient-btn" style="text-decoration: none;">Create Account</a>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Map Section -->
-            <section class="map-section" id = "map">
-                <div class="map-header-content">
-                    <h2>Global Disaster Map</h2>
-
-                    <!-- Move your weather alert here -->
-                    <div class="map-notification">
-                        <div class="notification-icon">
-                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2">
-                                <path
-                                    d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z">
-                                </path>
-                                <line x1="12" y1="9" x2="12" y2="13"></line>
-                                <line x1="12" y1="17" x2="12.01" y2="17"></line>
-                            </svg>
-                        </div>
-                        <p>Weather alert: Heavy rainfall expected in the Northwestern regions over the next 48 hours.
-                        </p>
-                    </div>
-
-                    <div class="map-toolbar">
-                        <div class="map-search">
-                            <button class="search-btn" type="button">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2">
-                                    <circle cx="11" cy="11" r="8"></circle>
-                                    <path d="M21 21l-4.35-4.35"></path>
-                                </svg>
-                            </button>
-                            <input type="text" placeholder="Search for a location..." />
-                        </div>
-
-                        <div class="map-actions">
-                            <button class="map-btn" title="My Location">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2">
-                                    <circle cx="12" cy="12" r="10"></circle>
-                                    <path
-                                        d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z">
-                                    </path>
-                                </svg>
-                            </button>
-                            <button class="map-btn" title="Zoom In">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2">
-                                    <line x1="12" y1="5" x2="12" y2="19"></line>
-                                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                                </svg>
-                            </button>
-                            <button class="map-btn" title="Zoom Out">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2">
-                                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                                </svg>
-                            </button>
-                            <button class="map-btn" title="Map Layers">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2">
-                                    <polygon points="12,2 22,8.5 12,15 2,8.5"></polygon>
-                                    <polyline points="2,17.5 12,24 22,17.5"></polyline>
-                                    <polyline points="2,12.5 12,19 22,12.5"></polyline>
-                                </svg>
-                            </button>
-                            <button class="map-btn" title="Fullscreen">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2">
-                                    <path
-                                        d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3">
-                                    </path>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="map-container">
-                    <div id="map"></div>
-                </div>
-            </section>
-
-
-            <!-- Alerts Section -->
-            <section id="alerts" class="section alerts-section">
-                <div class="section-header">
-                    <h2>Active Alerts</h2>
-                    <div class="section-badge">Live Updates</div>
-                </div>
-
-                <div class="alerts-filter">
-                    <div class="filter-label">Filter by:</div>
-                    <div class="filter-options">
-                        <button class="filter-option active">All</button>
-                        <button class="filter-option">Earthquakes</button>
-                        <button class="filter-option">Floods</button>
-                        <button class="filter-option">Storms</button>
-                        <button class="filter-option">Wildfires</button>
-                    </div>
-                </div>
-
-                <div class="alerts-container">
-                    <div class="alert-card earthquake">
-                        <div class="alert-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="21 12 17 12 14 20 10 4 7 12 3 12"></polyline>
-                            </svg>
-                        </div>
-                        <div class="alert-content">
-                            <div class="alert-header">
-                                <h3>Earthquake Alert</h3>
-                                <span class="alert-level high">High</span>
-                            </div>
-                            <p class="alert-location">San Francisco, CA</p>
-                            <p class="alert-details">Magnitude 5.2 earthquake detected 15km offshore. Potential for
-                                aftershocks in the next 24 hours.</p>
-                            <div class="alert-time">35 minutes ago</div>
-                        </div>
-                    </div>
-
-                    <div class="alert-card flood">
-                        <div class="alert-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M2 12h20"></path>
-                                <path d="M5 12v3a4 4 0 0 0 8 0v-3"></path>
-                                <path d="M19 12v3a4 4 0 0 1-8 0v-3"></path>
-                            </svg>
-                        </div>
-                        <div class="alert-content">
-                            <div class="alert-header">
-                                <h3>Flooding Risk</h3>
-                                <span class="alert-level moderate">Moderate</span>
-                            </div>
-                            <p class="alert-location">New Orleans, LA</p>
-                            <p class="alert-details">Heavy rainfall expected to continue for next 48 hours. River levels
-                                rising, potential flooding in low-lying areas.</p>
-                            <div class="alert-time">2 hours ago</div>
-                        </div>
-                    </div>
-
-                    <div class="alert-card storm">
-                        <div class="alert-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M19 16.9A5 5 0 0 0 18 7h-1.26a8 8 0 1 0-11.62 9"></path>
-                                <polyline points="13 11 9 17 15 17 11 23"></polyline>
-                            </svg>
-                        </div>
-                        <div class="alert-content">
-                            <div class="alert-header">
-                                <h3>Tropical Storm</h3>
-                                <span class="alert-level high">High</span>
-                            </div>
-                            <p class="alert-location">Miami, FL</p>
-                            <p class="alert-details">Tropical Storm Alex strengthening in the Atlantic. Expected to make
-                                landfall in 36 hours with winds up to 70mph.</p>
-                            <div class="alert-time">5 hours ago</div>
-                        </div>
-                    </div>
-
-                    <div class="alert-card wildfire">
-                        <div class="alert-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path
-                                    d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3s.5-2 2-3 .5-2 1-3c0 0 .5 1 2 2 1.5 1 2 2 2 3 0 2-3 3-3 5 0 .5.5 1 1 1s1-.5 1-1c0 0 1 1 1 3 0 2-1 3-2 3s-1 1-1 3-3 3-5 3c-3 0-5-2-5-6 0-4 3-5 3-5z">
-                                </path>
-                            </svg>
-                        </div>
-                        <div class="alert-content">
-                            <div class="alert-header">
-                                <h3>Wildfire Warning</h3>
-                                <span class="alert-level moderate">Moderate</span>
-                            </div>
-                            <p class="alert-location">Sacramento, CA</p>
-                            <p class="alert-details">Wildfire reported in El Dorado County. Currently 10% contained,
-                                covering 250 acres. Air quality alerts issued for surrounding areas.</p>
-                            <div class="alert-time">1 day ago</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="alerts-pagination">
-                    <button class="pagination-btn active">1</button>
-                    <button class="pagination-btn">2</button>
-                    <button class="pagination-btn">3</button>
-                    <span class="pagination-ellipsis">...</span>
-                    <button class="pagination-btn">10</button>
-                </div>
-
-                <div class="alerts-subscribe">
-                    <div class="subscribe-text">
-                        <h3>Get Personalized Alerts</h3>
-                        <p>Receive real-time notifications about disasters in your area.</p>
-                    </div>
-                    <div class="subscribe-form">
-                        <input type="email" placeholder="Enter your E-mail Address"
-                            class="subscribe-input focus:outline-none focus:ring-0">
-                        <button class="gradient-btn">Subscribe</button>
-                    </div>
-                </div>
-            </section>
-
-            <!-- About Section -->
-            <section id="about" class="section about-section">
-                <div class="section-header">
-                    <h2>About DIAPS</h2>
-                    <div class="section-badge">Our Mission</div>
-                </div>
-
-                <div class="about-content">
-                    <div class="about-text">
-                        <p class="about-intro">DIAPS (Disaster Information Aggregation and Prediction Software) was
-                            developed with a simple mission: to save lives by providing timely, accurate, and actionable
-                            disaster information worldwide.</p>
-
-                        <p>Founded in 2020 by a team of meteorologists, seismologists, and software engineers, DIAPS
-                            combines cutting-edge technology with scientific expertise to monitor, predict, and alert
-                            users about potential natural disasters.</p>
-
-                        <div class="mission-statement">
-                            <h3>Our Mission</h3>
-                            <p>To empower communities and individuals with accurate information about natural disasters,
-                                enabling them to make informed decisions that save lives and minimize damage.</p>
-                        </div>
-                    </div>
-
-                    <div class="about-grid">
-                        <div class="about-card">
-                            <div class="about-card-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round">
-                                    <circle cx="12" cy="12" r="10"></circle>
-                                    <polyline points="12 6 12 12 16 14"></polyline>
-                                </svg>
-                            </div>
-                            <h3>Real-time Monitoring</h3>
-                            <p>Our systems continuously monitor seismic activities, weather patterns, and other natural
-                                phenomena 24/7.</p>
-                        </div>
-
-                        <div class="about-card">
-                            <div class="about-card-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round">
-                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                                </svg>
-                            </div>
-                            <h3>Accurate Predictions</h3>
-                            <p>Using advanced AI and machine learning algorithms, we can predict potential disasters
-                                with high accuracy.</p>
-                        </div>
-
-                        <div class="about-card">
-                            <div class="about-card-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round">
-                                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
-                                </svg>
-                            </div>
-                            <h3>Risk Assessment</h3>
-                            <p>We provide detailed risk assessments for various types of disasters based on historical
-                                data and current conditions.</p>
-                        </div>
-
-                        <div class="about-card">
-                            <div class="about-card-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round">
-                                    <path
-                                        d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z">
-                                    </path>
-                                    <polyline points="22,6 12,13 2,6"></polyline>
-                                </svg>
-                            </div>
-                            <h3>Instant Alerts</h3>
-                            <p>When a disaster is detected or predicted, our system sends immediate alerts to affected
-                                areas through multiple channels.</p>
-                        </div>
-                    </div>
-
-                    <div class="about-cta">
-                        <h3>Join Our Mission</h3>
-                        <p>Help us make the world safer by contributing to our disaster monitoring network.</p>
-                        <div class="about-buttons">
-                            <a class="gradient-btn" href="volunteer.html" style="text-decoration: none;">Volunteer</a>
-                            <a href="partner.html" class="outline-btn">Partner with Us</a>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-        </div>
-    </main>
-
-    <footer>
-        <div class="footer-container footer-animate">
-            <div class="footer-logo footer-animate">
-                <div class="logo-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path>
-                        <polyline points="13 8 13 14 9 14"></polyline>
-                    </svg>
-                </div>
-                <div class="logo-text">
-                    <h3>DIAPS</h3>
-                    <p>Disaster Information Aggregation and Prediction Software</p>
-                </div>
+            <h2 class="section-title">Intelligence Inputs · Official Sources Only</h2>
+            <div class="sources-grid">
+                <div class="source-badge">USGS</div>
+                <div class="source-badge">NASA FIRMS</div>
+                <div class="source-badge">OPEN-METEO</div>
+                <div class="source-badge">RELIEFWEB</div>
+                <div class="source-badge">GDACS</div>
+                <div class="source-badge">NOAA</div>
             </div>
+        </div>
+    </section>
 
-            <div class="footer-links">
-                <div class="footer-column footer-animate">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="index.html#map">Interactive Map</a></li>
-                        <li><a href="index.html#alerts">Active Alerts</a></li>
-                        <li><a href="index.html#about">About DIAPS</a></li>
-                        <li><a href="partner.html">Partnership</a></li>
-                    </ul>
+    <!-- Global Situation Map -->
+    <section class="situation-map-section">
+        <div class="container">
+            <h2 class="section-title">Global Situation Map — The Aggregator</h2>
+
+            <div class="map-layout">
+                <div class="map-main">
+                    <div id="map" class="intelligence-map"></div>
+                    <div class="map-overlays">
+                        <div class="map-incident">
+                            <span class="incident-marker">●</span> <strong>M6.2 Earthquake</strong> — USGS (Verified)
+                            <div class="incident-sub">└─ Linked Citizen Report (Photo)</div>
+                        </div>
+                        <div class="map-incident">
+                            <span class="incident-marker">●</span> <strong>Wildfire Alert</strong> — NASA FIRMS
+                            <div class="incident-sub">└─ Active thermal detection</div>
+                        </div>
+                        <div class="map-incident">
+                            <span class="incident-marker">●</span> <strong>Flood Warning</strong> — GDACS
+                            <div class="incident-sub">└─ High water levels detected</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="footer-column footer-animate">
-                    <h4>Resources</h4>
-                    <ul>
-                        <li><a href="#">Documentation</a></li>
-                        <li><a href="#">API Reference</a></li>
-                        <li><a href="#">Support Center</a></li>
-                        <li><a href="#">Data Sources</a></li>
-                        <li><a href="#">Research Papers</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column footer-animate">
-                    <h4>Contact</h4>
-                    <ul>
-                        <li><a href="mailto:partners@diaps.org">partners@diaps.org</a></li>
-                        <li><a href="tel:+12025551234">+91 999.....48</a></li>
-                        <li>20 Dahami Kalan, MUJ</li>
-                        <li>Jaipur, RJ 303007</li>
-                    </ul>
+
+                <div class="map-filters">
+                    <div class="filter-title">Filter</div>
+                    <label class="filter-option">
+                        <input type="checkbox" checked> Quakes
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" checked> Fires
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" checked> Floods
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" checked> Reports
+                    </label>
                 </div>
             </div>
         </div>
+    </section>
 
-        <div class="footer-bottom footer-animate">
-            <p>&copy; 2025 DIAPS. All rights reserved.</p>
-            <div class="footer-social">
-                <a href="#" aria-label="Facebook">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
-                    </svg>
-                </a>
-                <a href="#" aria-label="LinkedIn">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-                        <rect x="2" y="9" width="4" height="12"></rect>
-                        <circle cx="4" cy="4" r="2"></circle>
-                    </svg>
-                </a>
-                <a href="#" aria-label="YouTube">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path
-                            d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z">
-                        </path>
-                        <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
-                    </svg>
-                </a>
-                <a href="#" aria-label="GitHub">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path
-                            d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
-                        </path>
-                    </svg>
-                </a>
+    <!-- Live Aggregation Feed -->
+    <section class="feed-section">
+        <div class="container">
+            <h2 class="section-title">Live Aggregation Feed — Verified Reality</h2>
+
+            <div class="feed-container">
+                <div class="feed-item">
+                    <span class="feed-time">10:04 IST</span>
+                    <span class="feed-type">Earthquake Alert</span>
+                    <span class="feed-detail">M5.2</span>
+                    <span class="feed-source">USGS</span>
+                    <span class="feed-status verified">VERIFIED</span>
+                    <a href="#" class="feed-action">[View]</a>
+                </div>
+
+                <div class="feed-item">
+                    <span class="feed-time">10:11 IST</span>
+                    <span class="feed-type">Flood Alert</span>
+                    <span class="feed-detail">Level 3</span>
+                    <span class="feed-source">GDACS</span>
+                    <span class="feed-status verified">VERIFIED</span>
+                    <a href="#" class="feed-action">[View]</a>
+                </div>
+
+                <div class="feed-item">
+                    <span class="feed-time">10:15 IST</span>
+                    <span class="feed-type">Wildfire Alert</span>
+                    <span class="feed-detail">High Confidence</span>
+                    <span class="feed-source">NASA FIRMS</span>
+                    <span class="feed-status verified">VERIFIED</span>
+                    <a href="#" class="feed-action">[View]</a>
+                </div>
+
+                <div class="feed-item">
+                    <span class="feed-time">10:18 IST</span>
+                    <span class="feed-type">Road Blockage</span>
+                    <span class="feed-detail">NH-44</span>
+                    <span class="feed-source">Citizen Report</span>
+                    <span class="feed-status">Pending</span>
+                    <a href="#" class="feed-action">[Image]</a>
+                </div>
+
+                <div class="feed-item">
+                    <span class="feed-time">10:22 IST</span>
+                    <span class="feed-type">Cyclone Warning</span>
+                    <span class="feed-detail">Category 2</span>
+                    <span class="feed-source">NOAA</span>
+                    <span class="feed-status verified">VERIFIED</span>
+                    <a href="#" class="feed-action">[View]</a>
+                </div>
             </div>
+        </div>
+    </section>
+
+    <!-- Why DIAPS -->
+    <section class="why-section">
+        <div class="container">
+            <h2 class="section-title">Why DIAPS</h2>
+
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">🧭</div>
+                    <div class="feature-title">Situational Awareness</div>
+                    <div class="feature-desc">All hazards, one unified map. Real-time visualization of global disaster
+                        events from multiple verified sources.</div>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">🗂️</div>
+                    <div class="feature-title">Raw Aggregated Data</div>
+                    <div class="feature-desc">JSON-ready data streams. Direct API access for developers and emergency
+                        response systems.</div>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">🤝</div>
+                    <div class="feature-title">Citizen Verification</div>
+                    <div class="feature-desc">Combining official sensors with on-ground citizen reports for
+                        comprehensive disaster intelligence.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <p class="footer-disclaimer">DIAPS does not predict disasters. It reports verified reality.</p>
+            <nav class="footer-nav">
+                <a href="#api">APIs</a> •
+                <a href="#contributors">Contributors</a> •
+                <a href="#partner">Partner Access</a> •
+                <a href="#report">Report Error</a>
+            </nav>
         </div>
     </footer>
 
     <script src="js/main.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-HoA2jI9z+S6Rx2vnZsfP4YZPSSQZ3pFkDgnl5CJOtSTDNKgdxOL9Jw7P0UOzN/8z"
-        crossorigin="anonymous"></script>
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', function () {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Example tag click handlers
+        document.querySelectorAll('.example-tag').forEach(tag => {
+            tag.addEventListener('click', function () {
+                document.querySelector('.search-input').value = this.textContent.replace(/\[|\]/g, '');
+            });
+        });
+
+        // Initialize map if Leaflet is available
+        if (typeof L !== 'undefined') {
+            var map = L.map('map').setView([20, 0], 2);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors',
+                maxZoom: 18,
+            }).addTo(map);
+
+            // Add example markers
+            var earthquakeIcon = L.divIcon({
+                className: 'custom-marker',
+                html: '<div style="background: #FF6B6B; width: 12px; height: 12px; border-radius: 50%; border: 2px solid white;"></div>',
+                iconSize: [12, 12]
+            });
+
+            var fireIcon = L.divIcon({
+                className: 'custom-marker',
+                html: '<div style="background: #FFA500; width: 12px; height: 12px; border-radius: 50%; border: 2px solid white;"></div>',
+                iconSize: [12, 12]
+            });
+
+            // Example markers
+            L.marker([35.0, 138.0], { icon: earthquakeIcon }).addTo(map)
+                .bindPopup('<b>M6.2 Earthquake</b><br>USGS Verified');
+
+            L.marker([37.7, -122.4], { icon: fireIcon }).addTo(map)
+                .bindPopup('<b>Wildfire Alert</b><br>NASA FIRMS');
+        }
+    </script>
 </body>
 
 </html>
