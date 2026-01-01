@@ -37,7 +37,7 @@
     /* Typography */
     --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     --font-secondary: 'Playfair Display', serif;
-    --font-mono: 'Poppins', 'Courier New', monospace;
+    --font-tertiary: 'Poppins', 'Courier New';
 
     /* Radius */
     --radius-sm: 8px;
