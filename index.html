@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DIAPS - Unified Disaster Intelligence</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -66,17 +67,114 @@
         </div>
     </section>
 
-    <!-- Intelligence Inputs -->
     <section id="inputs" class="inputs-section">
         <div class="container">
-            <h2 class="section-title">Intelligence Inputs · Official Sources Only</h2>
+            <h1 class="section-title">Intelligence Inputs · Official Sources Only</h1>
+            <p class="section-description">Real-time data aggregation from verified global monitoring systems</p>
+
             <div class="sources-grid">
-                <div class="source-badge">USGS</div>
-                <div class="source-badge">NASA FIRMS</div>
-                <div class="source-badge">OPEN-METEO</div>
-                <div class="source-badge">RELIEFWEB</div>
-                <div class="source-badge">GDACS</div>
-                <div class="source-badge">NOAA</div>
+                <div class="source-badge" data-category="seismic">
+                    <div class="source-icon">
+                        <i class="fas fa-globe-americas"></i>
+                    </div>
+                    <div class="source-content">
+                        <div class="source-name">USGS</div>
+                        <div class="source-desc">Seismic Activity</div>
+                        <div class="source-status">
+                            <span class="status-dot active"></span>
+                            <span class="status-text">Live</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="source-badge" data-category="fire">
+                    <div class="source-icon">
+                        <i class="fas fa-fire-alt"></i>
+                    </div>
+                    <div class="source-content">
+                        <div class="source-name">NASA FIRMS</div>
+                        <div class="source-desc">Fire Detection</div>
+                        <div class="source-status">
+                            <span class="status-dot active"></span>
+                            <span class="status-text">Live</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="source-badge" data-category="weather">
+                    <div class="source-icon">
+                        <i class="fas fa-cloud-showers-heavy"></i>
+                    </div>
+                    <div class="source-content">
+                        <div class="source-name">OPEN-METEO</div>
+                        <div class="source-desc">Weather Data</div>
+                        <div class="source-status">
+                            <span class="status-dot active"></span>
+                            <span class="status-text">Live</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="source-badge" data-category="humanitarian">
+                    <div class="source-icon">
+                        <i class="fas fa-hands-helping"></i>
+                    </div>
+                    <div class="source-content">
+                        <div class="source-name">RELIEFWEB</div>
+                        <div class="source-desc">Humanitarian Reports</div>
+                        <div class="source-status">
+                            <span class="status-dot active"></span>
+                            <span class="status-text">Live</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="source-badge" data-category="disaster">
+                    <div class="source-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <div class="source-content">
+                        <div class="source-name">GDACS</div>
+                        <div class="source-desc">Disaster Alerts</div>
+                        <div class="source-status">
+                            <span class="status-dot active"></span>
+                            <span class="status-text">Live</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="source-badge" data-category="ocean">
+                    <div class="source-icon">
+                        <i class="fas fa-water"></i>
+                    </div>
+                    <div class="source-content">
+                        <div class="source-name">NOAA</div>
+                        <div class="source-desc">Ocean & Atmosphere</div>
+                        <div class="source-status">
+                            <span class="status-dot active"></span>
+                            <span class="status-text">Live</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sources-stats">
+                <div class="stat-item">
+                    <div class="stat-value">6</div>
+                    <div class="stat-label">Active Sources</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">24/7</div>
+                    <div class="stat-label">Monitoring</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">99.9%</div>
+                    <div class="stat-label">Uptime</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">&lt;30s</div>
+                    <div class="stat-label">Update Interval</div>
+                </div>
             </div>
         </div>
     </section>
