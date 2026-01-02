@@ -1,4 +1,4 @@
-// Global state
+// Global state management
 let diapsMap = null;
 let markers = [];
 let activeFilters = {
@@ -9,7 +9,7 @@ let activeFilters = {
   citizen: true
 };
 
-// Initialize everything when DOM is loaded
+// Initialize all functionality when DOM is ready
 document.addEventListener('DOMContentLoaded', function () {
   initializeHeader();
   initializeMap();
@@ -21,7 +21,9 @@ document.addEventListener('DOMContentLoaded', function () {
   addScrollAnimations();
 });
 
-// Header scroll effect
+// ============================================
+// HEADER FUNCTIONALITY
+// ============================================
 function initializeHeader() {
   const header = document.querySelector('.main-header');
   let lastScroll = 0;
@@ -29,13 +31,14 @@ function initializeHeader() {
   window.addEventListener('scroll', () => {
     const currentScroll = window.pageYOffset;
 
+    // Add scrolled class for styling
     if (currentScroll > 100) {
       header.classList.add('scrolled');
     } else {
       header.classList.remove('scrolled');
     }
 
-    // Hide header on scroll down, show on scroll up
+    // Hide/show header on scroll
     if (currentScroll > lastScroll && currentScroll > 500) {
       header.style.transform = 'translateY(-100%)';
     } else {
@@ -45,7 +48,7 @@ function initializeHeader() {
     lastScroll = currentScroll;
   });
 
-  // Smooth scroll for nav links
+  // Smooth scroll for navigation links
   document.querySelectorAll('.nav-links a').forEach(link => {
     link.addEventListener('click', function (e) {
       const href = this.getAttribute('href');
@@ -65,12 +68,14 @@ function initializeHeader() {
   });
 }
 
-// Initialize Leaflet map with enhanced styling
+// ============================================
+// MAP INITIALIZATION
+// ============================================
 function initializeMap() {
   const mapElement = document.getElementById('map');
   if (!mapElement) return;
 
-  // Initialize map centered on world view
+  // Create map with custom settings
   diapsMap = L.map('map', {
     center: [20, 0],
     zoom: 2,
@@ -81,27 +86,29 @@ function initializeMap() {
     maxBoundsViscosity: 0.5
   });
 
-  // Custom zoom control position
+  // Position zoom control
   diapsMap.zoomControl.setPosition('bottomright');
 
-  // Dark tile layer for intelligence aesthetic
+  // Add dark tile layer for intelligence aesthetic
   L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
     attribution: '©OpenStreetMap, ©CartoDB',
     subdomains: 'abcd',
     maxZoom: 19
   }).addTo(diapsMap);
 
-  // Add sample disaster markers
+  // Add disaster markers to map
   addDisasterMarkers();
 
-  // Add map interaction feedback
+  // Map interaction logging
   diapsMap.on('zoomend', function () {
     const zoom = diapsMap.getZoom();
-    console.log('Current zoom level:', zoom);
+    console.log('Map zoom level:', zoom);
   });
 }
 
-// Add disaster markers to map with enhanced styling
+// ============================================
+// DISASTER MARKERS
+// ============================================
 function addDisasterMarkers() {
   const disasters = [
     {
@@ -166,13 +173,13 @@ function addDisasterMarkers() {
     }
   ];
 
-  disasters.forEach((disaster, index) => {
+  disasters.forEach((disaster) => {
     const marker = createMarker(disaster);
     markers.push({ marker, data: disaster });
   });
 }
 
-// Create individual marker with enhanced popup
+// Create individual marker with popup
 function createMarker(disaster) {
   const color = getMarkerColor(disaster.type, disaster.verified);
   const radius = disaster.verified ? 10 : 7;
@@ -187,7 +194,7 @@ function createMarker(disaster) {
     className: disaster.verified ? 'verified-marker' : 'unverified-marker'
   }).addTo(diapsMap);
 
-  // Create enhanced popup content
+  // Create popup content
   const popupContent = `
     <div style="font-family: 'Inter', sans-serif; color: #1a1f35; min-width: 200px;">
       <div style="font-size: 11px; color: #6b7280; margin-bottom: 6px; font-family: 'Courier New', monospace;">
@@ -214,7 +221,7 @@ function createMarker(disaster) {
     className: 'custom-popup'
   });
 
-  // Add hover effect
+  // Hover effects
   marker.on('mouseover', function () {
     this.setStyle({
       radius: radius + 3,
@@ -247,7 +254,9 @@ function getMarkerColor(type, verified) {
   return colors[type] || '#9ca3af';
 }
 
-// Initialize search functionality
+// ============================================
+// SEARCH FUNCTIONALITY
+// ============================================
 function initializeSearch() {
   const searchInput = document.querySelector('.search-input');
   const exampleTags = document.querySelectorAll('.example-tag');
@@ -260,19 +269,18 @@ function initializeSearch() {
       }
     });
 
-    // Live search suggestions (placeholder)
+    // Live search suggestions
     searchInput.addEventListener('input', function () {
       if (this.value.length > 2) {
-        // In production, this would show autocomplete suggestions
         console.log('Searching for:', this.value);
       }
     });
   }
 
-  // Click on example tags to populate search
+  // Example tag clicks
   exampleTags.forEach(tag => {
     tag.addEventListener('click', function () {
-      const searchText = this.textContent.replace(/[\[\]]/g, '').trim();
+      const searchText = this.textContent.trim();
       if (searchInput) {
         searchInput.value = searchText;
         searchInput.focus();
@@ -282,11 +290,10 @@ function initializeSearch() {
   });
 }
 
-// Perform search with visual feedback
+// Perform search with results
 function performSearch(query) {
   console.log('Searching for:', query);
 
-  // Show loading state
   showNotification(`🔍 Searching for: ${query}`, 'info');
 
   // Simulate API call
@@ -298,7 +305,6 @@ function performSearch(query) {
     );
 
     if (results.length > 0) {
-      // Zoom to first result
       const firstResult = results[0];
       diapsMap.setView([firstResult.data.lat, firstResult.data.lng], 6);
       firstResult.marker.openPopup();
@@ -309,7 +315,9 @@ function performSearch(query) {
   }, 500);
 }
 
-// Initialize filter functionality
+// ============================================
+// FILTER FUNCTIONALITY
+// ============================================
 function initializeFilters() {
   const filterCheckboxes = document.querySelectorAll('.filter-option input[type="checkbox"]');
 
@@ -324,7 +332,7 @@ function initializeFilters() {
   });
 }
 
-// Update map based on filter selections
+// Update map markers based on filters
 function updateMapFilters() {
   markers.forEach(({ marker, data }) => {
     if (activeFilters[data.type]) {
@@ -342,7 +350,9 @@ function updateMapFilters() {
   showNotification(`Filters updated - ${activeCount} type(s) visible`, 'info');
 }
 
-// Initialize feed action buttons
+// ============================================
+// FEED INTERACTIONS
+// ============================================
 function initializeFeedActions() {
   document.querySelectorAll('.feed-action').forEach(action => {
     action.addEventListener('click', function (e) {
@@ -353,7 +363,7 @@ function initializeFeedActions() {
 
       showNotification(`📊 Loading details: ${type} (${time})`, 'info');
 
-      // Animate the feed item
+      // Animate feedback
       feedItem.style.transform = 'scale(0.98)';
       setTimeout(() => {
         feedItem.style.transform = 'scale(1)';
@@ -362,46 +372,49 @@ function initializeFeedActions() {
   });
 }
 
-// Initialize source badge interactions
+// ============================================
+// SOURCE BADGE INTERACTIONS
+// ============================================
 function initializeSourceBadges() {
   document.querySelectorAll('.source-badge').forEach(badge => {
     badge.addEventListener('click', function () {
-      const source = this.textContent.trim().replace(/[\[\]]/g, '');
+      const sourceName = this.querySelector('.source-name')?.textContent || '';
 
       // Filter markers by source
       const matchingMarkers = markers.filter(m =>
-        m.data.source.toLowerCase().includes(source.toLowerCase())
+        m.data.source.toLowerCase().includes(sourceName.toLowerCase())
       );
 
       if (matchingMarkers.length > 0) {
-        // Fit map to show all matching markers
+        // Fit map to show matching markers
         const group = L.featureGroup(matchingMarkers.map(m => m.marker));
         diapsMap.fitBounds(group.getBounds().pad(0.1));
-        showNotification(`📡 Showing ${matchingMarkers.length} incident(s) from ${source}`, 'success');
+        showNotification(`📡 Showing ${matchingMarkers.length} incident(s) from ${sourceName}`, 'success');
       } else {
-        showNotification(`No active incidents from ${source}`, 'warning');
+        showNotification(`No active incidents from ${sourceName}`, 'warning');
       }
     });
   });
 }
 
-// Start live feed updates
+// ============================================
+// LIVE FEED UPDATES
+// ============================================
 function startLiveFeed() {
   let updateCount = 0;
 
-  // Simulate live feed updates every 15 seconds
+  // Simulate live updates every 15 seconds
   setInterval(() => {
     updateCount++;
     updateLiveFeed(updateCount);
   }, 15000);
 }
 
-// Update live feed with new incidents
 function updateLiveFeed(count) {
   const feedContainer = document.querySelector('.feed-container');
   if (!feedContainer) return;
 
-  // Add a subtle pulse effect to indicate update
+  // Visual feedback for update
   feedContainer.style.opacity = '0.7';
   setTimeout(() => {
     feedContainer.style.opacity = '1';
@@ -409,13 +422,15 @@ function updateLiveFeed(count) {
 
   console.log(`Live feed update #${count}`);
 
-  // Show notification every 5 updates
+  // Periodic notifications
   if (count % 5 === 0) {
     showNotification('📡 Live feed updated', 'info');
   }
 }
 
-// Enhanced notification system
+// ============================================
+// NOTIFICATION SYSTEM
+// ============================================
 function showNotification(message, type = 'info') {
   const colors = {
     success: { bg: '#00D9A3', border: '#00D9A3' },
@@ -450,30 +465,16 @@ function showNotification(message, type = 'info') {
 
   document.body.appendChild(notification);
 
-  // Remove after 4 seconds
+  // Auto remove after 4 seconds
   setTimeout(() => {
     notification.style.animation = 'slideOutRight 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
     setTimeout(() => notification.remove(), 300);
   }, 4000);
 }
 
-// View map button functionality
-const viewMapBtn = document.querySelector('.view-map-btn');
-if (viewMapBtn) {
-  viewMapBtn.addEventListener('click', function () {
-    const mapSection = document.querySelector('.situation-map-section');
-    if (mapSection) {
-      const headerHeight = document.querySelector('.main-header').offsetHeight;
-      const targetPosition = mapSection.offsetTop - headerHeight - 20;
-      window.scrollTo({
-        top: targetPosition,
-        behavior: 'smooth'
-      });
-    }
-  });
-}
-
-// Add scroll animations for sections
+// ============================================
+// SCROLL ANIMATIONS
+// ============================================
 function addScrollAnimations() {
   const observerOptions = {
     threshold: 0.1,
@@ -489,7 +490,7 @@ function addScrollAnimations() {
     });
   }, observerOptions);
 
-  // Observe sections
+  // Observe sections for animation
   document.querySelectorAll('.inputs-section, .situation-map-section, .feed-section, .why-section').forEach(section => {
     section.style.opacity = '0';
     section.style.transform = 'translateY(30px)';
@@ -498,7 +499,27 @@ function addScrollAnimations() {
   });
 }
 
-// Add enhanced CSS animations
+// ============================================
+// VIEW MAP BUTTON
+// ============================================
+const viewMapBtn = document.querySelector('.view-map-btn');
+if (viewMapBtn) {
+  viewMapBtn.addEventListener('click', function () {
+    const mapSection = document.querySelector('.situation-map-section');
+    if (mapSection) {
+      const headerHeight = document.querySelector('.main-header').offsetHeight;
+      const targetPosition = mapSection.offsetTop - headerHeight - 20;
+      window.scrollTo({
+        top: targetPosition,
+        behavior: 'smooth'
+      });
+    }
+  });
+}
+
+// ============================================
+// ENHANCED CSS ANIMATIONS
+// ============================================
 const style = document.createElement('style');
 style.textContent = `
   @keyframes slideInRight {
@@ -562,12 +583,10 @@ style.textContent = `
     font-family: 'Inter', sans-serif;
   }
   
-  /* Enhanced marker styles */
   .leaflet-marker-icon {
     transition: all 0.3s ease;
   }
   
-  /* Zoom control styling */
   .leaflet-control-zoom {
     border: 1px solid rgba(255, 234, 208, 0.15) !important;
     border-radius: 8px !important;
@@ -589,7 +608,9 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
-// Console welcome message
+// ============================================
+// CONSOLE WELCOME
+// ============================================
 console.log('%c🌍 DIAPS - Disaster Intelligence Platform', 'font-size: 16px; font-weight: bold; color: #FFEAD0;');
 console.log('%cReal-time disaster monitoring system initialized', 'font-size: 12px; color: #4A9EFF;');
 console.log('%cVersion: 1.0.0 | Status: Live', 'font-size: 11px; color: #00D9A3;');
