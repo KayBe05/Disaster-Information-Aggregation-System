@@ -257,7 +257,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: url(../img/bg.jpg);
+    background-image: url(../assests/img/bg.jpg);
     background-size: cover;
     background-position: center 20%;
     background-attachment: fixed;
