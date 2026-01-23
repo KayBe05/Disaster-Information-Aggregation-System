@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings - DIAS</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/pages/settings.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;700&display=swap"
+    rel="stylesheet">
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+</head>
+
+<body>
+  <!-- Header -->
+  <header class="settings-header">
+    <div class="header-content">
+      <a href="index.html" class="back-link">
+        <i class="fas fa-arrow-left"></i>
+        <span>Back to Dashboard</span>
+      </a>
+      <h1 class="page-title">SETTINGS</h1>
+      <div class="header-spacer"></div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="settings-main">
+    <div class="settings-container">
+
+      <!-- Profile Section -->
+      <section class="settings-section">
+        <div class="section-icon">
+          <i class="fas fa-user-circle"></i>
+        </div>
+        <div class="section-content">
+          <h2 class="section-title">Profile</h2>
+          <p class="section-description">Your account information</p>
+
+          <div class="settings-group">
+            <div class="input-group">
+              <label for="profileName">Name</label>
+              <input type="text" id="profileName" class="input-field" readonly>
+            </div>
+
+            <div class="input-group">
+              <label for="profileEmail">Email</label>
+              <input type="email" id="profileEmail" class="input-field" readonly>
+            </div>
+
+            <button class="btn-signout" id="signOutBtn">
+              <i class="fas fa-sign-out-alt"></i>
+              Sign Out
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Alert Preferences Section -->
+      <section class="settings-section">
+        <div class="section-icon">
+          <i class="fas fa-bell"></i>
+        </div>
+        <div class="section-content">
+          <h2 class="section-title">Alert Preferences</h2>
+          <p class="section-description">Customize which disaster alerts you receive</p>
+
+          <div class="settings-group">
+            <!-- Toggle: Earthquake Alerts -->
+            <div class="toggle-group">
+              <div class="toggle-info">
+                <i class="fas fa-house-damage toggle-icon earthquake"></i>
+                <div>
+                  <div class="toggle-label">Earthquake Alerts</div>
+                  <div class="toggle-sublabel">Seismic activity notifications</div>
+                </div>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="alertEarthquake" checked>
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+
+            <!-- Toggle: Flood Alerts -->
+            <div class="toggle-group">
+              <div class="toggle-info">
+                <i class="fas fa-water toggle-icon flood"></i>
+                <div>
+                  <div class="toggle-label">Flood Alerts</div>
+                  <div class="toggle-sublabel">Flooding and water level warnings</div>
+                </div>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="alertFlood" checked>
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+
+            <!-- Toggle: Wildfire Alerts -->
+            <div class="toggle-group">
+              <div class="toggle-info">
+                <i class="fas fa-fire toggle-icon fire"></i>
+                <div>
+                  <div class="toggle-label">Wildfire Alerts</div>
+                  <div class="toggle-sublabel">Fire detection and spread notifications</div>
+                </div>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="alertWildfire" checked>
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+
+            <!-- Alert Radius Slider -->
+            <div class="slider-group">
+              <label for="alertRadius" class="slider-label">
+                <span>Alert Radius</span>
+                <span class="slider-value" id="radiusValue">50 km</span>
+              </label>
+              <input type="range" id="alertRadius" class="range-slider" min="10" max="500" value="50" step="10">
+              <div class="slider-range">
+                <span>10 km</span>
+                <span>500 km</span>
+              </div>
+            </div>
+
+            <!-- Severity Threshold Dropdown -->
+            <div class="input-group">
+              <label for="severityThreshold">Severity Threshold</label>
+              <select id="severityThreshold" class="select-field">
+                <option value="all">All Alerts</option>
+                <option value="moderate">Moderate & Higher</option>
+                <option value="critical">Critical Only</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Home Location Section -->
+      <section class="settings-section">
+        <div class="section-icon">
+          <i class="fas fa-map-marker-alt"></i>
+        </div>
+        <div class="section-content">
+          <h2 class="section-title">Home Location</h2>
+          <p class="section-description">Set your primary location for personalized alerts</p>
+
+          <div class="settings-group">
+            <div class="map-container">
+              <div id="settingsMap" class="settings-map"></div>
+              <div class="map-instructions">
+                <i class="fas fa-info-circle"></i>
+                Click on the map to set your home location
+              </div>
+            </div>
+
+            <div class="location-inputs">
+              <div class="input-group">
+                <label for="homeLat">Latitude</label>
+                <input type="text" id="homeLat" class="input-field" placeholder="0.0000">
+              </div>
+
+              <div class="input-group">
+                <label for="homeLng">Longitude</label>
+                <input type="text" id="homeLng" class="input-field" placeholder="0.0000">
+              </div>
+            </div>
+
+            <button class="btn-geolocate" id="geolocateBtn">
+              <i class="fas fa-crosshairs"></i>
+              Use Current Location
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- App System Section -->
+      <section class="settings-section">
+        <div class="section-icon">
+          <i class="fas fa-cog"></i>
+        </div>
+        <div class="section-content">
+          <h2 class="section-title">App System</h2>
+          <p class="section-description">Application behavior and preferences</p>
+
+          <div class="settings-group">
+            <!-- Toggle: Data Saver Mode -->
+            <div class="toggle-group">
+              <div class="toggle-info">
+                <i class="fas fa-database toggle-icon system"></i>
+                <div>
+                  <div class="toggle-label">Data Saver Mode</div>
+                  <div class="toggle-sublabel">Reduces animations and map effects</div>
+                </div>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="dataSaver">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+
+            <!-- Toggle: Dark Theme -->
+            <div class="toggle-group">
+              <div class="toggle-info">
+                <i class="fas fa-moon toggle-icon system"></i>
+                <div>
+                  <div class="toggle-label">Dark Theme</div>
+                  <div class="toggle-sublabel">Use dark color scheme</div>
+                </div>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="darkTheme" checked>
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+
+            <!-- Toggle: Notifications -->
+            <div class="toggle-group">
+              <div class="toggle-info">
+                <i class="fas fa-bell toggle-icon system"></i>
+                <div>
+                  <div class="toggle-label">Push Notifications</div>
+                  <div class="toggle-sublabel">Receive browser notifications</div>
+                </div>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="pushNotifications" checked>
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+  </main>
+
+  <!-- Save Button (Floating) -->
+  <div class="save-button-container">
+    <button class="btn-save" id="saveSettingsBtn">
+      <i class="fas fa-check"></i>
+      <span>Save Changes</span>
+    </button>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <script src="js/pages/settings.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Report Incident - DIAS</title>
+  
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Base Styles -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/pages/volunteer.css">
+  
+  <!-- Feather Icons -->
+  <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-brand">
+        <div class="brand-logo">
+          <i data-feather="shield"></i>
+        </div>
+        <a href="index.html">DIAS</a>
+      </div>
+      <ul class="nav-menu">
+        <li><a href="index.html"><i data-feather="home"></i><span>Dashboard</span></a></li>
+        <li><a href="volunteer.html" class="active"><i data-feather="alert-circle"></i><span>Report</span></a></li>
+        <li><a href="profile.html"><i data-feather="user"></i><span>Profile</span></a></li>
+      </ul>
+      <button class="nav-toggle" id="navToggle">
+        <i data-feather="menu"></i>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <i data-feather="radio"></i>
+        <span>Real-Time Reporting System</span>
+      </div>
+      <h1 class="hero-title">Incident Report</h1>
+      <p class="hero-subtitle">Help us respond faster by reporting incidents in your area</p>
+    </div>
+    <div class="hero-decoration">
+      <div class="decoration-circle"></div>
+      <div class="decoration-circle"></div>
+      <div class="decoration-circle"></div>
+    </div>
+  </section>
+
+  <!-- Main Container -->
+  <main class="container">
+    <!-- Connection Status -->
+    <div class="status-card">
+      <div class="status-item">
+        <div class="status-indicator-wrapper">
+          <span class="status-indicator live"></span>
+          <span class="status-pulse"></span>
+        </div>
+        <div class="status-info">
+          <span class="status-label">Connection Status</span>
+          <span class="status-value">Online</span>
+        </div>
+      </div>
+      <div class="status-divider"></div>
+      <div class="status-item">
+        <div class="status-icon-wrapper">
+          <i data-feather="navigation" class="status-icon"></i>
+        </div>
+        <div class="status-info">
+          <span class="status-label">GPS Status</span>
+          <span class="status-value" id="gpsStatus">Acquiring Signal...</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Progress Indicator -->
+    <div class="progress-container">
+      <div class="progress-step active" data-step="1">
+        <div class="progress-circle">
+          <span>1</span>
+          <div class="progress-check"><i data-feather="check"></i></div>
+        </div>
+        <span class="progress-label">Type</span>
+      </div>
+      <div class="progress-line"></div>
+      <div class="progress-step" data-step="2">
+        <div class="progress-circle">
+          <span>2</span>
+          <div class="progress-check"><i data-feather="check"></i></div>
+        </div>
+        <span class="progress-label">Location</span>
+      </div>
+      <div class="progress-line"></div>
+      <div class="progress-step" data-step="3">
+        <div class="progress-circle">
+          <span>3</span>
+          <div class="progress-check"><i data-feather="check"></i></div>
+        </div>
+        <span class="progress-label">Details</span>
+      </div>
+      <div class="progress-line"></div>
+      <div class="progress-step" data-step="4">
+        <div class="progress-circle">
+          <span>4</span>
+          <div class="progress-check"><i data-feather="check"></i></div>
+        </div>
+        <span class="progress-label">Evidence</span>
+      </div>
+    </div>
+
+    <!-- Report Form -->
+    <form id="reportForm" class="report-form">
+      
+      <!-- Step 1: Incident Type -->
+      <div class="form-card" data-step="1">
+        <div class="card-header">
+          <div class="card-icon">
+            <i data-feather="layers"></i>
+          </div>
+          <div class="card-title-wrapper">
+            <h2 class="card-title">Incident Type</h2>
+            <p class="card-subtitle">Select the type of disaster or emergency</p>
+          </div>
+        </div>
+        
+        <div class="card-content">
+          <div class="type-grid">
+            <button type="button" class="type-card" data-type="earthquake">
+              <div class="type-icon earthquake">
+                <i data-feather="activity"></i>
+              </div>
+              <h3 class="type-title">Earthquake</h3>
+              <p class="type-description">Ground shaking or tremors</p>
+              <div class="type-check"><i data-feather="check"></i></div>
+            </button>
+            
+            <button type="button" class="type-card" data-type="flood">
+              <div class="type-icon flood">
+                <i data-feather="droplet"></i>
+              </div>
+              <h3 class="type-title">Flood</h3>
+              <p class="type-description">Water overflow or inundation</p>
+              <div class="type-check"><i data-feather="check"></i></div>
+            </button>
+            
+            <button type="button" class="type-card" data-type="fire">
+              <div class="type-icon fire">
+                <i data-feather="zap"></i>
+              </div>
+              <h3 class="type-title">Fire</h3>
+              <p class="type-description">Wildfire or building fire</p>
+              <div class="type-check"><i data-feather="check"></i></div>
+            </button>
+            
+            <button type="button" class="type-card" data-type="damage">
+              <div class="type-icon damage">
+                <i data-feather="alert-triangle"></i>
+              </div>
+              <h3 class="type-title">Infrastructure Damage</h3>
+              <p class="type-description">Building or road damage</p>
+              <div class="type-check"><i data-feather="check"></i></div>
+            </button>
+          </div>
+          <input type="hidden" id="disasterType" name="disasterType" required>
+        </div>
+      </div>
+
+      <!-- Step 2: Location -->
+      <div class="form-card" data-step="2">
+        <div class="card-header">
+          <div class="card-icon">
+            <i data-feather="map-pin"></i>
+          </div>
+          <div class="card-title-wrapper">
+            <h2 class="card-title">Incident Location</h2>
+            <p class="card-subtitle">Mark the exact location on the map</p>
+          </div>
+        </div>
+        
+        <div class="card-content">
+          <button type="button" class="locate-btn" id="locateBtn">
+            <i data-feather="crosshair"></i>
+            <span>Use My Current Location</span>
+            <div class="btn-shine"></div>
+          </button>
+          
+          <div class="map-wrapper">
+            <div class="map-container" id="mapContainer">
+              <div class="map-overlay" id="mapScanning">
+                <div class="scanning-effect">
+                  <div class="scan-line"></div>
+                  <div class="scan-grid"></div>
+                </div>
+                <div class="scanning-text">
+                  <i data-feather="loader"></i>
+                  <span>Acquiring GPS Signal...</span>
+                </div>
+              </div>
+              <div id="map"></div>
+            </div>
+            <div class="coordinates-display">
+              <div class="coord-item">
+                <span class="coord-label">Latitude:</span>
+                <span class="coord-value" id="latDisplay">--</span>
+              </div>
+              <div class="coord-divider"></div>
+              <div class="coord-item">
+                <span class="coord-label">Longitude:</span>
+                <span class="coord-value" id="lngDisplay">--</span>
+              </div>
+            </div>
+          </div>
+          <input type="hidden" id="latitude" name="latitude" required>
+          <input type="hidden" id="longitude" name="longitude" required>
+        </div>
+      </div>
+
+      <!-- Step 3: Severity & Details -->
+      <div class="form-card" data-step="3">
+        <div class="card-header">
+          <div class="card-icon">
+            <i data-feather="bar-chart-2"></i>
+          </div>
+          <div class="card-title-wrapper">
+            <h2 class="card-title">Severity Assessment</h2>
+            <p class="card-subtitle">Rate the severity of the incident</p>
+          </div>
+        </div>
+        
+        <div class="card-content">
+          <div class="severity-wrapper">
+            <div class="severity-header">
+              <div class="severity-current">
+                <span class="severity-label-text">Current Level</span>
+                <div class="severity-display" id="severityDisplay">
+                  <span class="severity-number">3</span>
+                  <span class="severity-text">Moderate</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="severity-slider-wrapper">
+              <input type="range" id="severity" name="severity" min="1" max="5" value="3" class="severity-slider">
+              <div class="severity-track">
+                <div class="severity-fill" id="severityFill"></div>
+              </div>
+            </div>
+            
+            <div class="severity-labels">
+              <div class="severity-level">
+                <div class="level-dot"></div>
+                <span>Low</span>
+              </div>
+              <div class="severity-level">
+                <div class="level-dot"></div>
+                <span>Moderate</span>
+              </div>
+              <div class="severity-level">
+                <div class="level-dot"></div>
+                <span>High</span>
+              </div>
+              <div class="severity-level">
+                <div class="level-dot"></div>
+                <span>Severe</span>
+              </div>
+              <div class="severity-level">
+                <div class="level-dot"></div>
+                <span>Critical</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 4: Photo Evidence -->
+      <div class="form-card" data-step="4">
+        <div class="card-header">
+          <div class="card-icon">
+            <i data-feather="camera"></i>
+          </div>
+          <div class="card-title-wrapper">
+            <h2 class="card-title">Photo Evidence</h2>
+            <p class="card-subtitle">Upload photos of the incident (optional)</p>
+          </div>
+        </div>
+        
+        <div class="card-content">
+          <div class="upload-area" id="uploadZone">
+            <input type="file" id="photoInput" name="photo" accept="image/*" hidden>
+            <div class="upload-placeholder" id="uploadPlaceholder">
+              <div class="upload-icon-wrapper">
+                <i data-feather="image"></i>
+              </div>
+              <h3 class="upload-title">Drop your image here</h3>
+              <p class="upload-text">or click to browse</p>
+              <div class="upload-formats">
+                <span>JPG</span>
+                <span>PNG</span>
+                <span>WEBP</span>
+              </div>
+            </div>
+            <div class="upload-preview" id="uploadPreview">
+              <img id="previewImage" src="" alt="Preview">
+              <div class="preview-overlay">
+                <button type="button" class="preview-remove" id="removePhoto">
+                  <i data-feather="trash-2"></i>
+                  <span>Remove</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Submit Section -->
+      <div class="submit-section">
+        <button type="submit" class="submit-btn" id="submitBtn">
+          <span class="btn-text">Submit Report</span>
+          <i data-feather="send"></i>
+          <div class="btn-glow"></div>
+        </button>
+        <p class="submit-note">
+          <i data-feather="info"></i>
+          Your report will be reviewed and processed immediately
+        </p>
+      </div>
+    </form>
+  </main>
+
+  <!-- Success Modal -->
+  <div class="modal-overlay" id="successOverlay">
+    <div class="modal-content">
+      <div class="success-animation">
+        <div class="success-circle">
+          <div class="success-checkmark">
+            <i data-feather="check"></i>
+          </div>
+        </div>
+        <div class="success-ripple"></div>
+        <div class="success-ripple"></div>
+      </div>
+      <h2 class="modal-title">Report Submitted Successfully</h2>
+      <p class="modal-text">Your incident report has been received and is being processed. Our team will review it shortly.</p>
+      <div class="modal-actions">
+        <button class="modal-btn primary" onclick="window.location.href='index.html'">
+          <span>View Dashboard</span>
+          <i data-feather="arrow-right"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  
+  <!-- Page Script -->
+  <script src="js/pages/volunteer.js"></script>
+  
+  <!-- Initialize Feather Icons -->
+  <script>
+    feather.replace();
+  </script>
+</body>
+</html>

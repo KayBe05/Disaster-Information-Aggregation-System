@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Disaster Preparedness Guides - DIAS</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/pages/safety.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;700&display=swap"
+    rel="stylesheet">
+</head>
+
+<body>
+  <!-- Header -->
+  <header class="main-header" id="header">
+    <div class="header-left">
+      <div class="logo-container">
+        <img src="assests/Icons/logo.png" alt="DIAPS Logo" class="logo-image">
+        <h1 class="logo-text">DIAS</h1>
+      </div>
+    </div>
+
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html#live">Live Intelligence</a></li>
+        <li><a href="index.html#inputs">Inputs</a></li>
+        <li><a href="preparedness.html">Preparedness</a></li>
+      </ul>
+    </nav>
+
+    <div class="header-right">
+      <a href="signup.html" class="command-access">Command Access</a>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="safety-hero">
+    <div class="container">
+      <div class="hero-icon">📖</div>
+      <h1 class="safety-hero-title">Disaster Preparedness Guides</h1>
+      <p class="safety-hero-subtitle">Actionable steps to stay safe before, during, and after a crisis</p>
+      <button class="download-offline-btn" onclick="window.print()">
+        <i class="fas fa-download"></i>
+        Download Offline Guide
+      </button>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <section class="safety-main">
+    <div class="container">
+      <div class="safety-layout">
+        <!-- Navigation Tabs -->
+        <div class="tab-navigation">
+          <button class="tab-btn active" data-tab="emergency-kit">
+            <i class="fas fa-box"></i>
+            <span>Emergency Kit</span>
+          </button>
+          <button class="tab-btn" data-tab="earthquake">
+            <i class="fas fa-house-damage"></i>
+            <span>Earthquake</span>
+          </button>
+          <button class="tab-btn" data-tab="flood">
+            <i class="fas fa-water"></i>
+            <span>Flood</span>
+          </button>
+          <button class="tab-btn" data-tab="wildfire">
+            <i class="fas fa-fire"></i>
+            <span>Wildfire</span>
+          </button>
+          <button class="tab-btn" data-tab="hurricane">
+            <i class="fas fa-wind"></i>
+            <span>Hurricane</span>
+          </button>
+        </div>
+
+        <!-- Content Container -->
+        <div class="content-wrapper">
+          <!-- Emergency Kit Tab -->
+          <div class="tab-content active" id="emergency-kit">
+            <div class="content-header">
+              <h2 class="content-title">Emergency Survival Kit</h2>
+              <p class="content-description">Essential items every household should have ready for any disaster. Check
+                off items as you prepare them.</p>
+            </div>
+
+            <div class="checklist-container">
+              <div class="checklist-section">
+                <h3 class="checklist-title">
+                  <i class="fas fa-tint"></i>
+                  Water & Food (3-Day Supply)
+                </h3>
+                <label class="checklist-item">
+                  <input type="checkbox" data-item="water">
+                  <span class="checkmark"></span>
+                  <span class="item-text">1 gallon of water per person per day</span>
+                </label>
+                <label class="checklist-item">
+                  <input type="checkbox" data-item="food">
+                  <span class="checkmark"></span>
+                  <span class="item-text">Non-perishable food (canned goods, energy bars)</span>
+                </label>
+                <label class="checklist-item">
+                  <input type="checkbox" data-item="can-opener">
+                  <span class="checkmark"></span>
+                  <span class="item-text">Manual can opener</span>
+                </label>
+              </div>
+
+              <div class="checklist-section">
+                <h3 class="checklist-title">
+                  <i class="fas fa-first-aid"></i>
+                  Medical Supplies
+                </h3>
+                <label class="checklist-item">
+                  <input type="checkbox" data-item="first-aid">
+                  <span class="checkmark"></span>
+                  <span class="item-text">First aid kit with bandages, antiseptic, gauze</span>
+                </label>
+                <label class="checklist-item">
+                  <input type="checkbox" data-item="medications">
+                  <span class="checkmark"></span>
+                  <span class="item-text">Prescription medications (7-day supply)</span>
+                </label>
+                <label class="checklist-item">
+                  <input type="checkbox" data-item="pain-relief">
+                  <span class="checkmark"></span>
+                  <span class="item-text">Pain relievers, antacids, anti-diarrheal medication</span>
+                </label>
+              </div>
+
+              <div class="checklist-section">
+                <h3 class="checklist-title">
+                  <i class="fas fa-lightbulb"></i>
+                  Lighting & Communication
+                </h3>
+                <label class="checklist-item">
+                  <input type="checkbox" data-item="flashlight">
+                  <span class="checkmark"></span>
+                  <span class="item-text">Flashlight with extra batteries</span>
+                </label>
+                <label class="checklist-item">
+                  <input type="checkbox" data-item="radio">
+                  <span class="checkmark"></span>
+                  <span class="item-text">Battery-powered or hand-crank radio</span>
+                </label>
+                <label class="checklist-item">
+                  <input type="checkbox" data-item="phone-charger">
+                  <span class="checkmark"></span>
+                  <span class="item-text">Portable phone charger (fully charged)</span>
+                </label>
+                <label class="checklist-item">
+                  <input type="checkbox" data-item="whistle">
+                  <span class="checkmark"></span>
+                  <span class="item-text">Emergency whistle to signal for help</span>
+                </label>
+              </div>
+
+              <div class="checklist-section">
+                <h3 class="checklist-title">
+                  <i class="fas fa-tools"></i>
+                  Tools & Safety
+                </h3>
+                <label class="checklist-item">
+                  <input type="checkbox" data-item="dust-masks">
+                  <span class="checkmark"></span>
+                  <span class="item-text">Dust masks or N95 respirators</span>
+                </label>
+                <label class="checklist-item">
+                  <input type="checkbox" data-item="duct-tape">
+                  <span class="checkmark"></span>
+                  <span class="item-text">Duct tape and plastic sheeting</span>
+                </label>
+                <label class="checklist-item">
+                  <input type="checkbox" data-item="wrench">
+                  <span class="checkmark"></span>
+                  <span class="item-text">Wrench or pliers to turn off utilities</span>
+                </label>
+                <label class="checklist-item">
+                  <input type="checkbox" data-item="fire-extinguisher">
+                  <span class="checkmark"></span>
+                  <span class="item-text">Fire extinguisher</span>
+                </label>
+              </div>
+
+              <div class="checklist-section">
+                <h3 class="checklist-title">
+                  <i class="fas fa-file-alt"></i>
+                  Documents & Cash
+                </h3>
+                <label class="checklist-item">
+                  <input type="checkbox" data-item="documents">
+                  <span class="checkmark"></span>
+                  <span class="item-text">Copies of important documents (IDs, insurance, bank records)</span>
+                </label>
+                <label class="checklist-item">
+                  <input type="checkbox" data-item="cash">
+                  <span class="checkmark"></span>
+                  <span class="item-text">Cash in small bills</span>
+                </label>
+                <label class="checklist-item">
+                  <input type="checkbox" data-item="emergency-contacts">
+                  <span class="checkmark"></span>
+                  <span class="item-text">List of emergency contacts</span>
+                </label>
+              </div>
+
+              <div class="checklist-section">
+                <h3 class="checklist-title">
+                  <i class="fas fa-shirt"></i>
+                  Personal Items
+                </h3>
+                <label class="checklist-item">
+                  <input type="checkbox" data-item="clothing">
+                  <span class="checkmark"></span>
+                  <span class="item-text">Change of clothing and sturdy shoes</span>
+                </label>
+                <label class="checklist-item">
+                  <input type="checkbox" data-item="blanket">
+                  <span class="checkmark"></span>
+                  <span class="item-text">Emergency blanket or sleeping bag</span>
+                </label>
+                <label class="checklist-item">
+                  <input type="checkbox" data-item="hygiene">
+                  <span class="checkmark"></span>
+                  <span class="item-text">Hygiene items (soap, toothbrush, sanitizer)</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Earthquake Tab -->
+          <div class="tab-content" id="earthquake">
+            <div class="content-header">
+              <h2 class="content-title">Earthquake Safety Guide</h2>
+              <p class="content-description">Earthquakes strike without warning. Follow these steps to protect yourself
+                and your family.</p>
+            </div>
+
+            <div class="phase-container">
+              <details class="phase-accordion phase-prepare" open>
+                <summary class="phase-header">
+                  <i class="fas fa-hard-hat"></i>
+                  <span class="phase-title">PREPARE</span>
+                  <span class="phase-subtitle">What to do now</span>
+                </summary>
+                <div class="phase-content">
+                  <ul class="phase-list">
+                    <li><strong>Secure heavy furniture</strong> to walls using brackets or straps</li>
+                    <li><strong>Store breakables</strong> on low shelves or in closed cabinets</li>
+                    <li><strong>Identify safe spots</strong> in each room (under sturdy tables, against interior walls)
+                    </li>
+                    <li><strong>Practice "Drop, Cover, Hold On"</strong> with your family</li>
+                    <li><strong>Know how to turn off</strong> gas, water, and electricity</li>
+                    <li><strong>Keep shoes and flashlight</strong> by your bed</li>
+                    <li><strong>Retrofit your home</strong> if it's an older building (consult a structural engineer)
+                    </li>
+                  </ul>
+                </div>
+              </details>
+
+              <details class="phase-accordion phase-survive">
+                <summary class="phase-header">
+                  <i class="fas fa-exclamation-triangle"></i>
+                  <span class="phase-title">SURVIVE</span>
+                  <span class="phase-subtitle">During the earthquake</span>
+                </summary>
+                <div class="phase-content">
+                  <div class="critical-warning">
+                    <i class="fas fa-bolt"></i>
+                    <strong>DO NOT run outside during shaking!</strong> You are safer indoors under cover.
+                  </div>
+                  <ul class="phase-list">
+                    <li><strong>DROP to your hands and knees</strong> immediately</li>
+                    <li><strong>COVER your head and neck</strong> under a sturdy table or desk</li>
+                    <li><strong>HOLD ON</strong> to your shelter until shaking stops</li>
+                    <li><strong>If no table is nearby</strong>, crouch against an interior wall, cover your head</li>
+                    <li><strong>Stay away from</strong> windows, mirrors, hanging objects, and exterior walls</li>
+                    <li><strong>If in bed</strong>, stay there and cover your head with a pillow</li>
+                    <li><strong>If outdoors</strong>, move away from buildings, trees, power lines, and streetlights
+                    </li>
+                    <li><strong>If driving</strong>, pull over safely, stop, and stay inside until shaking ends</li>
+                  </ul>
+                </div>
+              </details>
+
+              <details class="phase-accordion phase-recover">
+                <summary class="phase-header">
+                  <i class="fas fa-medkit"></i>
+                  <span class="phase-title">RECOVER</span>
+                  <span class="phase-subtitle">After the shaking stops</span>
+                </summary>
+                <div class="phase-content">
+                  <ul class="phase-list">
+                    <li><strong>Expect aftershocks</strong> – be ready to Drop, Cover, Hold On again</li>
+                    <li><strong>Check yourself and others</strong> for injuries. Provide first aid if trained</li>
+                    <li><strong>Check for hazards</strong>: gas leaks, damaged electrical wiring, structural damage</li>
+                    <li><strong>If you smell gas</strong>, open windows, leave immediately, and report it</li>
+                    <li><strong>Do NOT use elevators</strong> – they may be damaged</li>
+                    <li><strong>Use text messages</strong> instead of calls to reduce network congestion</li>
+                    <li><strong>Inspect your home</strong> for cracks in foundation, chimney, or walls</li>
+                    <li><strong>Document damage</strong> with photos for insurance claims</li>
+                    <li><strong>Listen to emergency broadcasts</strong> for official instructions</li>
+                    <li><strong>Stay out of damaged buildings</strong> until cleared by authorities</li>
+                  </ul>
+                </div>
+              </details>
+            </div>
+          </div>
+
+          <!-- Flood Tab -->
+          <div class="tab-content" id="flood">
+            <div class="content-header">
+              <h2 class="content-title">Flood Safety Guide</h2>
+              <p class="content-description">Floods are the most common natural disaster. Know the difference between a
+                watch and a warning.</p>
+            </div>
+
+            <div class="phase-container">
+              <details class="phase-accordion phase-prepare" open>
+                <summary class="phase-header">
+                  <i class="fas fa-hard-hat"></i>
+                  <span class="phase-title">PREPARE</span>
+                  <span class="phase-subtitle">What to do now</span>
+                </summary>
+                <div class="phase-content">
+                  <ul class="phase-list">
+                    <li><strong>Know your flood risk</strong> – check FEMA flood maps for your area</li>
+                    <li><strong>Purchase flood insurance</strong> – standard homeowner's insurance doesn't cover floods
+                    </li>
+                    <li><strong>Create an evacuation plan</strong> with multiple routes to higher ground</li>
+                    <li><strong>Elevate utilities</strong> (furnace, water heater, electrical panel) above potential
+                      flood levels</li>
+                    <li><strong>Install check valves</strong> in plumbing to prevent backflow</li>
+                    <li><strong>Keep important documents</strong> in waterproof containers</li>
+                    <li><strong>Assemble emergency supplies</strong> in a waterproof container</li>
+                  </ul>
+                </div>
+              </details>
+
+              <details class="phase-accordion phase-survive">
+                <summary class="phase-header">
+                  <i class="fas fa-exclamation-triangle"></i>
+                  <span class="phase-title">SURVIVE</span>
+                  <span class="phase-subtitle">During flooding</span>
+                </summary>
+                <div class="phase-content">
+                  <div class="critical-warning">
+                    <i class="fas fa-bolt"></i>
+                    <strong>DO NOT enter floodwater!</strong> Just 6 inches of moving water can knock you down. 2 feet
+                    can sweep away a vehicle.
+                  </div>
+                  <ul class="phase-list">
+                    <li><strong>Evacuate immediately</strong> if told to do so by authorities</li>
+                    <li><strong>Move to higher ground</strong> if water is rising</li>
+                    <li><strong>Never drive through flooded roads</strong> – "Turn Around, Don't Drown"</li>
+                    <li><strong>Avoid walking through water</strong> – it may hide debris, open manholes, or downed
+                      power lines</li>
+                    <li><strong>Stay off bridges</strong> over fast-moving water</li>
+                    <li><strong>If trapped in a building</strong>, go to the highest level (not the attic – you could
+                      get trapped)</li>
+                    <li><strong>If trapped in a car</strong>, abandon it and move to higher ground immediately</li>
+                    <li><strong>Do NOT touch electrical equipment</strong> if wet or standing in water</li>
+                  </ul>
+                </div>
+              </details>
+
+              <details class="phase-accordion phase-recover">
+                <summary class="phase-header">
+                  <i class="fas fa-medkit"></i>
+                  <span class="phase-title">RECOVER</span>
+                  <span class="phase-subtitle">After the flood</span>
+                </summary>
+                <div class="phase-content">
+                  <ul class="phase-list">
+                    <li><strong>Listen to authorities</strong> before returning home</li>
+                    <li><strong>Avoid floodwater</strong> – it may be contaminated with sewage or chemicals</li>
+                    <li><strong>Do NOT enter buildings</strong> if water remains around them</li>
+                    <li><strong>Watch for structural damage</strong> – walls, floors, and foundations may be compromised
+                    </li>
+                    <li><strong>Be aware of wildlife</strong> – snakes and rodents may have entered your home</li>
+                    <li><strong>Throw away contaminated food</strong> that came in contact with floodwater</li>
+                    <li><strong>Clean and disinfect everything</strong> that got wet</li>
+                    <li><strong>Document all damage</strong> for insurance with photos and videos</li>
+                    <li><strong>Boil water</strong> or use bottled water until authorities say tap water is safe</li>
+                  </ul>
+                </div>
+              </details>
+            </div>
+          </div>
+
+          <!-- Wildfire Tab -->
+          <div class="tab-content" id="wildfire">
+            <div class="content-header">
+              <h2 class="content-title">Wildfire Safety Guide</h2>
+              <p class="content-description">Wildfires spread rapidly. Create defensible space and be ready to evacuate
+                at a moment's notice.</p>
+            </div>
+
+            <div class="phase-container">
+              <details class="phase-accordion phase-prepare" open>
+                <summary class="phase-header">
+                  <i class="fas fa-hard-hat"></i>
+                  <span class="phase-title">PREPARE</span>
+                  <span class="phase-subtitle">What to do now</span>
+                </summary>
+                <div class="phase-content">
+                  <ul class="phase-list">
+                    <li><strong>Create defensible space</strong> – clear vegetation 30 feet around your home</li>
+                    <li><strong>Use fire-resistant materials</strong> for roofing and exterior walls</li>
+                    <li><strong>Install spark arresters</strong> on chimneys and stovepipes</li>
+                    <li><strong>Keep gutters and roof</strong> clear of leaves and debris</li>
+                    <li><strong>Store firewood 30 feet away</strong> from structures</li>
+                    <li><strong>Have garden hoses</strong> long enough to reach all areas of your home</li>
+                    <li><strong>Create an evacuation plan</strong> with two routes out of your neighborhood</li>
+                    <li><strong>Prepare a "go-bag"</strong> with essentials ready to grab in 5 minutes</li>
+                  </ul>
+                </div>
+              </details>
+
+              <details class="phase-accordion phase-survive">
+                <summary class="phase-header">
+                  <i class="fas fa-exclamation-triangle"></i>
+                  <span class="phase-title">SURVIVE</span>
+                  <span class="phase-subtitle">During a wildfire</span>
+                </summary>
+                <div class="phase-content">
+                  <div class="critical-warning">
+                    <i class="fas fa-bolt"></i>
+                    <strong>Evacuate immediately when ordered!</strong> Do not wait to see the fire. Fires can change
+                    direction rapidly.
+                  </div>
+                  <ul class="phase-list">
+                    <li><strong>Monitor emergency alerts</strong> and air quality reports</li>
+                    <li><strong>If advised to evacuate</strong>, do so immediately – don't delay to gather belongings
+                    </li>
+                    <li><strong>If trapped</strong>, call 911 and give your location</li>
+                    <li><strong>Close all windows and doors</strong> but leave them unlocked</li>
+                    <li><strong>Turn on lights</strong> to help firefighters see your home through smoke</li>
+                    <li><strong>Fill sinks and tubs</strong> with water for firefighting</li>
+                    <li><strong>Move flammable items</strong> away from windows and doors</li>
+                    <li><strong>If caught in the open</strong>, go to a cleared area or lie flat and cover yourself with
+                      soil</li>
+                    <li><strong>Wear protective clothing</strong> – cotton or wool, not synthetics</li>
+                  </ul>
+                </div>
+              </details>
+
+              <details class="phase-accordion phase-recover">
+                <summary class="phase-header">
+                  <i class="fas fa-medkit"></i>
+                  <span class="phase-title">RECOVER</span>
+                  <span class="phase-subtitle">After the fire</span>
+                </summary>
+                <div class="phase-content">
+                  <ul class="phase-list">
+                    <li><strong>Return home only</strong> when authorities say it's safe</li>
+                    <li><strong>Watch for hot spots</strong> – fires can reignite from hidden embers</li>
+                    <li><strong>Avoid damaged areas</strong> with weakened structures, trees, or power lines</li>
+                    <li><strong>Document property damage</strong> with photos for insurance</li>
+                    <li><strong>Discard contaminated food</strong> exposed to heat, smoke, or soot</li>
+                    <li><strong>Wear protective gear</strong> when cleaning ash – use gloves, goggles, and N95 masks
+                    </li>
+                    <li><strong>Wet down ash</strong> before sweeping to minimize airborne particles</li>
+                    <li><strong>Check with utilities</strong> before turning on gas or electricity</li>
+                    <li><strong>Watch for respiratory issues</strong> from smoke inhalation – seek medical help if
+                      needed</li>
+                  </ul>
+                </div>
+              </details>
+            </div>
+          </div>
+
+          <!-- Hurricane Tab -->
+          <div class="tab-content" id="hurricane">
+            <div class="content-header">
+              <h2 class="content-title">Hurricane Safety Guide</h2>
+              <p class="content-description">Hurricanes are tracked days in advance. Use that time to prepare and
+                evacuate if necessary.</p>
+            </div>
+
+            <div class="phase-container">
+              <details class="phase-accordion phase-prepare" open>
+                <summary class="phase-header">
+                  <i class="fas fa-hard-hat"></i>
+                  <span class="phase-title">PREPARE</span>
+                  <span class="phase-subtitle">What to do now</span>
+                </summary>
+                <div class="phase-content">
+                  <ul class="phase-list">
+                    <li><strong>Know your evacuation zone</strong> – coastal areas have designated zones</li>
+                    <li><strong>Strengthen your home</strong> – install storm shutters or have plywood ready</li>
+                    <li><strong>Trim trees and shrubs</strong> to reduce wind damage</li>
+                    <li><strong>Clear gutters and drains</strong> to prevent water damage</li>
+                    <li><strong>Secure outdoor items</strong> – bring in furniture, grills, and decorations</li>
+                    <li><strong>Review insurance</strong> – ensure you have adequate coverage for wind and flood</li>
+                    <li><strong>Fill prescriptions</strong> in advance</li>
+                    <li><strong>Stock up on supplies</strong> – water, non-perishable food, batteries, cash</li>
+                  </ul>
+                </div>
+              </details>
+
+              <details class="phase-accordion phase-survive">
+                <summary class="phase-header">
+                  <i class="fas fa-exclamation-triangle"></i>
+                  <span class="phase-title">SURVIVE</span>
+                  <span class="phase-subtitle">During the hurricane</span>
+                </summary>
+                <div class="phase-content">
+                  <div class="critical-warning">
+                    <i class="fas fa-bolt"></i>
+                    <strong>Evacuate if ordered!</strong> Storm surge can be deadly. Do not ride out a hurricane in an
+                    evacuation zone.
+                  </div>
+                  <ul class="phase-list">
+                    <li><strong>Monitor weather updates</strong> constantly via radio or mobile alerts</li>
+                    <li><strong>Charge all devices</strong> before losing power</li>
+                    <li><strong>Turn refrigerator to coldest setting</strong> to preserve food during outages</li>
+                    <li><strong>Fill bathtubs with water</strong> for sanitation</li>
+                    <li><strong>Stay indoors</strong> away from windows and glass doors</li>
+                    <li><strong>Go to an interior room</strong> on the lowest floor (not a basement)</li>
+                    <li><strong>Lie under sturdy furniture</strong> if winds become extreme</li>
+                    <li><strong>Beware the eye of the storm</strong> – calm conditions are temporary, the second half is
+                      coming</li>
+                    <li><strong>Do NOT go outside</strong> until authorities declare the all-clear</li>
+                  </ul>
+                </div>
+              </details>
+
+              <details class="phase-accordion phase-recover">
+                <summary class="phase-header">
+                  <i class="fas fa-medkit"></i>
+                  <span class="phase-title">RECOVER</span>
+                  <span class="phase-subtitle">After the storm passes</span>
+                </summary>
+                <div class="phase-content">
+                  <ul class="phase-list">
+                    <li><strong>Wait for official all-clear</strong> before leaving your shelter</li>
+                    <li><strong>Watch for flooding</strong> – storm surge can continue after the hurricane</li>
+                    <li><strong>Avoid downed power lines</strong> and standing water near them</li>
+                    <li><strong>Check for structural damage</strong> before entering buildings</li>
+                    <li><strong>Use generators outdoors only</strong> – never inside due to carbon monoxide risk</li>
+                    <li><strong>Do NOT use candles</strong> if gas leaks are suspected</li>
+                    <li><strong>Conserve water</strong> until water systems are declared safe</li>
+                    <li><strong>Report downed power lines</strong> to utility companies</li>
+                    <li><strong>Help neighbors</strong> but do not enter damaged buildings</li>
+                    <li><strong>Document damage thoroughly</strong> for FEMA and insurance claims</li>
+                  </ul>
+                </div>
+              </details>
+            </div>
+          </div>
+        </div>
+
+        <!-- Emergency Card Sidebar -->
+        <aside class="emergency-card">
+          <div class="emergency-header">
+            <i class="fas fa-phone-alt"></i>
+            <h3>Emergency Numbers</h3>
+          </div>
+          <div class="emergency-list">
+            <div class="emergency-item">
+              <span class="emergency-label">Universal SOS</span>
+              <a href="tel:112" class="emergency-number">112</a>
+            </div>
+            <div class="emergency-item">
+              <span class="emergency-label">Police</span>
+              <a href="tel:100" class="emergency-number">100</a>
+            </div>
+            <div class="emergency-item">
+              <span class="emergency-label">Ambulance</span>
+              <a href="tel:102" class="emergency-number">102</a>
+            </div>
+            <div class="emergency-item">
+              <span class="emergency-label">Fire Brigade</span>
+              <a href="tel:101" class="emergency-number">101</a>
+            </div>
+            <div class="emergency-item">
+              <span class="emergency-label">Disaster Mgmt</span>
+              <a href="tel:108" class="emergency-number">108</a>
+            </div>
+          </div>
+          <div class="emergency-tip">
+            <i class="fas fa-info-circle"></i>
+            <p>Keep these numbers saved in your phone. Program them before an emergency.</p>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="main-footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-bottom">
+          <div class="footer-copyright">
+            <i class="far fa-copyright"></i>
+            2026 DIAPS. All rights reserved.
+          </div>
+          <nav class="footer-nav">
+            <a href="index.html" class="footer-nav-link">
+              <i class="fas fa-home"></i>
+              Home
+            </a>
+            <span class="footer-nav-separator">•</span>
+            <a href="#privacy" class="footer-nav-link">
+              <i class="fas fa-shield-alt"></i>
+              Privacy Policy
+            </a>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/pages/safety.js"></script>
+</body>
+
+</html>
