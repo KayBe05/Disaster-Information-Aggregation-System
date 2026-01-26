@@ -1,6 +1,6 @@
 :root {
   --primary-color: #00D9A3;
-  --primary-dark: #00B386;
+  --primary-dark: #004f3b;
   --primary-light: #00F5B8;
   --secondary-color: #00A8E8;
   --accent-color: #0066FF;
@@ -10,8 +10,6 @@
   --success-color: #00D9A3;
   --info-color: #00A8E8;
 
-  --dark-bg: #0A0E27;
-  --darker-bg: #060920;
   --card-bg: rgba(255, 255, 255, 0.03);
   --card-hover: rgba(255, 255, 255, 0.06);
   --input-bg: rgba(255, 255, 255, 0.05);
@@ -49,13 +47,12 @@ body {
 }
 
 .navbar {
-  background: rgba(10, 14, 39, 0.8);
-  backdrop-filter: blur(20px) saturate(180%);
+  background: none;
+  backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--border-color);
   position: sticky;
   top: 0;
   z-index: 100;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
 }
 
 .nav-container {
@@ -76,18 +73,21 @@ body {
 .brand-logo {
   width: 40px;
   height: 40px;
-  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  background: none;
   border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--dark-bg);
-  box-shadow: 0 4px 16px rgba(0, 217, 163, 0.4);
 }
 
-.brand-logo i {
-  width: 22px;
-  height: 22px;
+.brand-text {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  text-decoration: none;
+  letter-spacing: 1px;
+  transition: var(--transition-base);
 }
 
 .nav-brand a {

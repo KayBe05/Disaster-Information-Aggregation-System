@@ -1,39 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Report Incident - DIAS</title>
-  
-  <!-- Leaflet CSS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-  
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  
-  <!-- Base Styles -->
-  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css"> 
   <link rel="stylesheet" href="css/pages/volunteer.css">
-  
-  <!-- Feather Icons -->
   <script src="https://unpkg.com/feather-icons"></script>
 </head>
+
 <body>
   <!-- Navigation -->
   <nav class="navbar">
     <div class="nav-container">
       <div class="nav-brand">
-        <div class="brand-logo">
-          <i data-feather="shield"></i>
-        </div>
-        <a href="index.html">DIAS</a>
+        <img src="assests/Icons/logo.png" alt="DIAPS Logo" class="brand-logo">
+        <a href="index.html"><h1 class="brand-text">DIAS</h1></a>
       </div>
       <ul class="nav-menu">
         <li><a href="index.html"><i data-feather="home"></i><span>Dashboard</span></a></li>
         <li><a href="volunteer.html" class="active"><i data-feather="alert-circle"></i><span>Report</span></a></li>
-        <li><a href="profile.html"><i data-feather="user"></i><span>Profile</span></a></li>
       </ul>
       <button class="nav-toggle" id="navToggle">
         <i data-feather="menu"></i>
@@ -121,7 +113,7 @@
 
     <!-- Report Form -->
     <form id="reportForm" class="report-form">
-      
+
       <!-- Step 1: Incident Type -->
       <div class="form-card" data-step="1">
         <div class="card-header">
@@ -133,7 +125,7 @@
             <p class="card-subtitle">Select the type of disaster or emergency</p>
           </div>
         </div>
-        
+
         <div class="card-content">
           <div class="type-grid">
             <button type="button" class="type-card" data-type="earthquake">
@@ -144,7 +136,7 @@
               <p class="type-description">Ground shaking or tremors</p>
               <div class="type-check"><i data-feather="check"></i></div>
             </button>
-            
+
             <button type="button" class="type-card" data-type="flood">
               <div class="type-icon flood">
                 <i data-feather="droplet"></i>
@@ -153,7 +145,7 @@
               <p class="type-description">Water overflow or inundation</p>
               <div class="type-check"><i data-feather="check"></i></div>
             </button>
-            
+
             <button type="button" class="type-card" data-type="fire">
               <div class="type-icon fire">
                 <i data-feather="zap"></i>
@@ -162,7 +154,7 @@
               <p class="type-description">Wildfire or building fire</p>
               <div class="type-check"><i data-feather="check"></i></div>
             </button>
-            
+
             <button type="button" class="type-card" data-type="damage">
               <div class="type-icon damage">
                 <i data-feather="alert-triangle"></i>
@@ -187,14 +179,14 @@
             <p class="card-subtitle">Mark the exact location on the map</p>
           </div>
         </div>
-        
+
         <div class="card-content">
           <button type="button" class="locate-btn" id="locateBtn">
             <i data-feather="crosshair"></i>
             <span>Use My Current Location</span>
             <div class="btn-shine"></div>
           </button>
-          
+
           <div class="map-wrapper">
             <div class="map-container" id="mapContainer">
               <div class="map-overlay" id="mapScanning">
@@ -237,7 +229,7 @@
             <p class="card-subtitle">Rate the severity of the incident</p>
           </div>
         </div>
-        
+
         <div class="card-content">
           <div class="severity-wrapper">
             <div class="severity-header">
@@ -249,14 +241,14 @@
                 </div>
               </div>
             </div>
-            
+
             <div class="severity-slider-wrapper">
               <input type="range" id="severity" name="severity" min="1" max="5" value="3" class="severity-slider">
               <div class="severity-track">
                 <div class="severity-fill" id="severityFill"></div>
               </div>
             </div>
-            
+
             <div class="severity-labels">
               <div class="severity-level">
                 <div class="level-dot"></div>
@@ -294,7 +286,7 @@
             <p class="card-subtitle">Upload photos of the incident (optional)</p>
           </div>
         </div>
-        
+
         <div class="card-content">
           <div class="upload-area" id="uploadZone">
             <input type="file" id="photoInput" name="photo" accept="image/*" hidden>
@@ -351,7 +343,8 @@
         <div class="success-ripple"></div>
       </div>
       <h2 class="modal-title">Report Submitted Successfully</h2>
-      <p class="modal-text">Your incident report has been received and is being processed. Our team will review it shortly.</p>
+      <p class="modal-text">Your incident report has been received and is being processed. Our team will review it
+        shortly.</p>
       <div class="modal-actions">
         <button class="modal-btn primary" onclick="window.location.href='index.html'">
           <span>View Dashboard</span>
@@ -363,13 +356,14 @@
 
   <!-- Leaflet JS -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  
+
   <!-- Page Script -->
   <script src="js/pages/volunteer.js"></script>
-  
+
   <!-- Initialize Feather Icons -->
   <script>
     feather.replace();
   </script>
 </body>
+
 </html>
