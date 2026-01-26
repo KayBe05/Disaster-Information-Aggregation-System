@@ -5,7 +5,7 @@
   --olive-wood: #846C5B;
   --seaweed: #21A179;
 
-  --bg-gradient: linear-gradient(185deg, var(--prussian-blue) 0%, var(--steel-azure) 100%);
+  --bg-gradient: linear-gradient(95deg, var(--prussian-blue) 0%, var(--steel-azure) 100%);
   --primary-gradient: linear-gradient(90deg, var(--champagne-mist) 0%, var(--olive-wood) 100%);
   --seaweed-gradient: linear-gradient(135deg, var(--seaweed) 0%, #1a8060 100%);
 

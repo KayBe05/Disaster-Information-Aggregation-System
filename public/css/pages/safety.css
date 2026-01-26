@@ -1,10 +1,8 @@
-/* Typography Override for Readability */
 body {
   font-size: 17px;
   line-height: 1.8;
 }
 
-/* Safety Hero Section */
 .safety-hero {
   padding: calc(80px + 80px) var(--container-padding) 80px;
   text-align: center;
@@ -485,7 +483,8 @@ body {
   grid-column: 2;
   position: sticky;
   top: 100px;
-  background: linear-gradient(180deg, rgba(0, 3, 40, 0.98) 0%, rgba(0, 69, 142, 0.08) 100%);;
+  background: linear-gradient(180deg, rgba(0, 3, 40, 0.98) 0%, rgba(0, 69, 142, 0.08) 100%);
+  ;
   backdrop-filter: blur(20px);
   border: 2px solid var(--accent-red);
   border-radius: var(--radius-lg);

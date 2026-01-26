@@ -78,9 +78,9 @@ body {
 }
 
 .main-header.scrolled {
-    border-bottom: 1px solid rgba(33, 161, 121, 0.2);
+    border-bottom: 1px solid var(--champagne-mist);
     padding: var(--space-sm) var(--space-xl);
-    background: rgba(0, 3, 40, 0.95);
+    background: var(--bg-gradient);
     backdrop-filter: blur(20px);
     box-shadow: 0 4px 20px rgba(0, 3, 40, 0.5);
 }

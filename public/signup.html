@@ -4,233 +4,196 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Command Access Portal - DIAS</title>
-  <link rel="stylesheet" href="css/style.css">
+  <title>Sign In - DIAPS Platform</title>
+  <link rel="stylesheet" href="css/root.css">
   <link rel="stylesheet" href="css/pages/auth.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.29.0/feather.min.js"></script>
 </head>
 
 <body>
-  <div class="auth-background">
-    <div class="bg-overlay"></div>
-    <img src="assets/img/bg.jpg" alt="Background">
+  <!-- Success Modal -->
+  <div class="modal-overlay" id="accessOverlay">
+    <div class="modal-content success-modal">
+      <div class="success-checkmark">
+        <svg viewBox="0 0 52 52">
+          <circle class="checkmark-circle" cx="26" cy="26" r="25" fill="none" />
+          <path class="checkmark-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
+        </svg>
+      </div>
+      <h2>Welcome Back!</h2>
+      <p>Taking you to your dashboard...</p>
+    </div>
   </div>
 
-  <div class="access-overlay" id="accessOverlay">
-    <div class="access-content">
-      <i data-feather="check-circle"></i>
-      <h2>ACCESS GRANTED</h2>
-      <p>Redirecting to Command Center...</p>
+  <!-- Loading Overlay -->
+  <div class="modal-overlay" id="loadingSpinner">
+    <div class="modal-content">
+      <div class="loader">
+        <div class="loader-circle"></div>
+        <div class="loader-circle"></div>
+        <div class="loader-circle"></div>
+      </div>
+      <p class="loading-text">Authenticating...</p>
     </div>
   </div>
 
   <!-- Main Container -->
-  <div class="auth-container">
-    <!-- Left Panel - System Status -->
-    <div class="auth-left">
-      <div class="system-header">
-        <div class="system-logo">
-          <img src="assests/Icons/logo.png" alt="DIAPS Logo" class="logo-image">
-          <h1 class="logo-text">DIAS</h1>
-        </div>
-        <div class="system-title">
-          <h1>DISASTER INTELLIGENCE</h1>
-          <p>COMMAND ACCESS PORTAL</p>
-        </div>
-      </div>
-
-      <div class="system-status">
-        <h3>SYSTEM STATUS</h3>
-        <div class="status-grid">
-          <div class="status-item">
-            <i data-feather="globe"></i>
-            <div class="status-info">
-              <span class="status-label">Network</span>
-              <span class="status-value online">ONLINE</span>
-            </div>
-          </div>
-          <div class="status-item">
-            <i data-feather="cpu"></i>
-            <div class="status-info">
-              <span class="status-label">Active Nodes</span>
-              <span class="status-value">150+</span>
-            </div>
-          </div>
-          <div class="status-item">
-            <i data-feather="lock"></i>
-            <div class="status-info">
-              <span class="status-label">Security Level</span>
-              <span class="status-value high">HIGH</span>
-            </div>
-          </div>
-          <div class="status-item">
-            <i data-feather="activity"></i>
-            <div class="status-info">
-              <span class="status-label">System Health</span>
-              <span class="status-value">98.7%</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="system-map">
-        <div class="map-overlay"></div>
-      </div>
-
-      <div class="system-footer">
-        <p>CLASSIFIED SYSTEM - AUTHORIZED PERSONNEL ONLY</p>
-        <p class="timestamp" id="systemTime"></p>
-      </div>
-    </div>
-
-    <!-- Right Panel - Access Forms -->
-    <div class="auth-right">
-      <div class="auth-card">
-        <!-- Toggle Switch -->
-        <div class="auth-toggle">
-          <button class="toggle-btn active" data-mode="login">
-            <i data-feather="log-in"></i>
-            COMMAND LOGIN
-          </button>
-          <button class="toggle-btn" data-mode="register">
-            <i data-feather="user-plus"></i>
-            NEW ACCESS REQUEST
-          </button>
-          <div class="toggle-indicator"></div>
-        </div>
-
-        <!-- Login Form -->
-        <form class="auth-form active" id="loginForm">
-          <div class="form-header">
-            <i data-feather="terminal"></i>
-            <h2>SECURE ACCESS</h2>
-            <p>Enter your credentials to access the command center</p>
-          </div>
-
-          <div class="form-group">
-            <label for="loginEmail">
-              <i data-feather="mail"></i>
-              EMAIL ADDRESS
-            </label>
-            <input type="email" id="loginEmail" placeholder="agent@diaps.gov" required autocomplete="email">
-          </div>
-
-          <div class="form-group">
-            <label for="loginPassword">
-              <i data-feather="key"></i>
-              ACCESS CODE
-            </label>
-            <div class="password-wrapper">
-              <input type="password" id="loginPassword" placeholder="••••••••" required autocomplete="current-password">
-              <button type="button" class="toggle-password" data-target="loginPassword">
-                <i data-feather="eye"></i>
-              </button>
-            </div>
-          </div>
-
-          <div class="form-options">
-            <label class="checkbox-label">
-              <input type="checkbox" id="rememberMe">
-              <span>Remember this device</span>
-            </label>
-            <a href="#" class="forgot-link">Forgot access code?</a>
-          </div>
-
-          <div class="form-actions">
-            <button type="submit" class="btn-primary">
-              <i data-feather="unlock"></i>
-              <span>GRANT ACCESS</span>
+  <div class="auth-wrapper">
+    <div class="auth-container">
+      <!-- Right Side - Authentication Forms -->
+      <main class="auth-main">
+        <div class="auth-card">
+          <!-- Tab Switcher -->
+          <div class="tab-switcher">
+            <button class="tab-button active" data-tab="login">
+              Sign In
             </button>
-          </div>
-
-          <div class="form-message" id="loginMessage"></div>
-        </form>
-
-        <!-- Register Form -->
-        <form class="auth-form" id="registerForm">
-          <div class="form-header">
-            <i data-feather="user-check"></i>
-            <h2>ACCESS REQUEST</h2>
-            <p>Complete the form to request system access</p>
-          </div>
-
-          <div class="form-group">
-            <label for="registerName">
-              <i data-feather="user"></i>
-              FULL NAME
-            </label>
-            <input type="text" id="registerName" placeholder="John Doe" required>
-          </div>
-
-          <div class="form-group">
-            <label for="registerEmail">
-              <i data-feather="mail"></i>
-              EMAIL ADDRESS
-            </label>
-            <input type="email" id="registerEmail" placeholder="john.doe@example.com" required autocomplete="email">
-          </div>
-
-          <div class="form-group">
-            <label for="registerPassword">
-              <i data-feather="key"></i>
-              CREATE ACCESS CODE
-            </label>
-            <div class="password-wrapper">
-              <input type="password" id="registerPassword" placeholder="••••••••" required autocomplete="new-password">
-              <button type="button" class="toggle-password" data-target="registerPassword">
-                <i data-feather="eye"></i>
-              </button>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="registerRole">
-              <i data-feather="briefcase"></i>
-              ROLE CLASSIFICATION
-            </label>
-            <select id="registerRole" required>
-              <option value="">Select your role...</option>
-              <option value="civilian">Civilian</option>
-              <option value="first_responder">First Responder</option>
-              <option value="agency">Agency</option>
-            </select>
-          </div>
-
-          <!-- Service Key Field (Hidden by default) -->
-          <div class="form-group" id="serviceKeyGroup" style="display: none;">
-            <label for="serviceKey">
-              <i data-feather="shield"></i>
-              SERVICE KEY
-            </label>
-            <input type="text" id="serviceKey" placeholder="Enter agency service key" autocomplete="off">
-            <small class="field-hint">Required for agency access</small>
-          </div>
-
-          <div class="form-options">
-            <label class="checkbox-label">
-              <input type="checkbox" id="agreeTerms" required>
-              <span>I agree to the terms and security protocols</span>
-            </label>
-          </div>
-
-          <div class="form-actions">
-            <button type="submit" class="btn-primary">
-              <i data-feather="send"></i>
-              <span>REQUEST ACCESS</span>
+            <button class="tab-button" data-tab="register">
+              Create Account
             </button>
+            <div class="tab-indicator"></div>
           </div>
 
-          <div class="form-message" id="registerMessage"></div>
-        </form>
-      </div>
-    </div>
-  </div>
+          <!-- Login Form -->
+          <form class="auth-form active" id="loginForm">
+            <div class="form-header">
+              <h2>Welcome back</h2>
+              <p>Enter your credentials to access your account</p>
+            </div>
 
-  <!-- Loading Spinner -->
-  <div class="loading-spinner" id="loadingSpinner">
-    <div class="spinner-content">
-      <div class="spinner"></div>
-      <p>VERIFYING CREDENTIALS...</p>
+            <div class="form-body">
+              <div class="input-group">
+                <label for="loginEmail">Email address</label>
+                <div class="input-container">
+                  <i data-feather="mail" class="input-icon"></i>
+                  <input type="email" id="loginEmail" placeholder="your.email@example.com" autocomplete="email"
+                    required>
+                </div>
+              </div>
+
+              <div class="input-group">
+                <label for="loginPassword">Password</label>
+                <div class="input-container">
+                  <i data-feather="lock" class="input-icon"></i>
+                  <input type="password" id="loginPassword" placeholder="Enter your password"
+                    autocomplete="current-password" required>
+                  <button type="button" class="password-toggle" data-target="loginPassword">
+                    <i data-feather="eye"></i>
+                  </button>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <label class="checkbox-container">
+                  <input type="checkbox" id="rememberMe">
+                  <span class="checkmark"></span>
+                  <span class="checkbox-text">Remember me</span>
+                </label>
+                <a href="#" class="text-link">Forgot password?</a>
+              </div>
+
+              <button type="submit" class="btn-primary">
+                <span>Sign In</span>
+                <i data-feather="arrow-right"></i>
+              </button>
+
+              <div class="form-message" id="loginMessage"></div>
+            </div>
+
+            <div class="form-footer">
+              <p>Don't have an account? <a href="#" class="text-link-bold" data-switch="register">Sign up</a></p>
+            </div>
+          </form>
+
+          <!-- Register Form -->
+          <form class="auth-form" id="registerForm">
+            <div class="form-header">
+              <h2>Create your account</h2>
+              <p>Join the emergency response network</p>
+            </div>
+
+            <div class="form-body">
+              <div class="input-group">
+                <label for="registerName">Full name</label>
+                <div class="input-container">
+                  <i data-feather="user" class="input-icon"></i>
+                  <input type="text" id="registerName" placeholder="John Doe" required>
+                </div>
+              </div>
+
+              <div class="input-group">
+                <label for="registerEmail">Email address</label>
+                <div class="input-container">
+                  <i data-feather="mail" class="input-icon"></i>
+                  <input type="email" id="registerEmail" placeholder="your.email@example.com" autocomplete="email"
+                    required>
+                </div>
+              </div>
+
+              <div class="input-group">
+                <label for="registerPassword">Password</label>
+                <div class="input-container">
+                  <i data-feather="lock" class="input-icon"></i>
+                  <input type="password" id="registerPassword" placeholder="Create a strong password"
+                    autocomplete="new-password" required>
+                  <button type="button" class="password-toggle" data-target="registerPassword">
+                    <i data-feather="eye"></i>
+                  </button>
+                </div>
+                <small class="input-hint">Minimum 8 characters required</small>
+              </div>
+
+              <div class="input-group">
+                <label for="registerRole">Account type</label>
+                <div class="input-container">
+                  <i data-feather="briefcase" class="input-icon"></i>
+                  <select id="registerRole" required>
+                    <option value="">Select your role</option>
+                    <option value="civilian">Civilian</option>
+                    <option value="first_responder">First Responder</option>
+                    <option value="agency">Government Agency</option>
+                  </select>
+                  <i data-feather="chevron-down" class="select-arrow"></i>
+                </div>
+              </div>
+
+              <div class="input-group" id="serviceKeyGroup" style="display: none;">
+                <label for="serviceKey">Agency verification key</label>
+                <div class="input-container">
+                  <i data-feather="key" class="input-icon"></i>
+                  <input type="text" id="serviceKey" placeholder="Enter your agency key" autocomplete="off">
+                </div>
+                <small class="input-hint">Contact your administrator for the verification key</small>
+              </div>
+
+              <label class="checkbox-container">
+                <input type="checkbox" id="agreeTerms" required>
+                <span class="checkmark"></span>
+                <span class="checkbox-text">
+                  I agree to the <a href="#" class="text-link">Terms of Service</a> and <a href="#"
+                    class="text-link">Privacy Policy</a>
+                </span>
+              </label>
+
+              <button type="submit" class="btn-primary">
+                <span>Create Account</span>
+                <i data-feather="arrow-right"></i>
+              </button>
+
+              <div class="form-message" id="registerMessage"></div>
+            </div>
+
+            <div class="form-footer">
+              <p>Already have an account? <a href="#" class="text-link-bold" data-switch="login">Sign in</a></p>
+            </div>
+          </form>
+
+        </div>
+      </main>
+
     </div>
   </div>
 
