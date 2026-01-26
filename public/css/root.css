@@ -1,0 +1,78 @@
+:root {
+  --prussian-blue: #000328;
+  --steel-azure: #00458E;
+  --champagne-mist: #FFEAD0;
+  --olive-wood: #846C5B;
+  --seaweed: #21A179;
+
+  --bg-gradient: linear-gradient(185deg, var(--prussian-blue) 0%, var(--steel-azure) 100%);
+  --primary-gradient: linear-gradient(90deg, var(--champagne-mist) 0%, var(--olive-wood) 100%);
+  --seaweed-gradient: linear-gradient(135deg, var(--seaweed) 0%, #1a8060 100%);
+
+  --bg-primary: var(--prussian-blue);
+  --bg-secondary: rgba(0, 69, 142, 0.1);
+  --bg-tertiary: rgba(33, 161, 121, 0.08);
+  --bg-card: rgba(255, 234, 208, 0.05);
+
+  --pure-white: #ffffff;
+  --primary-color: var(--champagne-mist);
+  --accent-gold: var(--olive-wood);
+  --accent-blue: var(--steel-azure);
+  --accent-green: var(--seaweed);
+  --accent-red: #FF6B6B;
+
+  --text-primary: var(--champagne-mist);
+  --text-secondary: rgba(255, 234, 208, 0.8);
+  --text-tertiary: rgba(255, 234, 208, 0.6);
+
+  --border-color: rgba(255, 234, 208, 0.15);
+  --border-accent: rgba(33, 161, 121, 0.4);
+  --border-blue: rgba(0, 69, 142, 0.3);
+
+  --verified-color: var(--seaweed);
+
+  --space-xs: 8px;
+  --space-sm: 16px;
+  --space-md: 24px;
+  --space-lg: 32px;
+  --space-xl: 48px;
+  --space-2xl: 64px;
+  --space-3xl: 96px;
+  --space-4xl: 128px;
+
+  --section-padding: clamp(80px, 12vw, 160px);
+  --container-padding: clamp(24px, 5vw, 80px);
+  --container-max: 1440px;
+
+  --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-secondary: 'Playfair Display', serif;
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+
+  --transition-fast: 0.15s ease;
+  --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+  --shadow-sm: 0 2px 8px rgba(0, 3, 40, 0.2);
+  --shadow-md: 0 4px 16px rgba(0, 3, 40, 0.3);
+  --shadow-lg: 0 8px 32px rgba(0, 3, 40, 0.4);
+  --shadow-glow: 0 0 40px rgba(33, 161, 121, 0.2);
+  --shadow-champagne: 0 8px 24px rgba(255, 234, 208, 0.15);
+}
+
+@media (max-width: 1024px) {
+  :root {
+    --section-padding: 80px;
+    --container-padding: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --section-padding: 60px;
+    --container-padding: 24px;
+  }
+}

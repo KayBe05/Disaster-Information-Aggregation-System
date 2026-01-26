@@ -2,440 +2,440 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DIAPS - Unified Disaster Intelligence</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;700&display=swap"
-        rel="stylesheet">
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>DIAS - Unified Disaster Intelligence</title>
+	<link rel="stylesheet" href="css/root.css">
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link
+		href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;700&display=swap"
+		rel="stylesheet">
+	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 </head>
 
 <body>
-    <!-- Header -->
-    <header class="main-header" id="header">
-        <div class="header-left">
-            <div class="logo-container">
-                <img src="assests/Icons/logo.png" alt="DIAPS Logo" class="logo-image">
-                <h1 class="logo-text">DIAS</h1>
-            </div>
-        </div>
+	<!-- Header -->
+	<header class="main-header" id="header">
+		<div class="header-left">
+			<div class="logo-container">
+				<img src="assests/Icons/logo.png" alt="DIAPS Logo" class="logo-image">
+				<h1 class="logo-text">DIAS</h1>
+			</div>
+		</div>
 
-        <nav>
-            <ul class="nav-links">
-                <li><a href="#live">Live Intelligence</a></li>
-                <li><a href="#inputs">Inputs</a></li>
-                <li><a href="#resources">Resources</a></li>
-            </ul>
-        </nav>
+		<nav>
+			<ul class="nav-links">
+				<li><a href="#live">Live Intelligence</a></li>
+				<li><a href="#inputs">Inputs</a></li>
+				<li><a href="#resources">Resources</a></li>
+			</ul>
+		</nav>
 
-        <div class="header-right">
-            <a href="signup.html" class="command-access">Command Access</a>
-        </div>
-    </header>
+		<div class="header-right">
+			<a href="signup.html" class="command-access">Command Access</a>
+		</div>
+	</header>
 
-    <!-- Hero Section -->
-    <section class="hero-section">
-        <h1 class="hero-title">UNIFIED DISASTER INTELLIGENCE</h1>
-        <p class="hero-subtitle">Real-time, verified disaster intelligence from authorities & citizens</p>
+	<!-- Hero Section -->
+	<section class="hero-section">
+		<h1 class="hero-title">UNIFIED DISASTER INTELLIGENCE</h1>
+		<p class="hero-subtitle">Real-time, verified disaster intelligence from authorities & citizens</p>
 
-        <div class="hero-badges">
-            <span class="badge">Live Data</span>
-            <span class="badge">Multi-Source Verified</span>
-            <span class="badge">Citizen Reports</span>
-        </div>
+		<div class="hero-badges">
+			<span class="badge">Live Data</span>
+			<span class="badge">Multi-Source Verified</span>
+			<span class="badge">Citizen Reports</span>
+		</div>
 
-        <button class="view-map-btn" onclick="document.getElementById('map').scrollIntoView({behavior: 'smooth'})">
-            VIEW LIVE MAP
-        </button>
+		<button class="view-map-btn" onclick="document.getElementById('map').scrollIntoView({behavior: 'smooth'})">
+			VIEW LIVE MAP
+		</button>
 
-        <!-- Search Box -->
-        <div class="search-container">
-            <div class="search-icon">🔍</div>
-            <input type="text" class="search-input" placeholder="Search active incidents, not locations...">
-        </div>
+		<!-- Search Box -->
+		<div class="search-container">
+			<div class="search-icon">🔍</div>
+			<input type="text" class="search-input" placeholder="Search active incidents, not locations...">
+		</div>
 
-        <div class="search-examples">
-            Examples:
-            <span class="example-tag">Kyushu Floods</span>
-            <span class="example-tag">Turkey Earthquake</span>
-            <span class="example-tag">California Wildfires</span>
-        </div>
-    </section>
+		<div class="search-examples">
+			Examples:
+			<span class="example-tag">Kyushu Floods</span>
+			<span class="example-tag">Turkey Earthquake</span>
+			<span class="example-tag">California Wildfires</span>
+		</div>
+	</section>
 
-    <!-- Inputs Section -->
-    <section id="inputs" class="inputs-section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Intelligence Inputs</h2>
-                <h3 class="section-subtitle">Official Sources Only</h3>
-                <p class="section-description">Real-time data aggregation from verified global monitoring systems</p>
-            </div>
+	<!-- Inputs Section -->
+	<section id="inputs" class="inputs-section">
+		<div class="container">
+			<div class="section-header">
+				<h2 class="section-title">Intelligence Inputs</h2>
+				<h3 class="section-subtitle">Official Sources Only</h3>
+				<p class="section-description">Real-time data aggregation from verified global monitoring systems</p>
+			</div>
 
-            <div class="sources-grid">
-                <div class="source-badge" data-category="seismic">
-                    <div class="source-icon">
-                        <i class="fas fa-globe-americas"></i>
-                    </div>
-                    <div class="source-content">
-                        <div class="source-name">USGS</div>
-                        <div class="source-desc">Seismic Activity</div>
-                        <div class="source-status">
-                            <span class="status-dot active"></span>
-                            <span class="status-text">Live</span>
-                        </div>
-                    </div>
-                </div>
+			<div class="sources-grid">
+				<div class="source-badge" data-category="seismic">
+					<div class="source-icon">
+						<i class="fas fa-globe-americas"></i>
+					</div>
+					<div class="source-content">
+						<div class="source-name">USGS</div>
+						<div class="source-desc">Seismic Activity</div>
+						<div class="source-status">
+							<span class="status-dot active"></span>
+							<span class="status-text">Live</span>
+						</div>
+					</div>
+				</div>
 
-                <div class="source-badge" data-category="fire">
-                    <div class="source-icon">
-                        <i class="fas fa-fire-alt"></i>
-                    </div>
-                    <div class="source-content">
-                        <div class="source-name">NASA FIRMS</div>
-                        <div class="source-desc">Fire Detection</div>
-                        <div class="source-status">
-                            <span class="status-dot active"></span>
-                            <span class="status-text">Live</span>
-                        </div>
-                    </div>
-                </div>
+				<div class="source-badge" data-category="fire">
+					<div class="source-icon">
+						<i class="fas fa-fire-alt"></i>
+					</div>
+					<div class="source-content">
+						<div class="source-name">NASA FIRMS</div>
+						<div class="source-desc">Fire Detection</div>
+						<div class="source-status">
+							<span class="status-dot active"></span>
+							<span class="status-text">Live</span>
+						</div>
+					</div>
+				</div>
 
-                <div class="source-badge" data-category="weather">
-                    <div class="source-icon">
-                        <i class="fas fa-cloud-showers-heavy"></i>
-                    </div>
-                    <div class="source-content">
-                        <div class="source-name">OPEN-METEO</div>
-                        <div class="source-desc">Weather Data</div>
-                        <div class="source-status">
-                            <span class="status-dot active"></span>
-                            <span class="status-text">Live</span>
-                        </div>
-                    </div>
-                </div>
+				<div class="source-badge" data-category="weather">
+					<div class="source-icon">
+						<i class="fas fa-cloud-showers-heavy"></i>
+					</div>
+					<div class="source-content">
+						<div class="source-name">OPEN-METEO</div>
+						<div class="source-desc">Weather Data</div>
+						<div class="source-status">
+							<span class="status-dot active"></span>
+							<span class="status-text">Live</span>
+						</div>
+					</div>
+				</div>
 
-                <div class="source-badge" data-category="humanitarian">
-                    <div class="source-icon">
-                        <i class="fas fa-hands-helping"></i>
-                    </div>
-                    <div class="source-content">
-                        <div class="source-name">RELIEFWEB</div>
-                        <div class="source-desc">Humanitarian Reports</div>
-                        <div class="source-status">
-                            <span class="status-dot active"></span>
-                            <span class="status-text">Live</span>
-                        </div>
-                    </div>
-                </div>
+				<div class="source-badge" data-category="humanitarian">
+					<div class="source-icon">
+						<i class="fas fa-hands-helping"></i>
+					</div>
+					<div class="source-content">
+						<div class="source-name">RELIEFWEB</div>
+						<div class="source-desc">Humanitarian Reports</div>
+						<div class="source-status">
+							<span class="status-dot active"></span>
+							<span class="status-text">Live</span>
+						</div>
+					</div>
+				</div>
 
-                <div class="source-badge" data-category="disaster">
-                    <div class="source-icon">
-                        <i class="fas fa-exclamation-triangle"></i>
-                    </div>
-                    <div class="source-content">
-                        <div class="source-name">GDACS</div>
-                        <div class="source-desc">Disaster Alerts</div>
-                        <div class="source-status">
-                            <span class="status-dot active"></span>
-                            <span class="status-text">Live</span>
-                        </div>
-                    </div>
-                </div>
+				<div class="source-badge" data-category="disaster">
+					<div class="source-icon">
+						<i class="fas fa-exclamation-triangle"></i>
+					</div>
+					<div class="source-content">
+						<div class="source-name">GDACS</div>
+						<div class="source-desc">Disaster Alerts</div>
+						<div class="source-status">
+							<span class="status-dot active"></span>
+							<span class="status-text">Live</span>
+						</div>
+					</div>
+				</div>
 
-                <div class="source-badge" data-category="ocean">
-                    <div class="source-icon">
-                        <i class="fas fa-water"></i>
-                    </div>
-                    <div class="source-content">
-                        <div class="source-name">NOAA</div>
-                        <div class="source-desc">Ocean & Atmosphere</div>
-                        <div class="source-status">
-                            <span class="status-dot active"></span>
-                            <span class="status-text">Live</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+				<div class="source-badge" data-category="ocean">
+					<div class="source-icon">
+						<i class="fas fa-water"></i>
+					</div>
+					<div class="source-content">
+						<div class="source-name">NOAA</div>
+						<div class="source-desc">Ocean & Atmosphere</div>
+						<div class="source-status">
+							<span class="status-dot active"></span>
+							<span class="status-text">Live</span>
+						</div>
+					</div>
+				</div>
+			</div>
 
-            <div class="sources-stats">
-                <div class="stat-item">
-                    <div class="stat-value">6</div>
-                    <div class="stat-label">Active Sources</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-value">24/7</div>
-                    <div class="stat-label">Monitoring</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-value">99.9%</div>
-                    <div class="stat-label">Uptime</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-value">&lt;30s</div>
-                    <div class="stat-label">Update Interval</div>
-                </div>
-            </div>
-        </div>
-    </section>
+			<div class="sources-stats">
+				<div class="stat-item">
+					<div class="stat-value">6</div>
+					<div class="stat-label">Active Sources</div>
+				</div>
+				<div class="stat-item">
+					<div class="stat-value">24/7</div>
+					<div class="stat-label">Monitoring</div>
+				</div>
+				<div class="stat-item">
+					<div class="stat-value">99.9%</div>
+					<div class="stat-label">Uptime</div>
+				</div>
+				<div class="stat-item">
+					<div class="stat-value">&lt;30s</div>
+					<div class="stat-label">Update Interval</div>
+				</div>
+			</div>
+		</div>
+	</section>
 
-    <!-- Global Situation Map -->
-    <section class="situation-map-section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Global Intelligence</h2>
-                <h3 class="section-subtitle">Situation Map — The Aggregator</h3>
-                <p class="section-description">Live visualization of verified disaster events from multiple intelligence
-                    sources worldwide</p>
-            </div>
+	<!-- Global Situation Map -->
+	<section class="situation-map-section">
+		<div class="container">
+			<div class="section-header">
+				<h2 class="section-title">Global Intelligence</h2>
+				<h3 class="section-subtitle">Situation Map — The Aggregator</h3>
+				<p class="section-description">Live visualization of verified disaster events from multiple intelligence
+					sources worldwide</p>
+			</div>
 
-            <div class="map-layout">
-                <div class="map-main">
-                    <div id="map" class="intelligence-map"></div>
-                    <div class="map-overlays">
-                        <div class="map-incident">
-                            <span class="incident-marker">●</span> <strong>M6.2 Earthquake</strong> — USGS (Verified)
-                            <div class="incident-sub">└─ Linked Citizen Report (Photo)</div>
-                        </div>
-                        <div class="map-incident">
-                            <span class="incident-marker">●</span> <strong>Wildfire Alert</strong> — NASA FIRMS
-                            <div class="incident-sub">└─ Active thermal detection</div>
-                        </div>
-                        <div class="map-incident">
-                            <span class="incident-marker">●</span> <strong>Flood Warning</strong> — GDACS
-                            <div class="incident-sub">└─ High water levels detected</div>
-                        </div>
-                    </div>
-                </div>
+			<div class="map-layout">
+				<div class="map-main">
+					<div id="map" class="intelligence-map"></div>
+					<div class="map-overlays">
+						<div class="map-incident">
+							<span class="incident-marker">●</span> <strong>M6.2 Earthquake</strong> — USGS (Verified)
+							<div class="incident-sub">└─ Linked Citizen Report (Photo)</div>
+						</div>
+						<div class="map-incident">
+							<span class="incident-marker">●</span> <strong>Wildfire Alert</strong> — NASA FIRMS
+							<div class="incident-sub">└─ Active thermal detection</div>
+						</div>
+						<div class="map-incident">
+							<span class="incident-marker">●</span> <strong>Flood Warning</strong> — GDACS
+							<div class="incident-sub">└─ High water levels detected</div>
+						</div>
+					</div>
+				</div>
 
-                <div class="map-filters">
-                    <div class="filter-title">Filter</div>
-                    <label class="filter-option">
-                        <input type="checkbox" checked> Quakes
-                    </label>
-                    <label class="filter-option">
-                        <input type="checkbox" checked> Fires
-                    </label>
-                    <label class="filter-option">
-                        <input type="checkbox" checked> Floods
-                    </label>
-                    <label class="filter-option">
-                        <input type="checkbox" checked> Reports
-                    </label>
-                </div>
-            </div>
-        </div>
-    </section>
+				<div class="map-filters">
+					<div class="filter-title">Filter</div>
+					<label class="filter-option">
+						<input type="checkbox" checked> Quakes
+					</label>
+					<label class="filter-option">
+						<input type="checkbox" checked> Fires
+					</label>
+					<label class="filter-option">
+						<input type="checkbox" checked> Floods
+					</label>
+					<label class="filter-option">
+						<input type="checkbox" checked> Reports
+					</label>
+				</div>
+			</div>
+		</div>
+	</section>
 
-    <!-- Live Aggregation Feed -->
-    <section class="feed-section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Live Feed</h2>
-                <h3 class="section-subtitle">Aggregation Feed — Verified Reality</h3>
-                <p class="section-description">Real-time stream of verified disaster events as they happen across the
-                    globe</p>
-            </div>
+	<!-- Live Aggregation Feed -->
+	<section class="feed-section">
+		<div class="container">
+			<div class="section-header">
+				<h2 class="section-title">Live Feed</h2>
+				<h3 class="section-subtitle">Aggregation Feed — Verified Reality</h3>
+				<p class="section-description">Real-time stream of verified disaster events as they happen across the
+					globe</p>
+			</div>
 
-            <div class="feed-container">
-                <div class="feed-header">
-                    <span>Time</span>
-                    <span>Type</span>
-                    <span>Detail</span>
-                    <span>Source</span>
-                    <span>Status</span>
-                    <span>Action</span>
-                </div>
+			<div class="feed-container">
+				<div class="feed-header">
+					<span>Time</span>
+					<span>Type</span>
+					<span>Detail</span>
+					<span>Source</span>
+					<span>Status</span>
+					<span>Action</span>
+				</div>
 
-                <div class="feed-item">
-                    <span class="feed-time" data-label="Time">10:04 IST</span>
-                    <span class="feed-type" data-label="Type">Earthquake Alert</span>
-                    <span class="feed-detail" data-label="Detail">M5.2</span>
-                    <span class="feed-source" data-label="Source">USGS</span>
-                    <span class="feed-status verified" data-label="Status">VERIFIED</span>
-                    <a href="#" class="feed-action" data-label="Action">View</a>
-                </div>
+				<div class="feed-item">
+					<span class="feed-time" data-label="Time">10:04 IST</span>
+					<span class="feed-type" data-label="Type">Earthquake Alert</span>
+					<span class="feed-detail" data-label="Detail">M5.2</span>
+					<span class="feed-source" data-label="Source">USGS</span>
+					<span class="feed-status verified" data-label="Status">VERIFIED</span>
+					<a href="#" class="feed-action" data-label="Action">View</a>
+				</div>
 
-                <div class="feed-item">
-                    <span class="feed-time" data-label="Time">10:11 IST</span>
-                    <span class="feed-type" data-label="Type">Flood Alert</span>
-                    <span class="feed-detail" data-label="Detail">Level 3</span>
-                    <span class="feed-source" data-label="Source">GDACS</span>
-                    <span class="feed-status verified" data-label="Status">VERIFIED</span>
-                    <a href="#" class="feed-action" data-label="Action">View</a>
-                </div>
+				<div class="feed-item">
+					<span class="feed-time" data-label="Time">10:11 IST</span>
+					<span class="feed-type" data-label="Type">Flood Alert</span>
+					<span class="feed-detail" data-label="Detail">Level 3</span>
+					<span class="feed-source" data-label="Source">GDACS</span>
+					<span class="feed-status verified" data-label="Status">VERIFIED</span>
+					<a href="#" class="feed-action" data-label="Action">View</a>
+				</div>
 
-                <div class="feed-item">
-                    <span class="feed-time" data-label="Time">10:15 IST</span>
-                    <span class="feed-type" data-label="Type">Wildfire Alert</span>
-                    <span class="feed-detail" data-label="Detail">High Confidence</span>
-                    <span class="feed-source" data-label="Source">NASA FIRMS</span>
-                    <span class="feed-status verified" data-label="Status">VERIFIED</span>
-                    <a href="#" class="feed-action" data-label="Action">View</a>
-                </div>
+				<div class="feed-item">
+					<span class="feed-time" data-label="Time">10:15 IST</span>
+					<span class="feed-type" data-label="Type">Wildfire Alert</span>
+					<span class="feed-detail" data-label="Detail">High Confidence</span>
+					<span class="feed-source" data-label="Source">NASA FIRMS</span>
+					<span class="feed-status verified" data-label="Status">VERIFIED</span>
+					<a href="#" class="feed-action" data-label="Action">View</a>
+				</div>
 
-                <div class="feed-item">
-                    <span class="feed-time" data-label="Time">10:18 IST</span>
-                    <span class="feed-type" data-label="Type">Road Blockage</span>
-                    <span class="feed-detail" data-label="Detail">NH-44</span>
-                    <span class="feed-source" data-label="Source">Citizen Report</span>
-                    <span class="feed-status" data-label="Status">Pending</span>
-                    <a href="#" class="feed-action" data-label="Action">Image</a>
-                </div>
+				<div class="feed-item">
+					<span class="feed-time" data-label="Time">10:18 IST</span>
+					<span class="feed-type" data-label="Type">Road Blockage</span>
+					<span class="feed-detail" data-label="Detail">NH-44</span>
+					<span class="feed-source" data-label="Source">Citizen Report</span>
+					<span class="feed-status" data-label="Status">Pending</span>
+					<a href="#" class="feed-action" data-label="Action">Image</a>
+				</div>
 
-                <div class="feed-item">
-                    <span class="feed-time" data-label="Time">10:22 IST</span>
-                    <span class="feed-type" data-label="Type">Cyclone Warning</span>
-                    <span class="feed-detail" data-label="Detail">Category 2</span>
-                    <span class="feed-source" data-label="Source">NOAA</span>
-                    <span class="feed-status verified" data-label="Status">VERIFIED</span>
-                    <a href="#" class="feed-action" data-label="Action">View</a>
-                </div>
-            </div>
-        </div>
-    </section>
+				<div class="feed-item">
+					<span class="feed-time" data-label="Time">10:22 IST</span>
+					<span class="feed-type" data-label="Type">Cyclone Warning</span>
+					<span class="feed-detail" data-label="Detail">Category 2</span>
+					<span class="feed-source" data-label="Source">NOAA</span>
+					<span class="feed-status verified" data-label="Status">VERIFIED</span>
+					<a href="#" class="feed-action" data-label="Action">View</a>
+				</div>
+			</div>
+		</div>
+	</section>
 
-    <!-- Why DIAPS -->
-    <section class="why-section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Why DIAPS</h2>
-                <h3 class="section-subtitle">Intelligence That Saves Lives</h3>
-                <p class="section-description">Comprehensive disaster monitoring combining official sources with citizen
-                    intelligence for complete situational awareness</p>
-            </div>
+	<!-- Why DIAPS -->
+	<section class="why-section">
+		<div class="container">
+			<div class="section-header">
+				<h2 class="section-title">Why DIAPS</h2>
+				<h3 class="section-subtitle">Intelligence That Saves Lives</h3>
+				<p class="section-description">Comprehensive disaster monitoring combining official sources with citizen
+					intelligence for complete situational awareness</p>
+			</div>
 
-            <div class="features-grid">
-                <div class="feature-item">
-                    <div class="feature-icon">🧭</div>
-                    <div class="feature-title">Situational Awareness</div>
-                    <div class="feature-desc">All hazards, one unified map. Real-time visualization of global disaster
-                        events from multiple verified sources.</div>
-                </div>
+			<div class="features-grid">
+				<div class="feature-item">
+					<div class="feature-icon">🧭</div>
+					<div class="feature-title">Situational Awareness</div>
+					<div class="feature-desc">All hazards, one unified map. Real-time visualization of global disaster
+						events from multiple verified sources.</div>
+				</div>
 
-                <div class="feature-item">
-                    <div class="feature-icon">🗂️</div>
-                    <div class="feature-title">Raw Aggregated Data</div>
-                    <div class="feature-desc">JSON-ready data streams. Direct API access for developers and emergency
-                        response systems.</div>
-                </div>
+				<div class="feature-item">
+					<div class="feature-icon">🗂️</div>
+					<div class="feature-title">Raw Aggregated Data</div>
+					<div class="feature-desc">JSON-ready data streams. Direct API access for developers and emergency
+						response systems.</div>
+				</div>
 
-                <div class="feature-item">
-                    <div class="feature-icon">🤝</div>
-                    <div class="feature-title">Citizen Verification</div>
-                    <div class="feature-desc">Combining official sensors with on-ground citizen reports for
-                        comprehensive disaster intelligence.</div>
-                </div>
-            </div>
-        </div>
-    </section>
+				<div class="feature-item">
+					<div class="feature-icon">🤝</div>
+					<div class="feature-title">Citizen Verification</div>
+					<div class="feature-desc">Combining official sensors with on-ground citizen reports for
+						comprehensive disaster intelligence.</div>
+				</div>
+			</div>
+		</div>
+	</section>
 
-    <!-- Footer -->
-    <footer class="main-footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-middle">
-                    <div class="footer-disclaimer">
-                        <div class="disclaimer-icon">⚠️</div>
-                        <div class="disclaimer-content">
-                            <div class="disclaimer-title">
-                                <i class="fas fa-info-circle"></i>
-                                Important Disclaimer
-                            </div>
-                            <p class="disclaimer-text">
-                                DIAPS does not predict disasters. We aggregate and verify real-time data from official
-                                sources and citizen reports. Always follow official emergency guidance from local
-                                authorities.
-                            </p>
-                        </div>
-                    </div>
-                </div>
+	<!-- Footer -->
+	<footer class="main-footer">
+		<div class="container">
+			<div class="footer-content">
+				<div class="footer-middle">
+					<div class="footer-disclaimer">
+						<div class="disclaimer-icon">⚠️</div>
+						<div class="disclaimer-content">
+							<div class="disclaimer-title">
+								<i class="fas fa-info-circle"></i>
+								Important Disclaimer
+							</div>
+							<p class="disclaimer-text">
+								DIAPS does not predict disasters. We aggregate and verify real-time data from official
+								sources and citizen reports. Always follow official emergency guidance from local
+								authorities.
+							</p>
+						</div>
+					</div>
+				</div>
 
-                <!-- Footer Bottom - Copyright & Legal -->
-                <div class="footer-bottom">
-                    <div class="footer-copyright">
-                        <i class="far fa-copyright"></i>
-                        2026 DIAPS. All rights reserved.
-                    </div>
-                    <nav class="footer-nav">
-                        <a href="#privacy" class="footer-nav-link">
-                            <i class="fas fa-shield-alt"></i>
-                            Privacy Policy
-                        </a>
-                        <span class="footer-nav-separator">•</span>
-                        <a href="#terms" class="footer-nav-link">
-                            <i class="fas fa-file-contract"></i>
-                            Terms of Service
-                        </a>
-                        <span class="footer-nav-separator">•</span>
-                        <a href="#cookies" class="footer-nav-link">
-                            <i class="fas fa-cookie-bite"></i>
-                            Cookie Policy
-                        </a>
-                        <span class="footer-nav-separator">•</span>
-                        <a href="#report" class="footer-nav-link">
-                            <i class="fas fa-flag"></i>
-                            Report Error
-                        </a>
-                    </nav>
-                </div>
-            </div>
-        </div>
-    </footer>
+				<!-- Footer Bottom - Copyright & Legal -->
+				<div class="footer-bottom">
+					<div class="footer-copyright">
+						<i class="far fa-copyright"></i>
+						2026 DIAPS. All rights reserved.
+					</div>
+					<nav class="footer-nav">
+						<a href="#privacy" class="footer-nav-link">
+							<i class="fas fa-shield-alt"></i>
+							Privacy Policy
+						</a>
+						<span class="footer-nav-separator">•</span>
+						<a href="#terms" class="footer-nav-link">
+							<i class="fas fa-file-contract"></i>
+							Terms of Service
+						</a>
+						<span class="footer-nav-separator">•</span>
+						<a href="#cookies" class="footer-nav-link">
+							<i class="fas fa-cookie-bite"></i>
+							Cookie Policy
+						</a>
+						<span class="footer-nav-separator">•</span>
+						<a href="#report" class="footer-nav-link">
+							<i class="fas fa-flag"></i>
+							Report Error
+						</a>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</footer>
 
-    <script src="js/main.js"></script>
-    <script>
-        // Header scroll effect
-        window.addEventListener('scroll', function () {
-            const header = document.getElementById('header');
-            if (window.scrollY > 50) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
-        });
+	<script src="js/main.js"></script>
+	<script>
+		window.addEventListener('scroll', function () {
+			const header = document.getElementById('header');
+			if (window.scrollY > 50) {
+				header.classList.add('scrolled');
+			} else {
+				header.classList.remove('scrolled');
+			}
+		});
 
-        // Example tag click handlers
-        document.querySelectorAll('.example-tag').forEach(tag => {
-            tag.addEventListener('click', function () {
-                document.querySelector('.search-input').value = this.textContent.trim();
-            });
-        });
+		// Example tag click handlers
+		document.querySelectorAll('.example-tag').forEach(tag => {
+			tag.addEventListener('click', function () {
+				document.querySelector('.search-input').value = this.textContent.trim();
+			});
+		});
 
-        // Initialize map if Leaflet is available
-        if (typeof L !== 'undefined') {
-            var map = L.map('map').setView([20, 0], 2);
-            L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-                attribution: '©OpenStreetMap, ©CartoDB',
-                maxZoom: 18,
-            }).addTo(map);
+		// Initialize map if Leaflet is available
+		if (typeof L !== 'undefined') {
+			var map = L.map('map').setView([20, 0], 2);
+			L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+				attribution: '©OpenStreetMap, ©CartoDB',
+				maxZoom: 18,
+			}).addTo(map);
 
-            // Add example markers
-            var earthquakeIcon = L.divIcon({
-                className: 'custom-marker',
-                html: '<div style="background: #FF6B6B; width: 12px; height: 12px; border-radius: 50%; border: 2px solid white;"></div>',
-                iconSize: [12, 12]
-            });
+			// Add example markers
+			var earthquakeIcon = L.divIcon({
+				className: 'custom-marker',
+				html: '<div style="background: #FF6B6B; width: 12px; height: 12px; border-radius: 50%; border: 2px solid white;"></div>',
+				iconSize: [12, 12]
+			});
 
-            var fireIcon = L.divIcon({
-                className: 'custom-marker',
-                html: '<div style="background: #FFA500; width: 12px; height: 12px; border-radius: 50%; border: 2px solid white;"></div>',
-                iconSize: [12, 12]
-            });
+			var fireIcon = L.divIcon({
+				className: 'custom-marker',
+				html: '<div style="background: #FFA500; width: 12px; height: 12px; border-radius: 50%; border: 2px solid white;"></div>',
+				iconSize: [12, 12]
+			});
 
-            // Example markers
-            L.marker([35.0, 138.0], { icon: earthquakeIcon }).addTo(map)
-                .bindPopup('<b>M6.2 Earthquake</b><br>USGS Verified');
+			// Example markers
+			L.marker([35.0, 138.0], { icon: earthquakeIcon }).addTo(map)
+				.bindPopup('<b>M6.2 Earthquake</b><br>USGS Verified');
 
-            L.marker([37.7, -122.4], { icon: fireIcon }).addTo(map)
-                .bindPopup('<b>Wildfire Alert</b><br>NASA FIRMS');
-        }
-    </script>
+			L.marker([37.7, -122.4], { icon: fireIcon }).addTo(map)
+				.bindPopup('<b>Wildfire Alert</b><br>NASA FIRMS');
+		}
+	</script>
 </body>
 
 </html>
