@@ -863,13 +863,13 @@ body {
     padding: 6px 12px;
     background: rgba(0, 69, 142, 0.1);
     border-radius: 6px;
-    border: 1px solid var(--border-blue);
+    border: 1px solid var(--border-color);
     display: inline-block;
     letter-spacing: 0.5px;
 }
 
 .feed-source {
-    color: var(--steel-azure);
+    color: var(--champagne-mist);
     font-size: 13px;
     font-weight: 600;
     letter-spacing: 0.5px;
@@ -879,7 +879,7 @@ body {
     padding: 6px 12px;
     background: rgba(0, 69, 142, 0.12);
     border-radius: 6px;
-    border: 1px solid var(--border-blue);
+    border: 1px solid var(--border-color);
     width: fit-content;
 }
 
@@ -965,7 +965,7 @@ body {
 
 .feed-action:hover {
     background: var(--seaweed);
-    color: var(--prussian-blue);
+    color: var(--champagne-mist);
     transform: translateY(-2px);
     box-shadow: var(--shadow-glow);
 }

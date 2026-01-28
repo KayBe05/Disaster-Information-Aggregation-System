@@ -1,14 +1,7 @@
-// ====== AUTHENTICATION CHECK ======
-/*
-(function checkAuth() {
-  if (!localStorage.getItem('isAdmin')) {
-    console.warn('Unauthorized access attempt - redirecting to home');
-    window.location.href = 'index.html';
-    return;
-  }
-  console.log('%c🛡️ COMMAND ACCESS GRANTED', 'font-size: 14px; font-weight: bold; color: #00D9A3;');
-})();
-*/
+// ====================================
+// ADMIN DASHBOARD - JAVASCRIPT
+// Modern, Professional Implementation
+// ====================================
 
 // ====== APPLICATION STATE ======
 const AdminState = {
@@ -28,8 +21,8 @@ const AdminState = {
 
 // ====== SIDEBAR TOGGLE ======
 function toggleSidebar() {
-  const sidebar = document.getElementById('admin-sidebar');
-  const mainContent = document.getElementById('admin-main');
+  const sidebar = document.getElementById('sidebar');
+  const mainContent = document.getElementById('main-content');
   const overlay = document.getElementById('sidebar-overlay');
 
   if (!sidebar || !mainContent) return;
@@ -37,26 +30,26 @@ function toggleSidebar() {
   const isMobile = window.innerWidth <= 1024;
 
   if (isMobile) {
-    // Mobile behavior: toggle sidebar visibility with overlay
+    // Mobile: toggle with overlay
     sidebar.classList.toggle('active');
     if (overlay) {
       overlay.classList.toggle('active');
     }
     AdminState.sidebarOpen = sidebar.classList.contains('active');
   } else {
-    // Desktop behavior: hide/show sidebar and expand main content
+    // Desktop: hide/show sidebar
     sidebar.classList.toggle('hidden');
     mainContent.classList.toggle('expanded');
     AdminState.sidebarOpen = !sidebar.classList.contains('hidden');
   }
 
-  // Invalidate all maps after transition completes
+  // Refresh maps after transition
   setTimeout(() => {
     AdminState.maps.forEach((map) => {
       try {
         map.invalidateSize();
       } catch (error) {
-        console.error('Error invalidating map size:', error);
+        console.error('Map invalidation error:', error);
       }
     });
   }, 300);
@@ -64,10 +57,10 @@ function toggleSidebar() {
   console.log(`Sidebar ${AdminState.sidebarOpen ? 'opened' : 'closed'}`);
 }
 
-// Handle window resize to adjust sidebar behavior
+// Handle responsive behavior
 function handleResize() {
-  const sidebar = document.getElementById('admin-sidebar');
-  const mainContent = document.getElementById('admin-main');
+  const sidebar = document.getElementById('sidebar');
+  const mainContent = document.getElementById('main-content');
   const overlay = document.getElementById('sidebar-overlay');
 
   if (!sidebar || !mainContent) return;
@@ -75,20 +68,13 @@ function handleResize() {
   const isMobile = window.innerWidth <= 1024;
 
   if (isMobile) {
-    // On mobile, reset to closed state
     sidebar.classList.remove('hidden', 'active');
     mainContent.classList.remove('expanded');
-    if (overlay) {
-      overlay.classList.remove('active');
-    }
+    if (overlay) overlay.classList.remove('active');
   } else {
-    // On desktop, remove mobile-specific classes
     sidebar.classList.remove('active');
-    if (overlay) {
-      overlay.classList.remove('active');
-    }
+    if (overlay) overlay.classList.remove('active');
 
-    // Restore sidebar state
     if (!AdminState.sidebarOpen) {
       sidebar.classList.add('hidden');
       mainContent.classList.add('expanded');
@@ -96,7 +82,7 @@ function handleResize() {
   }
 }
 
-// Debounce resize handler
+// Debounced resize handler
 let resizeTimer;
 window.addEventListener('resize', () => {
   clearTimeout(resizeTimer);
@@ -213,32 +199,33 @@ const Utils = {
 
   showNotification(message, type = 'info') {
     const colors = {
-      success: '#00D9A3',
+      success: '#21A179',
       error: '#FF6B6B',
       warning: '#FF8C42',
-      info: '#4A9EFF'
+      info: '#00458E'
     };
 
     const notification = document.createElement('div');
     notification.style.cssText = `
-            position: fixed;
-            top: 24px;
-            right: 24px;
-            background: rgba(0, 3, 40, 0.98);
-            backdrop-filter: blur(20px);
-            color: ${colors[type] || colors.info};
-            padding: 16px 24px;
-            border: 2px solid ${colors[type] || colors.info};
-            border-radius: 12px;
-            font-family: 'Inter', sans-serif;
-            font-size: 14px;
-            font-weight: 600;
-            z-index: 10000;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-            animation: slideInRight 0.3s ease;
-            cursor: pointer;
-            max-width: 400px;
-        `;
+      position: fixed;
+      top: 24px;
+      right: 24px;
+      background: rgba(0, 3, 40, 0.98);
+      backdrop-filter: blur(20px);
+      color: ${colors[type] || colors.info};
+      padding: 18px 24px;
+      border: 2px solid ${colors[type] || colors.info};
+      border-radius: 12px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      z-index: 10000;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+      animation: slideInRight 0.3s ease;
+      cursor: pointer;
+      max-width: 400px;
+      letter-spacing: 0.3px;
+    `;
     notification.textContent = message;
 
     notification.addEventListener('click', () => {
@@ -272,143 +259,137 @@ const ReportRenderer = {
 
     if (!grid) return;
 
-    grid.innerHTML = '';
-
     if (reports.length === 0) {
-      grid.style.display = 'none';
+      grid.innerHTML = '';
       if (emptyState) emptyState.style.display = 'block';
       return;
     }
 
-    grid.style.display = 'grid';
     if (emptyState) emptyState.style.display = 'none';
+    grid.innerHTML = '';
 
-    reports.forEach(report => {
-      const card = this.createReportCard(report);
-      grid.appendChild(card);
-
-      // Initialize map after card is in DOM
+    reports.forEach((report, index) => {
       setTimeout(() => {
-        this.initializeReportMap(report.id, report.lat, report.lng);
-      }, 100);
+        const card = this.createReportCard(report);
+        grid.appendChild(card);
+
+        // Initialize map
+        setTimeout(() => this.initializeMap(report), 100);
+      }, index * 50);
     });
   },
 
   createReportCard(report) {
     const card = document.createElement('div');
     card.className = 'report-card';
-    card.dataset.reportId = report.id;
-    card.dataset.type = report.type;
+    card.setAttribute('data-report-id', report.id);
 
     card.innerHTML = `
-            <div class="report-header">
-                <div class="report-type">
-                    <div class="type-icon ${report.type}">
-                        <i class="fas ${Utils.getTypeIcon(report.type)}"></i>
-                    </div>
-                    <div class="type-info">
-                        <div class="type-name">${Utils.formatType(report.type)}</div>
-                        <span class="type-severity severity-${report.severity}">${report.severity}</span>
-                    </div>
-                </div>
-            </div>
+      <div class="report-card-header">
+        <div class="report-type-info">
+          <div class="report-type-icon ${report.type}">
+            <i class="fas ${Utils.getTypeIcon(report.type)}"></i>
+          </div>
+          <div class="report-type-details">
+            <h3 class="report-type-name">${Utils.formatType(report.type)}</h3>
+            <span class="report-severity ${report.severity}">${report.severity}</span>
+          </div>
+        </div>
+      </div>
 
-            <div class="report-meta">
-                <div class="meta-item">
-                    <i class="fas fa-clock"></i>
-                    <span>${report.timeAgo}</span>
-                </div>
-                <div class="meta-item">
-                    <i class="fas fa-user"></i>
-                    <span>${report.reporter}</span>
-                </div>
-            </div>
+      <div class="report-meta">
+        <div class="meta-item">
+          <i class="fas fa-user"></i>
+          <span>${report.reporter}</span>
+        </div>
+        <div class="meta-item">
+          <i class="fas fa-clock"></i>
+          <span>${report.timeAgo}</span>
+        </div>
+      </div>
 
-            <div class="report-body">
-                <div class="report-location">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <span>${report.location}</span>
-                </div>
-                <div class="report-location" style="font-size: 12px; color: var(--text-tertiary); margin-top: -8px;">
-                    <i class="fas fa-crosshairs"></i>
-                    <span>${Utils.formatCoordinates(report.lat, report.lng)}</span>
-                </div>
+      <div class="report-card-body">
+        <div class="report-location">
+          <i class="fas fa-map-marker-alt"></i>
+          <span>${report.location}</span>
+        </div>
 
-                <div class="report-description">${report.description}</div>
+        <p class="report-description">${report.description}</p>
 
-                <div class="report-evidence">
-                    <div class="evidence-label">Evidence Submitted</div>
-                    ${report.evidenceType === 'image' ? `
-                        <div class="evidence-image">
-                            <i class="fas fa-image"></i>
-                        </div>
-                    ` : `
-                        <div class="evidence-text">"${report.evidence}"</div>
-                    `}
-                </div>
+        <div class="report-evidence">
+          <div class="evidence-label">Evidence</div>
+          ${report.evidenceType === 'image'
+        ? `<div class="evidence-content">
+                <i class="fas fa-image"></i>
+              </div>`
+        : ''}
+          <p class="evidence-text">${report.evidence}</p>
+        </div>
 
-                <div class="map-preview-container">
-                    <div class="evidence-label">Location</div>
-                    <div class="map-preview" id="map-${report.id}"></div>
-                </div>
+        <div class="map-container">
+          <div class="map-preview" id="map-${report.id}"></div>
+        </div>
 
-                <div class="report-actions">
-                    <button class="action-btn verify-btn" onclick="verifyReport('${report.id}')">
-                        <i class="fas fa-check"></i>
-                        <span>Verify</span>
-                    </button>
-                    <button class="action-btn reject-btn" onclick="rejectReport('${report.id}')">
-                        <i class="fas fa-times"></i>
-                        <span>Reject</span>
-                    </button>
-                </div>
-            </div>
-        `;
+        <div class="report-actions">
+          <button class="action-button verify-button" onclick="verifyReport('${report.id}')">
+            <i class="fas fa-check"></i>
+            <span>Verify</span>
+          </button>
+          <button class="action-button reject-button" onclick="rejectReport('${report.id}')">
+            <i class="fas fa-times"></i>
+            <span>Reject</span>
+          </button>
+        </div>
+      </div>
+    `;
 
     return card;
   },
 
-  initializeReportMap(reportId, lat, lng) {
-    const mapElement = document.getElementById(`map-${reportId}`);
-    if (!mapElement || typeof L === 'undefined') return;
+  initializeMap(report) {
+    const mapContainer = document.getElementById(`map-${report.id}`);
+    if (!mapContainer || AdminState.maps.has(report.id)) return;
 
     try {
-      const map = L.map(`map-${reportId}`, {
-        center: [lat, lng],
-        zoom: 12,
+      const map = L.map(`map-${report.id}`, {
         zoomControl: false,
+        attributionControl: false,
         dragging: false,
         scrollWheelZoom: false,
         doubleClickZoom: false,
-        boxZoom: false,
-        keyboard: false,
         touchZoom: false
+      }).setView([report.lat, report.lng], 13);
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19
+      }).addTo(map);
+
+      const markerIcon = L.divIcon({
+        className: 'custom-marker',
+        html: `<div style="
+          width: 32px;
+          height: 32px;
+          background: linear-gradient(135deg, #21A179 0%, #1a8060 100%);
+          border: 3px solid #FFEAD0;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: white;
+          font-size: 16px;
+          box-shadow: 0 4px 12px rgba(33, 161, 121, 0.4);
+        ">
+          <i class="fas ${Utils.getTypeIcon(report.type)}"></i>
+        </div>`,
+        iconSize: [32, 32],
+        iconAnchor: [16, 16]
       });
 
-      L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-        attribution: '©OpenStreetMap, ©CartoDB',
-        subdomains: 'abcd'
-      }).addTo(map);
+      L.marker([report.lat, report.lng], { icon: markerIcon }).addTo(map);
 
-      // Add marker
-      const marker = L.circleMarker([lat, lng], {
-        radius: 8,
-        fillColor: '#FF6B6B',
-        color: '#fff',
-        weight: 2,
-        opacity: 1,
-        fillOpacity: 0.85
-      }).addTo(map);
-
-      AdminState.maps.set(reportId, map);
-
-      // Invalidate size after a short delay to ensure proper rendering
-      setTimeout(() => {
-        map.invalidateSize();
-      }, 200);
-
+      AdminState.maps.set(report.id, map);
     } catch (error) {
-      console.error(`Error initializing map for ${reportId}:`, error);
+      console.error('Map initialization error:', error);
     }
   }
 };
@@ -420,7 +401,6 @@ function verifyReport(reportId) {
   const card = document.querySelector(`[data-report-id="${reportId}"]`);
   if (!card) return;
 
-  // Add verification animation
   card.classList.add('verified');
 
   // Update stats
@@ -428,34 +408,27 @@ function verifyReport(reportId) {
   AdminState.stats.verified++;
   updateStatsDisplay();
 
-  // Show notification
-  Utils.showNotification(`✓ Report ${reportId} verified and published to map`, 'success');
+  Utils.showNotification(`✓ Report ${reportId} verified successfully`, 'success');
 
-  // Remove from DOM after animation
+  // Clean up after animation
   setTimeout(() => {
-    // Clean up map
     const map = AdminState.maps.get(reportId);
     if (map) {
       map.remove();
       AdminState.maps.delete(reportId);
     }
 
-    // Remove from state
     AdminState.reports = AdminState.reports.filter(r => r.id !== reportId);
     AdminState.filteredReports = AdminState.filteredReports.filter(r => r.id !== reportId);
 
-    // Remove card
     card.remove();
-
-    // Update badge
     updatePendingBadge();
 
-    // Check if empty
     if (AdminState.filteredReports.length === 0) {
       const emptyState = document.getElementById('empty-state');
       if (emptyState) emptyState.style.display = 'block';
     }
-  }, 400);
+  }, 500);
 }
 
 function rejectReport(reportId) {
@@ -464,41 +437,33 @@ function rejectReport(reportId) {
   const card = document.querySelector(`[data-report-id="${reportId}"]`);
   if (!card) return;
 
-  // Add rejection animation
   card.classList.add('rejected');
 
   // Update stats
   AdminState.stats.pending = Math.max(0, AdminState.stats.pending - 1);
   updateStatsDisplay();
 
-  // Show notification
   Utils.showNotification(`✗ Report ${reportId} rejected`, 'warning');
 
-  // Remove from DOM after animation
+  // Clean up after animation
   setTimeout(() => {
-    // Clean up map
     const map = AdminState.maps.get(reportId);
     if (map) {
       map.remove();
       AdminState.maps.delete(reportId);
     }
 
-    // Remove from state
     AdminState.reports = AdminState.reports.filter(r => r.id !== reportId);
     AdminState.filteredReports = AdminState.filteredReports.filter(r => r.id !== reportId);
 
-    // Remove card
     card.remove();
-
-    // Update badge
     updatePendingBadge();
 
-    // Check if empty
     if (AdminState.filteredReports.length === 0) {
       const emptyState = document.getElementById('empty-state');
       if (emptyState) emptyState.style.display = 'block';
     }
-  }, 400);
+  }, 500);
 }
 
 // ====== FILTERING & SORTING ======
@@ -515,13 +480,16 @@ const FilterModule = {
     this.applySorting();
     ReportRenderer.renderReports(AdminState.filteredReports);
 
-    // Update filter button states
-    document.querySelectorAll('.filter-btn').forEach(btn => {
+    // Update filter UI
+    document.querySelectorAll('.filter-chip').forEach(btn => {
       btn.classList.remove('active');
     });
     document.querySelector(`[data-filter="${filterType}"]`)?.classList.add('active');
 
-    Utils.showNotification(`Filter applied: ${filterType === 'all' ? 'All Reports' : Utils.formatType(filterType)}`, 'info');
+    Utils.showNotification(
+      `Filter: ${filterType === 'all' ? 'All Reports' : Utils.formatType(filterType)}`,
+      'info'
+    );
   },
 
   applySorting() {
@@ -536,7 +504,9 @@ const FilterModule = {
         break;
       case 'severity':
         const severityOrder = { critical: 0, high: 1, medium: 2, low: 3 };
-        AdminState.filteredReports.sort((a, b) => severityOrder[a.severity] - severityOrder[b.severity]);
+        AdminState.filteredReports.sort((a, b) =>
+          severityOrder[a.severity] - severityOrder[b.severity]
+        );
         break;
     }
   },
@@ -545,7 +515,7 @@ const FilterModule = {
     AdminState.currentSort = sortType;
     this.applySorting();
     ReportRenderer.renderReports(AdminState.filteredReports);
-    Utils.showNotification(`Sorted by: ${sortType.replace('-', ' ')}`, 'info');
+    Utils.showNotification(`Sorted: ${sortType.replace('-', ' ')}`, 'info');
   }
 };
 
@@ -578,12 +548,11 @@ function refreshReports() {
   }
 
   Utils.updateLastUpdateTime();
-  Utils.showNotification('📡 Reports refreshed', 'info');
+  Utils.showNotification('📡 Reports refreshed successfully', 'info');
 }
 
 function logout() {
   console.log('👋 Logging out...');
-  // localStorage.removeItem('isAdmin');
   Utils.showNotification('Logged out successfully', 'success');
 
   setTimeout(() => {
@@ -593,54 +562,60 @@ function logout() {
 
 // ====== NAVIGATION ======
 function initializeNavigation() {
-  const navItems = document.querySelectorAll('.nav-item');
+  const navLinks = document.querySelectorAll('.nav-link');
 
-  navItems.forEach(item => {
-    item.addEventListener('click', (e) => {
+  navLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
       e.preventDefault();
 
-      navItems.forEach(nav => nav.classList.remove('active'));
-      item.classList.add('active');
+      navLinks.forEach(nav => nav.classList.remove('active'));
+      link.classList.add('active');
 
-      const view = item.dataset.view;
-      console.log(`Switching to view: ${view}`);
+      const view = link.dataset.view;
+      console.log(`Navigating to: ${view}`);
 
-      // In a real app, this would load different content
-      // For now, we'll just show a notification
       if (view !== 'inbox') {
-        Utils.showNotification(`${view.charAt(0).toUpperCase() + view.slice(1)} view - Coming soon`, 'info');
+        Utils.showNotification(
+          `${view.charAt(0).toUpperCase() + view.slice(1)} - Coming Soon`,
+          'info'
+        );
       }
     });
   });
 }
 
+// ====== MODAL MANAGEMENT ======
+function closeModal() {
+  const modal = document.getElementById('report-modal');
+  if (modal) {
+    modal.style.display = 'none';
+  }
+}
+
 // ====== INITIALIZATION ======
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('%c🛡️ COMMAND ACCESS DASHBOARD', 'font-size: 16px; font-weight: bold; color: #00D9A3;');
-  console.log('%cInitializing admin panel...', 'font-size: 12px; color: #4A9EFF;');
+  console.log('%c🛡️ DIAS COMMAND CENTER', 'font-size: 18px; font-weight: bold; color: #21A179;');
+  console.log('%cInitializing dashboard...', 'font-size: 12px; color: #00458E;');
 
   try {
-    // Load mock data
+    // Load data
     AdminState.reports = [...MOCK_REPORTS];
     AdminState.filteredReports = [...MOCK_REPORTS];
     AdminState.stats.pending = MOCK_REPORTS.length;
 
-    // Update initial stats
+    // Update UI
     updateStatsDisplay();
     updatePendingBadge();
-
-    // Render reports
     ReportRenderer.renderReports(AdminState.filteredReports);
 
-    // Initialize filter buttons
-    document.querySelectorAll('.filter-btn').forEach(btn => {
+    // Initialize filters
+    document.querySelectorAll('.filter-chip').forEach(btn => {
       btn.addEventListener('click', () => {
-        const filter = btn.dataset.filter;
-        FilterModule.applyFilter(filter);
+        FilterModule.applyFilter(btn.dataset.filter);
       });
     });
 
-    // Initialize sort select
+    // Initialize sorting
     const sortSelect = document.getElementById('sort-select');
     if (sortSelect) {
       sortSelect.addEventListener('change', (e) => {
@@ -651,15 +626,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize navigation
     initializeNavigation();
 
-    // Initialize sidebar state
+    // Initialize responsive behavior
     handleResize();
 
-    console.log('%c✓ Admin dashboard initialized successfully', 'font-size: 11px; color: #00D9A3;');
-    console.log('%cPending Reports:', AdminState.stats.pending, 'font-size: 11px; color: #00D9A3;');
+    console.log('%c✓ Dashboard initialized', 'font-size: 11px; color: #21A179;');
+    console.log(`%cPending Reports: ${AdminState.stats.pending}`, 'font-size: 11px; color: #21A179;');
 
-    // Show welcome notification
+    // Welcome notification
     setTimeout(() => {
-      Utils.showNotification('🛡️ Command Access Active', 'success');
+      Utils.showNotification('🛡️ DIAS Command Center Active', 'success');
     }, 500);
 
   } catch (error) {
@@ -668,43 +643,43 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-// ====== ADD ANIMATIONS TO STYLE ======
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes slideInRight {
-        from {
-            opacity: 0;
-            transform: translateX(50px);
-        }
-        to {
-            opacity: 1;
-            transform: translateX(0);
-        }
+// ====== ADD ANIMATIONS ======
+const animationStyles = document.createElement('style');
+animationStyles.textContent = `
+  @keyframes slideInRight {
+    from {
+      opacity: 0;
+      transform: translateX(50px);
     }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
 
-    @keyframes slideOutRight {
-        from {
-            opacity: 1;
-            transform: translateX(0);
-        }
-        to {
-            opacity: 0;
-            transform: translateX(50px);
-        }
+  @keyframes slideOutRight {
+    from {
+      opacity: 1;
+      transform: translateX(0);
     }
+    to {
+      opacity: 0;
+      transform: translateX(50px);
+    }
+  }
 
-    @keyframes spin {
-        from {
-            transform: rotate(0deg);
-        }
-        to {
-            transform: rotate(360deg);
-        }
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
     }
+    to {
+      transform: rotate(360deg);
+    }
+  }
 `;
-document.head.appendChild(style);
+document.head.appendChild(animationStyles);
 
-// ====== EXPOSE API FOR DEBUGGING ======
+// ====== API FOR DEBUGGING ======
 window.ADMIN_API = {
   state: AdminState,
   verify: verifyReport,

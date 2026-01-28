@@ -4,8 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Command Access - DIAS Admin Dashboard</title>
-  <link rel="stylesheet" href="css/style.css">
+  <title>DIAS Admin Dashboard - Command Center</title>
+  <link rel="stylesheet" href="css/root.css">
   <link rel="stylesheet" href="css/pages/admin.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
@@ -18,186 +18,241 @@
 </head>
 
 <body>
-  <!-- Admin Dashboard Container -->
-  <div class="admin-container">
-    <!-- Sidebar -->
-    <aside class="admin-sidebar" id="admin-sidebar">
-      <div class="sidebar-header">
-        <div class="logo-container">
-          <img src="assests/Icons/logo.png" alt="DIAS Logo" class="logo-image">
-          <h1 class="logo-text">DIAS</h1>
-        </div>
-      </div>
-
-      <nav class="sidebar-nav">
-        <a href="#inbox" class="nav-item active" data-view="inbox">
-          <i class="fas fa-inbox"></i>
-          <span>Inbox</span>
-          <span class="nav-badge" id="pending-count">12</span>
-        </a>
-        <a href="#verified" class="nav-item" data-view="verified">
-          <i class="fas fa-check-circle"></i>
-          <span>Verified</span>
-        </a>
-        <a href="#rejected" class="nav-item" data-view="rejected">
-          <i class="fas fa-times-circle"></i>
-          <span>Rejected</span>
-        </a>
-        <a href="#health" class="nav-item" data-view="health">
-          <i class="fas fa-heartbeat"></i>
-          <span>System Health</span>
-        </a>
-      </nav>
-
-      <div class="sidebar-footer">
-        <div class="admin-profile">
-          <div class="profile-avatar">
-            <i class="fas fa-user-shield"></i>
-          </div>
-          <div class="profile-info">
-            <div class="profile-name">Admin User</div>
+  <div class="admin-dashboard">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-content">
+        <!-- Logo Section -->
+        <div class="sidebar-logo">
+          <div class="logo-wrapper">
+            <div class="logo-icon-container">
+              <img src="assests/Icons/logo.png" alt="DIAPS Logo" class="logo-icon">
+            </div>
+            <div class="logo-details">
+              <h1 class="logo-title">DIAS</h1>
+              <p class="logo-subtitle">Command Center</p>
+            </div>
           </div>
         </div>
-        <button class="logout-btn" onclick="logout()">
-          <i class="fas fa-sign-out-alt"></i>
-          <span>Logout</span>
-        </button>
+
+        <!-- Navigation Menu -->
+        <nav class="sidebar-nav">
+          <div class="nav-section">
+            <h3 class="nav-section-title">Overview</h3>
+            <a href="#inbox" class="nav-link active" data-view="inbox">
+              <div class="nav-link-content">
+                <i class="fas fa-inbox"></i>
+                <span>Reports</span>
+              </div>
+              <span class="nav-badge" id="pending-count">12</span>
+            </a>
+            <a href="#verified" class="nav-link" data-view="verified">
+              <div class="nav-link-content">
+                <i class="fas fa-check-circle"></i>
+                <span>Verified</span>
+              </div>
+            </a>
+            <a href="#rejected" class="nav-link" data-view="rejected">
+              <div class="nav-link-content">
+                <i class="fas fa-times-circle"></i>
+                <span>Rejected</span>
+              </div>
+            </a>
+          </div>
+
+          <div class="nav-section">
+            <h3 class="nav-section-title">Analytics</h3>
+            <a href="#analytics" class="nav-link" data-view="analytics">
+              <div class="nav-link-content">
+                <i class="fas fa-chart-line"></i>
+                <span>Analytics</span>
+              </div>
+            </a>
+            <a href="#health" class="nav-link" data-view="health">
+              <div class="nav-link-content">
+                <i class="fas fa-heartbeat"></i>
+                <span>System Health</span>
+              </div>
+            </a>
+          </div>
+        </nav>
+
+        <!-- User Profile Section -->
+        <div class="sidebar-footer">
+          <div class="user-profile">
+            <div class="user-avatar">
+              <i class="fas fa-user-shield"></i>
+            </div>
+            <div class="user-details">
+              <p class="user-name">Admin User</p>
+            </div>
+          </div>
+          <button class="logout-button" onclick="logout()">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Logout</span>
+          </button>
+        </div>
       </div>
     </aside>
 
-    <!-- Sidebar Toggle Button -->
-    <button class="sidebar-toggle" id="sidebar-toggle" onclick="toggleSidebar()">
+    <!-- Mobile Sidebar Toggle -->
+    <button class="sidebar-toggle-btn" id="sidebar-toggle" onclick="toggleSidebar()">
       <i class="fas fa-bars"></i>
     </button>
 
-    <!-- Sidebar Overlay (for mobile) -->
+    <!-- Sidebar Overlay (Mobile) -->
     <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar()"></div>
 
-    <!-- Main Content -->
-    <main class="admin-main" id="admin-main">
-      <!-- Header -->
-      <header class="admin-header">
-        <div class="header-left">
-          <h1 class="page-title">Citizen Report Verification</h1>
-          <div class="live-indicator">
-            <span class="live-pulse"></span>
-            <span class="live-text">LIVE MONITORING</span>
+    <!-- Main Content Area -->
+    <main class="main-content" id="main-content">
+      <!-- Top Header Bar -->
+      <header class="dashboard-header">
+        <div class="header-content">
+          <div class="header-left">
+            <h1 class="page-title">Citizen Report Verification</h1>
+            <div class="status-indicator">
+              <span class="status-pulse"></span>
+              <span class="status-text">LIVE MONITORING</span>
+            </div>
           </div>
-        </div>
-        <div class="header-right">
-          <button class="refresh-btn" onclick="refreshReports()">
-            <i class="fas fa-sync-alt"></i>
-            <span>Refresh</span>
-          </button>
-          <div class="last-update">
-            Last update: <span id="last-update-time">Just now</span>
+          <div class="header-right">
+            <button class="header-action-btn refresh-btn" onclick="refreshReports()">
+              <i class="fas fa-sync-alt"></i>
+              <span>Refresh</span>
+            </button>
+            <div class="last-updated">
+              Last updated: <span id="last-update-time">Just now</span>
+            </div>
           </div>
         </div>
       </header>
 
-      <!-- Stats Row -->
-      <section class="stats-row">
+      <!-- Statistics Dashboard -->
+      <section class="stats-dashboard">
         <div class="stat-card">
-          <div class="stat-icon pending-icon">
-            <i class="fas fa-clock"></i>
+          <div class="stat-card-header">
+            <div class="stat-icon pending">
+              <i class="fas fa-clock"></i>
+            </div>
+            <div class="stat-trend up">
+              <i class="fas fa-arrow-up"></i>
+              <span>12%</span>
+            </div>
           </div>
-          <div class="stat-content">
-            <div class="stat-value" id="stat-pending">12</div>
-            <div class="stat-label">Pending Reports</div>
+          <div class="stat-card-body">
+            <h3 class="stat-value" id="stat-pending">12</h3>
+            <p class="stat-label">Pending Reports</p>
           </div>
         </div>
 
         <div class="stat-card">
-          <div class="stat-icon verified-icon">
-            <i class="fas fa-check-double"></i>
+          <div class="stat-card-header">
+            <div class="stat-icon verified">
+              <i class="fas fa-check-double"></i>
+            </div>
+            <div class="stat-trend up">
+              <i class="fas fa-arrow-up"></i>
+              <span>8%</span>
+            </div>
           </div>
-          <div class="stat-content">
-            <div class="stat-value" id="stat-verified">47</div>
-            <div class="stat-label">Verified Today</div>
-          </div>
-        </div>
-
-        <div class="stat-card">
-          <div class="stat-icon hazard-icon">
-            <i class="fas fa-exclamation-triangle"></i>
-          </div>
-          <div class="stat-content">
-            <div class="stat-value" id="stat-hazards">8</div>
-            <div class="stat-label">Active Hazards</div>
+          <div class="stat-card-body">
+            <h3 class="stat-value" id="stat-verified">47</h3>
+            <p class="stat-label">Verified Today</p>
           </div>
         </div>
 
         <div class="stat-card">
-          <div class="stat-icon response-icon">
-            <i class="fas fa-tachometer-alt"></i>
+          <div class="stat-card-header">
+            <div class="stat-icon hazard">
+              <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <div class="stat-trend down">
+              <i class="fas fa-arrow-down"></i>
+              <span>3%</span>
+            </div>
           </div>
-          <div class="stat-content">
-            <div class="stat-value" id="stat-response">4.2m</div>
-            <div class="stat-label">Response Time</div>
+          <div class="stat-card-body">
+            <h3 class="stat-value" id="stat-hazards">8</h3>
+            <p class="stat-label">Active Hazards</p>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-card-header">
+            <div class="stat-icon response">
+              <i class="fas fa-tachometer-alt"></i>
+            </div>
+            <div class="stat-trend up">
+              <i class="fas fa-arrow-up"></i>
+              <span>15%</span>
+            </div>
+          </div>
+          <div class="stat-card-body">
+            <h3 class="stat-value" id="stat-response">4.2m</h3>
+            <p class="stat-label">Avg Response Time</p>
           </div>
         </div>
       </section>
 
-      <!-- Filter Bar -->
-      <section class="filter-bar">
-        <div class="filter-left">
-          <button class="filter-btn active" data-filter="all">
+      <!-- Filter and Sort Controls -->
+      <section class="controls-section">
+        <div class="filter-controls">
+          <button class="filter-chip active" data-filter="all">
             <i class="fas fa-globe"></i>
-            All Reports
+            <span>All Reports</span>
           </button>
-          <button class="filter-btn" data-filter="earthquake">
+          <button class="filter-chip" data-filter="earthquake">
             <i class="fas fa-house-damage"></i>
-            Earthquake
+            <span>Earthquake</span>
           </button>
-          <button class="filter-btn" data-filter="flood">
+          <button class="filter-chip" data-filter="flood">
             <i class="fas fa-water"></i>
-            Flood
+            <span>Flood</span>
           </button>
-          <button class="filter-btn" data-filter="fire">
+          <button class="filter-chip" data-filter="fire">
             <i class="fas fa-fire"></i>
-            Fire
+            <span>Fire</span>
           </button>
-          <button class="filter-btn" data-filter="other">
+          <button class="filter-chip" data-filter="other">
             <i class="fas fa-ellipsis-h"></i>
-            Other
+            <span>Other</span>
           </button>
         </div>
-        <div class="filter-right">
-          <select class="sort-select" id="sort-select">
+        <div class="sort-controls">
+          <select class="sort-dropdown" id="sort-select">
             <option value="time-desc">Newest First</option>
             <option value="time-asc">Oldest First</option>
-            <option value="severity">Severity</option>
+            <option value="severity">By Severity</option>
           </select>
         </div>
       </section>
 
       <!-- Reports Grid -->
-      <section class="reports-section">
+      <section class="reports-container">
         <div class="reports-grid" id="reports-grid">
           <!-- Reports will be dynamically inserted here -->
         </div>
 
         <!-- Empty State -->
         <div class="empty-state" id="empty-state" style="display: none;">
-          <div class="empty-icon">
+          <div class="empty-state-icon">
             <i class="fas fa-inbox"></i>
           </div>
-          <h3 class="empty-title">No Reports to Review</h3>
-          <p class="empty-text">All citizen reports have been processed. Check back later for new
-            submissions.</p>
+          <h3 class="empty-state-title">All Clear!</h3>
+          <p class="empty-state-text">No pending reports at this time. All citizen submissions have been processed.</p>
         </div>
       </section>
     </main>
   </div>
 
-  <!-- Modal for Report Details (Optional Enhancement) -->
+  <!-- Report Detail Modal -->
   <div class="modal" id="report-modal" style="display: none;">
-    <div class="modal-overlay" onclick="closeModal()"></div>
-    <div class="modal-content">
-      <button class="modal-close" onclick="closeModal()">
+    <div class="modal-backdrop" onclick="closeModal()"></div>
+    <div class="modal-dialog">
+      <button class="modal-close-btn" onclick="closeModal()">
         <i class="fas fa-times"></i>
       </button>
-      <div id="modal-body">
+      <div class="modal-content" id="modal-body">
         <!-- Modal content will be inserted here -->
       </div>
     </div>

@@ -1,8 +1,3 @@
-/**
- * DIAPS Authentication System
- * Clean, modular authentication handler
- */
-
 class AuthSystem {
   constructor() {
     this.state = {
