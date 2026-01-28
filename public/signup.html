@@ -9,32 +9,35 @@
   <link rel="stylesheet" href="css/pages/auth.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap"
+    rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.29.0/feather.min.js"></script>
 </head>
 
 <body>
+
   <!-- Success Modal -->
-  <div class="modal-overlay" id="accessOverlay">
+  <div class="modal-overlay" id="accessOverlay" role="dialog" aria-labelledby="successTitle">
     <div class="modal-content success-modal">
-      <div class="success-checkmark">
-        <svg viewBox="0 0 52 52">
-          <circle class="checkmark-circle" cx="26" cy="26" r="25" fill="none" />
-          <path class="checkmark-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
+      <div class="success-icon">
+        <svg viewBox="0 0 52 52" aria-hidden="true">
+          <circle class="success-circle" cx="26" cy="26" r="25" fill="none" />
+          <path class="success-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
         </svg>
       </div>
-      <h2>Welcome Back!</h2>
-      <p>Taking you to your dashboard...</p>
+      <h2 id="successTitle">Access Granted!</h2>
+      <p>Redirecting to your dashboard...</p>
     </div>
   </div>
 
   <!-- Loading Overlay -->
-  <div class="modal-overlay" id="loadingSpinner">
-    <div class="modal-content">
-      <div class="loader">
-        <div class="loader-circle"></div>
-        <div class="loader-circle"></div>
-        <div class="loader-circle"></div>
+  <div class="modal-overlay" id="loadingSpinner" role="status" aria-live="polite">
+    <div class="modal-content loading-modal">
+      <div class="spinner">
+        <div class="spinner-ring"></div>
+        <div class="spinner-ring"></div>
+        <div class="spinner-ring"></div>
       </div>
       <p class="loading-text">Authenticating...</p>
     </div>
@@ -43,156 +46,148 @@
   <!-- Main Container -->
   <div class="auth-wrapper">
     <div class="auth-container">
-      <!-- Right Side - Authentication Forms -->
-      <main class="auth-main">
-        <div class="auth-card">
-          <!-- Tab Switcher -->
-          <div class="tab-switcher">
-            <button class="tab-button active" data-tab="login">
-              Sign In
-            </button>
-            <button class="tab-button" data-tab="register">
-              Create Account
-            </button>
-            <div class="tab-indicator"></div>
-          </div>
 
-          <!-- Login Form -->
-          <form class="auth-form active" id="loginForm">
+      <!-- Auth Card -->
+      <div class="auth-card">
+        <!-- Tab Navigation -->
+        <nav class="tab-nav" role="tablist" aria-label="Authentication options">
+          <button class="tab-btn active" data-tab="login" role="tab" aria-selected="true" aria-controls="loginForm"
+            id="loginTab">
+            Sign In
+          </button>
+          <button class="tab-btn" data-tab="register" role="tab" aria-selected="false" aria-controls="registerForm"
+            id="registerTab">
+            Create Account
+          </button>
+          <span class="tab-indicator" aria-hidden="true"></span>
+        </nav>
+
+        <!-- Login Form -->
+        <form class="auth-form active" id="loginForm" role="tabpanel" aria-labelledby="loginTab">
+          <div class="form-content">
+
             <div class="form-header">
-              <h2>Welcome back</h2>
+              <h1>Welcome back</h1>
               <p>Enter your credentials to access your account</p>
             </div>
 
-            <div class="form-body">
-              <div class="input-group">
-                <label for="loginEmail">Email address</label>
-                <div class="input-container">
-                  <i data-feather="mail" class="input-icon"></i>
-                  <input type="email" id="loginEmail" placeholder="your.email@example.com" autocomplete="email"
-                    required>
+            <div class="form-fields">
+              <div class="field-group">
+                <label for="loginEmail" class="field-label">Email Address</label>
+                <div class="field-input">
+                  <i data-feather="mail" class="field-icon" aria-hidden="true"></i>
+                  <input type="email" id="loginEmail" placeholder="name@example.com" autocomplete="email"
+                    aria-required="true" required>
                 </div>
               </div>
 
-              <div class="input-group">
-                <label for="loginPassword">Password</label>
-                <div class="input-container">
-                  <i data-feather="lock" class="input-icon"></i>
+              <div class="field-group">
+                <label for="loginPassword" class="field-label">Password</label>
+                <div class="field-input">
+                  <i data-feather="lock" class="field-icon" aria-hidden="true"></i>
                   <input type="password" id="loginPassword" placeholder="Enter your password"
-                    autocomplete="current-password" required>
-                  <button type="button" class="password-toggle" data-target="loginPassword">
-                    <i data-feather="eye"></i>
+                    autocomplete="current-password" aria-required="true" required>
+                  <button type="button" class="toggle-password" data-target="loginPassword"
+                    aria-label="Toggle password visibility">
+                    <i data-feather="eye" aria-hidden="true"></i>
                   </button>
                 </div>
               </div>
 
-              <div class="form-row">
-                <label class="checkbox-container">
+              <div class="form-options">
+                <label class="checkbox-label">
                   <input type="checkbox" id="rememberMe">
-                  <span class="checkmark"></span>
+                  <span class="checkbox-custom" aria-hidden="true"></span>
                   <span class="checkbox-text">Remember me</span>
                 </label>
-                <a href="#" class="text-link">Forgot password?</a>
+                <a href="#" class="link-primary">Forgot password?</a>
               </div>
 
-              <button type="submit" class="btn-primary">
-                <span>Sign In</span>
-                <i data-feather="arrow-right"></i>
-              </button>
+            </div>
 
-              <div class="form-message" id="loginMessage"></div>
+            <div class="form-actions">
+              <button type="submit" class="btn-submit">
+                <span>Sign In</span>
+                <i data-feather="arrow-right" aria-hidden="true"></i>
+              </button>
+              <div class="form-message" id="loginMessage" role="alert"></div>
             </div>
 
             <div class="form-footer">
-              <p>Don't have an account? <a href="#" class="text-link-bold" data-switch="register">Sign up</a></p>
+              <p>Don't have an account? <a href="#" class="link-accent" data-switch="register">Create one</a></p>
             </div>
-          </form>
 
-          <!-- Register Form -->
-          <form class="auth-form" id="registerForm">
+          </div>
+        </form>
+
+        <!-- Register Form -->
+        <form class="auth-form" id="registerForm" role="tabpanel" aria-labelledby="registerTab">
+          <div class="form-content">
+
             <div class="form-header">
-              <h2>Create your account</h2>
+              <h1>Create your account</h1>
               <p>Join the emergency response network</p>
             </div>
 
-            <div class="form-body">
-              <div class="input-group">
-                <label for="registerName">Full name</label>
-                <div class="input-container">
-                  <i data-feather="user" class="input-icon"></i>
-                  <input type="text" id="registerName" placeholder="John Doe" required>
-                </div>
-              </div>
-
-              <div class="input-group">
-                <label for="registerEmail">Email address</label>
-                <div class="input-container">
-                  <i data-feather="mail" class="input-icon"></i>
-                  <input type="email" id="registerEmail" placeholder="your.email@example.com" autocomplete="email"
+            <div class="form-fields">
+              <div class="field-group">
+                <label for="registerName" class="field-label">Full Name</label>
+                <div class="field-input">
+                  <i data-feather="user" class="field-icon" aria-hidden="true"></i>
+                  <input type="text" id="registerName" placeholder="John Doe" autocomplete="name" aria-required="true"
                     required>
                 </div>
               </div>
 
-              <div class="input-group">
-                <label for="registerPassword">Password</label>
-                <div class="input-container">
-                  <i data-feather="lock" class="input-icon"></i>
+              <div class="field-group">
+                <label for="registerEmail" class="field-label">Email Address</label>
+                <div class="field-input">
+                  <i data-feather="mail" class="field-icon" aria-hidden="true"></i>
+                  <input type="email" id="registerEmail" placeholder="name@example.com" autocomplete="email"
+                    aria-required="true" required>
+                </div>
+              </div>
+
+              <div class="field-group">
+                <label for="registerPassword" class="field-label">Password</label>
+                <div class="field-input">
+                  <i data-feather="lock" class="field-icon" aria-hidden="true"></i>
                   <input type="password" id="registerPassword" placeholder="Create a strong password"
-                    autocomplete="new-password" required>
-                  <button type="button" class="password-toggle" data-target="registerPassword">
-                    <i data-feather="eye"></i>
+                    autocomplete="new-password" aria-required="true" aria-describedby="passwordHint" required>
+                  <button type="button" class="toggle-password" data-target="registerPassword"
+                    aria-label="Toggle password visibility">
+                    <i data-feather="eye" aria-hidden="true"></i>
                   </button>
                 </div>
-                <small class="input-hint">Minimum 8 characters required</small>
+                <small class="field-hint" id="passwordHint">Minimum 8 characters required</small>
               </div>
 
-              <div class="input-group">
-                <label for="registerRole">Account type</label>
-                <div class="input-container">
-                  <i data-feather="briefcase" class="input-icon"></i>
-                  <select id="registerRole" required>
-                    <option value="">Select your role</option>
-                    <option value="civilian">Civilian</option>
-                    <option value="first_responder">First Responder</option>
-                    <option value="agency">Government Agency</option>
-                  </select>
-                  <i data-feather="chevron-down" class="select-arrow"></i>
-                </div>
-              </div>
-
-              <div class="input-group" id="serviceKeyGroup" style="display: none;">
-                <label for="serviceKey">Agency verification key</label>
-                <div class="input-container">
-                  <i data-feather="key" class="input-icon"></i>
-                  <input type="text" id="serviceKey" placeholder="Enter your agency key" autocomplete="off">
-                </div>
-                <small class="input-hint">Contact your administrator for the verification key</small>
-              </div>
-
-              <label class="checkbox-container">
-                <input type="checkbox" id="agreeTerms" required>
-                <span class="checkmark"></span>
+              <label class="checkbox-label">
+                <input type="checkbox" id="agreeTerms" aria-required="true" required>
+                <span class="checkbox-custom" aria-hidden="true"></span>
                 <span class="checkbox-text">
-                  I agree to the <a href="#" class="text-link">Terms of Service</a> and <a href="#"
-                    class="text-link">Privacy Policy</a>
+                  I agree to the <a href="#" class="link-primary">Terms of Service</a> and
+                  <a href="#" class="link-primary">Privacy Policy</a>
                 </span>
               </label>
+            </div>
 
-              <button type="submit" class="btn-primary">
+            <div class="form-actions">
+              <button type="submit" class="btn-submit">
                 <span>Create Account</span>
-                <i data-feather="arrow-right"></i>
+                <i data-feather="arrow-right" aria-hidden="true"></i>
               </button>
-
-              <div class="form-message" id="registerMessage"></div>
+              <div class="form-message" id="registerMessage" role="alert"></div>
             </div>
 
             <div class="form-footer">
-              <p>Already have an account? <a href="#" class="text-link-bold" data-switch="login">Sign in</a></p>
+              <p>Already have an account? <a href="#" class="link-accent" data-switch="login">Sign in</a></p>
             </div>
-          </form>
 
-        </div>
-      </main>
+          </div>
+        </form>
+
+      </div>
 
     </div>
   </div>

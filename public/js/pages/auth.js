@@ -1,63 +1,71 @@
-document.addEventListener('DOMContentLoaded', () => {
-  feather.replace();
+/**
+ * DIAPS Authentication System
+ * Clean, modular authentication handler
+ */
 
-  // State
-  const state = {
-    currentTab: 'login',
-    isProcessing: false
-  };
+class AuthSystem {
+  constructor() {
+    this.state = {
+      currentTab: 'login',
+      isProcessing: false
+    };
 
-  // DOM Elements
-  const DOM = {
-    tabButtons: document.querySelectorAll('.tab-button'),
-    tabIndicator: document.querySelector('.tab-indicator'),
-    loginForm: document.getElementById('loginForm'),
-    registerForm: document.getElementById('registerForm'),
-    serviceKeyGroup: document.getElementById('serviceKeyGroup'),
-    roleSelect: document.getElementById('registerRole'),
-    loadingSpinner: document.getElementById('loadingSpinner'),
-    accessOverlay: document.getElementById('accessOverlay'),
-    passwordToggles: document.querySelectorAll('.password-toggle'),
-    switchLinks: document.querySelectorAll('[data-switch]')
-  };
+    this.DOM = {
+      tabButtons: document.querySelectorAll('.tab-btn'),
+      tabIndicator: document.querySelector('.tab-indicator'),
+      loginForm: document.getElementById('loginForm'),
+      registerForm: document.getElementById('registerForm'),
+      serviceKeyGroup: document.getElementById('serviceKeyGroup'),
+      roleSelect: document.getElementById('registerRole'),
+      loadingSpinner: document.getElementById('loadingSpinner'),
+      accessOverlay: document.getElementById('accessOverlay'),
+      passwordToggles: document.querySelectorAll('.toggle-password'),
+      switchLinks: document.querySelectorAll('[data-switch]')
+    };
+
+    this.init();
+  }
 
   // ============================================
   // INITIALIZATION
   // ============================================
 
-  function init() {
-    setupEventListeners();
-    checkSession();
+  init() {
+    this.setupEventListeners();
+    this.initializeFeatherIcons();
+    this.checkExistingSession();
   }
 
-  // ============================================
-  // EVENT LISTENERS
-  // ============================================
+  initializeFeatherIcons() {
+    if (typeof feather !== 'undefined') {
+      feather.replace();
+    }
+  }
 
-  function setupEventListeners() {
+  setupEventListeners() {
     // Tab switching
-    DOM.tabButtons.forEach(btn => {
-      btn.addEventListener('click', handleTabClick);
+    this.DOM.tabButtons.forEach(btn => {
+      btn.addEventListener('click', (e) => this.handleTabSwitch(e));
     });
 
     // Form submissions
-    DOM.loginForm.addEventListener('submit', handleLogin);
-    DOM.registerForm.addEventListener('submit', handleRegister);
+    this.DOM.loginForm.addEventListener('submit', (e) => this.handleLogin(e));
+    this.DOM.registerForm.addEventListener('submit', (e) => this.handleRegister(e));
 
-    // Role change
-    DOM.roleSelect.addEventListener('change', handleRoleChange);
+    // Role change for agency verification
+    this.DOM.roleSelect.addEventListener('change', (e) => this.handleRoleChange(e));
 
-    // Password toggles
-    DOM.passwordToggles.forEach(toggle => {
-      toggle.addEventListener('click', handlePasswordToggle);
+    // Password visibility toggles
+    this.DOM.passwordToggles.forEach(toggle => {
+      toggle.addEventListener('click', (e) => this.togglePasswordVisibility(e));
     });
 
-    // Switch links
-    DOM.switchLinks.forEach(link => {
+    // Switch between forms via links
+    this.DOM.switchLinks.forEach(link => {
       link.addEventListener('click', (e) => {
         e.preventDefault();
         const targetTab = e.currentTarget.dataset.switch;
-        switchTab(targetTab);
+        this.switchToTab(targetTab);
       });
     });
   }
@@ -66,50 +74,56 @@ document.addEventListener('DOMContentLoaded', () => {
   // TAB MANAGEMENT
   // ============================================
 
-  function handleTabClick(e) {
+  handleTabSwitch(e) {
     const tab = e.currentTarget.dataset.tab;
-    switchTab(tab);
+    this.switchToTab(tab);
   }
 
-  function switchTab(tab) {
-    if (tab === state.currentTab || state.isProcessing) return;
+  switchToTab(tab) {
+    if (tab === this.state.currentTab || this.state.isProcessing) return;
 
-    state.currentTab = tab;
+    this.state.currentTab = tab;
 
-    // Update buttons
-    DOM.tabButtons.forEach(btn => {
-      btn.classList.toggle('active', btn.dataset.tab === tab);
+    // Update button states
+    this.DOM.tabButtons.forEach(btn => {
+      const isActive = btn.dataset.tab === tab;
+      btn.classList.toggle('active', isActive);
+      btn.setAttribute('aria-selected', isActive);
     });
 
-    // Switch forms
-    DOM.loginForm.classList.toggle('active', tab === 'login');
-    DOM.registerForm.classList.toggle('active', tab === 'register');
+    // Switch form visibility
+    this.DOM.loginForm.classList.toggle('active', tab === 'login');
+    this.DOM.registerForm.classList.toggle('active', tab === 'register');
 
-    clearMessages();
-    feather.replace();
+    // Clear any messages
+    this.clearMessages();
+    this.initializeFeatherIcons();
   }
 
   // ============================================
   // ROLE MANAGEMENT
   // ============================================
 
-  function handleRoleChange(e) {
+  handleRoleChange(e) {
     const role = e.target.value;
     const isAgency = role === 'agency';
 
-    DOM.serviceKeyGroup.style.display = isAgency ? 'block' : 'none';
-    document.getElementById('serviceKey').required = isAgency;
+    // Show/hide service key field based on role
+    this.DOM.serviceKeyGroup.style.display = isAgency ? 'block' : 'none';
+
+    const serviceKeyInput = document.getElementById('serviceKey');
+    serviceKeyInput.required = isAgency;
 
     if (!isAgency) {
-      document.getElementById('serviceKey').value = '';
+      serviceKeyInput.value = '';
     }
   }
 
   // ============================================
-  // PASSWORD TOGGLE
+  // PASSWORD VISIBILITY
   // ============================================
 
-  function handlePasswordToggle(e) {
+  togglePasswordVisibility(e) {
     const targetId = e.currentTarget.dataset.target;
     const input = document.getElementById(targetId);
     const icon = e.currentTarget.querySelector('i');
@@ -120,30 +134,34 @@ document.addEventListener('DOMContentLoaded', () => {
     input.type = isPassword ? 'text' : 'password';
     icon.setAttribute('data-feather', isPassword ? 'eye-off' : 'eye');
 
-    feather.replace();
+    this.initializeFeatherIcons();
   }
 
   // ============================================
   // LOGIN HANDLER
   // ============================================
 
-  async function handleLogin(e) {
+  async handleLogin(e) {
     e.preventDefault();
 
-    if (state.isProcessing) return;
+    if (this.state.isProcessing) return;
 
     const email = document.getElementById('loginEmail').value.trim();
     const password = document.getElementById('loginPassword').value;
 
-    if (!validateLoginForm(email, password)) return;
+    // Validate form
+    if (!this.validateLoginForm(email, password)) return;
 
-    clearMessages();
-    showLoading();
-    state.isProcessing = true;
+    // Start processing
+    this.clearMessages();
+    this.showLoading();
+    this.state.isProcessing = true;
 
-    await delay(1500);
+    // Simulate API delay
+    await this.delay(1500);
 
-    const users = getUsers();
+    // Check credentials
+    const users = this.getStoredUsers();
     const user = users.find(u => u.email === email && u.password === password);
     const isAdmin = email === 'admin@diaps.com' && password === 'admin123';
 
@@ -154,17 +172,22 @@ document.addEventListener('DOMContentLoaded', () => {
         role: 'agency'
       };
 
-      sessionStorage.setItem('diapsCurrentUser', JSON.stringify(userData));
-      hideLoading();
-      showSuccess();
+      // Store session
+      this.storeSession(userData);
 
+      // Show success
+      this.hideLoading();
+      this.showSuccess();
+
+      // Redirect
       setTimeout(() => {
         window.location.href = 'admin.html';
       }, 2000);
     } else {
-      hideLoading();
-      state.isProcessing = false;
-      showError('loginMessage', 'Invalid email or password. Please try again.');
+      // Authentication failed
+      this.hideLoading();
+      this.state.isProcessing = false;
+      this.showError('loginMessage', 'Invalid email or password. Please try again.');
     }
   }
 
@@ -172,10 +195,10 @@ document.addEventListener('DOMContentLoaded', () => {
   // REGISTER HANDLER
   // ============================================
 
-  async function handleRegister(e) {
+  async handleRegister(e) {
     e.preventDefault();
 
-    if (state.isProcessing) return;
+    if (this.state.isProcessing) return;
 
     const name = document.getElementById('registerName').value.trim();
     const email = document.getElementById('registerEmail').value.trim();
@@ -183,23 +206,28 @@ document.addEventListener('DOMContentLoaded', () => {
     const role = document.getElementById('registerRole').value;
     const agreeTerms = document.getElementById('agreeTerms').checked;
 
-    if (!validateRegisterForm(name, email, password, role, agreeTerms)) return;
+    // Validate form
+    if (!this.validateRegisterForm(name, email, password, role, agreeTerms)) return;
 
-    clearMessages();
-    showLoading();
-    state.isProcessing = true;
+    // Start processing
+    this.clearMessages();
+    this.showLoading();
+    this.state.isProcessing = true;
 
-    await delay(2000);
+    // Simulate API delay
+    await this.delay(2000);
 
-    const users = getUsers();
+    // Check if user exists
+    const users = this.getStoredUsers();
 
     if (users.some(u => u.email === email)) {
-      hideLoading();
-      state.isProcessing = false;
-      showError('registerMessage', 'An account with this email already exists.');
+      this.hideLoading();
+      this.state.isProcessing = false;
+      this.showError('registerMessage', 'An account with this email already exists.');
       return;
     }
 
+    // Create new user
     const newUser = {
       name,
       email,
@@ -208,13 +236,16 @@ document.addEventListener('DOMContentLoaded', () => {
       createdAt: new Date().toISOString()
     };
 
+    // Store user
     users.push(newUser);
-    localStorage.setItem('diapsUsers', JSON.stringify(users));
-    sessionStorage.setItem('diapsCurrentUser', JSON.stringify(newUser));
+    this.storeUsers(users);
+    this.storeSession(newUser);
 
-    hideLoading();
-    showSuccess();
+    // Show success
+    this.hideLoading();
+    this.showSuccess();
 
+    // Redirect
     setTimeout(() => {
       window.location.href = 'index.html';
     }, 2000);
@@ -224,45 +255,46 @@ document.addEventListener('DOMContentLoaded', () => {
   // VALIDATION
   // ============================================
 
-  function validateLoginForm(email, password) {
+  validateLoginForm(email, password) {
     if (!email || !password) {
-      showError('loginMessage', 'Please fill in all fields.');
+      this.showError('loginMessage', 'Please fill in all fields.');
       return false;
     }
 
-    if (!isValidEmail(email)) {
-      showError('loginMessage', 'Please enter a valid email address.');
+    if (!this.isValidEmail(email)) {
+      this.showError('loginMessage', 'Please enter a valid email address.');
       return false;
     }
 
     return true;
   }
 
-  function validateRegisterForm(name, email, password, role, agreeTerms) {
+  validateRegisterForm(name, email, password, role, agreeTerms) {
     if (!name || !email || !password || !role) {
-      showError('registerMessage', 'Please fill in all fields.');
+      this.showError('registerMessage', 'Please fill in all fields.');
       return false;
     }
 
-    if (!isValidEmail(email)) {
-      showError('registerMessage', 'Please enter a valid email address.');
+    if (!this.isValidEmail(email)) {
+      this.showError('registerMessage', 'Please enter a valid email address.');
       return false;
     }
 
     if (password.length < 8) {
-      showError('registerMessage', 'Password must be at least 8 characters long.');
+      this.showError('registerMessage', 'Password must be at least 8 characters long.');
       return false;
     }
 
     if (!agreeTerms) {
-      showError('registerMessage', 'You must agree to the terms and privacy policy.');
+      this.showError('registerMessage', 'You must agree to the terms and privacy policy.');
       return false;
     }
 
+    // Validate agency key if agency role
     if (role === 'agency') {
       const serviceKey = document.getElementById('serviceKey').value.trim();
       if (serviceKey !== 'DIAPS-ADMIN') {
-        showError('registerMessage', 'Invalid agency verification key.');
+        this.showError('registerMessage', 'Invalid agency verification key.');
         return false;
       }
     }
@@ -270,7 +302,7 @@ document.addEventListener('DOMContentLoaded', () => {
     return true;
   }
 
-  function isValidEmail(email) {
+  isValidEmail(email) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   }
@@ -279,20 +311,20 @@ document.addEventListener('DOMContentLoaded', () => {
   // UI MANAGEMENT
   // ============================================
 
-  function showLoading() {
-    DOM.loadingSpinner.classList.add('active');
+  showLoading() {
+    this.DOM.loadingSpinner.classList.add('active');
   }
 
-  function hideLoading() {
-    DOM.loadingSpinner.classList.remove('active');
+  hideLoading() {
+    this.DOM.loadingSpinner.classList.remove('active');
   }
 
-  function showSuccess() {
-    DOM.accessOverlay.classList.add('active');
-    feather.replace();
+  showSuccess() {
+    this.DOM.accessOverlay.classList.add('active');
+    this.initializeFeatherIcons();
   }
 
-  function showError(elementId, message) {
+  showError(elementId, message) {
     const messageEl = document.getElementById(elementId);
     if (messageEl) {
       messageEl.textContent = message;
@@ -301,7 +333,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  function clearMessages() {
+  clearMessages() {
     const messages = document.querySelectorAll('.form-message');
     messages.forEach(msg => {
       msg.textContent = '';
@@ -310,25 +342,56 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ============================================
-  // UTILITIES
+  // STORAGE UTILITIES
   // ============================================
 
-  function getUsers() {
-    const stored = localStorage.getItem('diapsUsers');
-    return stored ? JSON.parse(stored) : [];
+  getStoredUsers() {
+    try {
+      const stored = localStorage.getItem('diapsUsers');
+      return stored ? JSON.parse(stored) : [];
+    } catch (error) {
+      console.error('Error reading users from storage:', error);
+      return [];
+    }
   }
 
-  function delay(ms) {
+  storeUsers(users) {
+    try {
+      localStorage.setItem('diapsUsers', JSON.stringify(users));
+    } catch (error) {
+      console.error('Error storing users:', error);
+    }
+  }
+
+  storeSession(userData) {
+    try {
+      sessionStorage.setItem('diapsCurrentUser', JSON.stringify(userData));
+    } catch (error) {
+      console.error('Error storing session:', error);
+    }
+  }
+
+  checkExistingSession() {
+    try {
+      const currentUser = sessionStorage.getItem('diapsCurrentUser');
+      // Optional: Auto-redirect if already logged in
+      // if (currentUser) {
+      //   window.location.href = 'index.html';
+      // }
+    } catch (error) {
+      console.error('Error checking session:', error);
+    }
+  }
+
+  // HELPER UTILITIES
+
+  delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
+}
 
-  function checkSession() {
-    const currentUser = sessionStorage.getItem('diapsCurrentUser');
-    // Optional: Auto-redirect if already logged in
-    // if (currentUser) {
-    //   window.location.href = 'index.html';
-    // }
-  }
+// INITIALIZE ON DOM READY
 
-  init();
+document.addEventListener('DOMContentLoaded', () => {
+  new AuthSystem();
 });
